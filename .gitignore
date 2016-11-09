@@ -22,3 +22,5 @@
 
 # Ignore ctags files
 tags
+
+/config/database.yml
