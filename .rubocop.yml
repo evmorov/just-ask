@@ -1,3 +1,7 @@
+AllCops:
+  Exclude:
+    - 'db/schema.rb'
+
 Lint/AssignmentInCondition:
   Exclude:
     - 'bin/spring'
