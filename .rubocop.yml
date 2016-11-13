@@ -2,6 +2,10 @@ AllCops:
   Exclude:
     - 'db/schema.rb'
 
+Style/BlockDelimiters:
+  Exclude:
+    - 'spec/**/*.rb'
+
 Lint/AssignmentInCondition:
   Exclude:
     - 'bin/spring'
