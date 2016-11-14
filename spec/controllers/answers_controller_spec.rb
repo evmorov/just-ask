@@ -11,7 +11,7 @@ describe AnswersController, type: :controller do
         }.to change(Answer, :count).by(1)
       end
 
-      it 're-renders show question view' do
+      it 'redirects to show the question' do
         post :create, params: { answer: attributes_for(:answer), question_id: question }
         expect(response).to redirect_to question_path(question)
       end
@@ -25,8 +25,8 @@ describe AnswersController, type: :controller do
       end
 
       it 're-renders show question view' do
-        post :create, params: { answer: attributes_for(:answer), question_id: question }
-        expect(response).to redirect_to question_path(question)
+        post :create, params: { answer: attributes_for(:invalid_answer), question_id: question }
+        expect(response).to render_template('questions/show')
       end
     end
   end
