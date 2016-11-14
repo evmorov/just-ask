@@ -8,7 +8,7 @@ describe AnswersController, type: :controller do
       it 'saves the new answer in the database' do
         expect {
           post :create, params: { answer: attributes_for(:answer), question_id: question }
-        }.to change(Answer, :count).by(1)
+        }.to change(question.answers, :count).by(1)
       end
 
       it 'redirects to show the question' do
