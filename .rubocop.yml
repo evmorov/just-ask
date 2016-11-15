@@ -12,6 +12,8 @@ Lint/AssignmentInCondition:
 
 Metrics/LineLength:
   Max: 100
+  Exclude:
+    - 'config/initializers/devise.rb'
 
 Style/Documentation:
   Enabled: false
