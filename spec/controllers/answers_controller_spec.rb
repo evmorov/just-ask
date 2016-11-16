@@ -2,6 +2,8 @@ require 'rails_helper'
 
 describe AnswersController, type: :controller do
   describe 'POST #create' do
+    login_user
+
     let(:question) { create(:question) }
 
     context 'with valid attributes' do
