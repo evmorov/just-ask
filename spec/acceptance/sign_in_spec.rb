@@ -11,7 +11,8 @@ feature 'Signing in', '
   scenario 'Sign in for existing user' do
     sign_in(user)
 
-    expect(page).to have_content 'Signed in successfully.'
+    expect(page).to have_content('Signed in successfully.')
+    expect(page).to have_content(user.email)
   end
 
   scenario 'Try to sign in for non-existing user' do
