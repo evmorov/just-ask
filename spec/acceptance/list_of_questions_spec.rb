@@ -11,7 +11,7 @@ feature 'List of questions', '
     create(:question, title: 'Second')
   end
 
-  scenario 'Non-registered user can see a list of questions titles' do
+  scenario 'Non-authenticated user can see a list of questions titles' do
     visit questions_path
 
     expect(page).to have_link('First')
