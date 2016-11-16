@@ -34,6 +34,8 @@ describe QuestionsController, type: :controller do
   end
 
   describe 'GET #new' do
+    login_user
+
     before { get :new }
 
     it 'assigns a new Question to @question' do
@@ -46,6 +48,8 @@ describe QuestionsController, type: :controller do
   end
 
   describe 'POST #create' do
+    login_user
+
     context 'with valid attributes' do
       it 'saves the new question in the database' do
         expect {
