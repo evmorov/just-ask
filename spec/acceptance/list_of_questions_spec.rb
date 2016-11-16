@@ -11,7 +11,7 @@ feature 'List of questions', '
     create(:question, title: 'Second')
   end
 
-  scenario 'See List of questions when non-authenticated' do
+  scenario 'View List of questions when non-authenticated' do
     visit questions_path
 
     expect(page).to have_link('First')
