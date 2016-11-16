@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-feature 'Create question', '
-  In order to get answer from community
-  As an authenticated user
-  I want to be able to ask the question
+feature 'Create a question', '
+  In order to get an answer from community
+  As an user
+  I want to be able to ask a question
 ' do
 
   scenario 'Non-authenticated user try to create question' do
