@@ -8,13 +8,13 @@ feature 'Siging in', '
 
   given(:user) { create(:user) }
 
-  scenario 'Existing user try to sign in' do
+  scenario 'Sign in for existing user' do
     sign_in(user)
 
     expect(page).to have_content 'Signed in successfully.'
   end
 
-  scenario 'Non-existing user try to sign in' do
+  scenario 'Try to sing in for non-existing user' do
     visit new_user_session_path
     fill_in 'Email', with: 'wrong@user.com'
     fill_in 'Password', with: '12345'

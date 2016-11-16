@@ -6,7 +6,7 @@ feature 'Create a question', '
   I want to be able to ask a question
 ' do
 
-  scenario 'Non-authenticated user try to create question' do
+  scenario 'Create a question when non-authenticated' do
     visit questions_path
     click_on 'Ask Question'
     fill_in 'Title', with: 'Test question'
