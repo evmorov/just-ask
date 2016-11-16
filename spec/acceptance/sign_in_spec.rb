@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'Siging in', '
+feature 'Signing in', '
   In order to be able ask questions
   As an user
   I want be able to sign in
@@ -14,7 +14,7 @@ feature 'Siging in', '
     expect(page).to have_content 'Signed in successfully.'
   end
 
-  scenario 'Try to sing in for non-existing user' do
+  scenario 'Try to sign in for non-existing user' do
     visit new_user_session_path
     fill_in 'Email', with: 'wrong@user.com'
     fill_in 'Password', with: '12345'
