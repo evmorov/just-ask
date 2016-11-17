@@ -1,11 +1,14 @@
 FactoryGirl.define do
+  sequence :body do |n|
+    "Very useful answer #{n}"
+  end
+
   factory :answer do
-    body 'MyText'
-    question_id 1
+    body
+    question
   end
 
   factory :invalid_answer, class: Answer do
     body nil
-    question_id nil
   end
 end
