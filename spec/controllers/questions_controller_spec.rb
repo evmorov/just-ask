@@ -78,17 +78,34 @@ describe QuestionsController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    login_user
+    let(:question) { create(:question) }
 
-    before { @question = create(:question, user: subject.current_user) }
+    context 'when the author' do
+      before { sign_in question.user }
 
-    it 'deletes answer' do
-      expect { delete :destroy, params: { id: @question } }.to change(Question, :count).by(-1)
+      it 'deletes question' do
+        expect { delete :destroy, params: { id: question } }.to change(Question, :count).by(-1)
+      end
+
+      it 'redirects to index view' do
+        delete :destroy, params: { id: question }
+        expect(response).to redirect_to questions_path
+      end
     end
 
-    it 'redirect to index view' do
-      delete :destroy, params: { id: @question }
-      expect(response).to redirect_to questions_path
+    context 'when not the author' do
+      login_user
+
+      before { question }
+
+      it 'deletes question' do
+        expect { delete :destroy, params: { id: question } }.to change(Question, :count).by(0)
+      end
+
+      it 'redirects to index view' do
+        delete :destroy, params: { id: question }
+        expect(response).to redirect_to questions_path
+      end
     end
   end
 end

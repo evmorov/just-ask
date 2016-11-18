@@ -11,8 +11,8 @@ feature 'Signing in', '
   scenario 'Sign in for existing user' do
     sign_in(user)
 
-    expect(page).to have_content('Signed in successfully.')
-    expect(page).to have_content(user.email)
+    expect(page).to have_content 'Signed in successfully.'
+    expect(page).to have_content user.email
   end
 
   scenario 'Try to sign in for non-existing user' do
@@ -21,8 +21,6 @@ feature 'Signing in', '
     fill_in 'Password', with: '12345'
     click_on 'Log in'
 
-    expect(page).to have_content(
-      'Invalid Email or password.'
-    )
+    expect(page).to have_content 'Invalid Email or password.'
   end
 end

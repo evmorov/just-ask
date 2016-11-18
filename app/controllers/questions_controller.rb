@@ -1,5 +1,5 @@
 class QuestionsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create]
+  before_action :authenticate_user!, only: [:new, :create, :destroy]
 
   def index
     @questions = Question.all
@@ -29,8 +29,7 @@ class QuestionsController < ApplicationController
   def destroy
     @question = Question.find(params[:id])
 
-    return unless @question.user == current_user
-    @question.destroy
+    @question.destroy if @question.user == current_user
     redirect_to questions_path
   end
 
