@@ -1,9 +1,14 @@
 h2 Question
 
-.title
-  = @question.title
-.body
-  = @question.body
+#question
+  .title
+    = @question.title
+  .body
+    = @question.body
+  - if @question.user == current_user
+    = link_to 'Remove', question_path(@question),
+      method: :delete,
+        data: { confirm: 'Are you sure?' }
 
 - @question.answers.each do |answer|
   p
