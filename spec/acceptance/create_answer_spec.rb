@@ -15,8 +15,7 @@ feature 'Create an answer', '
     fill_in 'answer_body', with: 'My smart answer'
     click_on 'Create Answer'
 
-    expect(page).to have_current_path(question_path(question))
-    expect(page).to have_content('My smart answer')
+    expect(page).to have_content 'My smart answer'
   end
 
   scenario 'Create an answer when non-authenticated' do
@@ -24,7 +23,7 @@ feature 'Create an answer', '
     fill_in 'answer_body', with: 'My smart answer'
     click_on 'Create Answer'
 
-    expect(page).to have_content('You need to sign in or sign up before continuing.')
-    expect(page).to_not have_content('My smart answer')
+    expect(page).to have_content 'You need to sign in or sign up before continuing.'
+    expect(page).to_not have_content 'My smart answer'
   end
 end

@@ -12,7 +12,7 @@ feature 'Signing out', '
     sign_in(user)
     click_on 'Sign out'
 
-    expect(page).to have_content('Signed out successfully.')
-    expect(page).to_not have_content(user.email)
+    expect(page).to have_content 'Signed out successfully.'
+    expect(page).to_not have_content user.email
   end
 end

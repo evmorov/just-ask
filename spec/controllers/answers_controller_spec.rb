@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 describe AnswersController, type: :controller do
-  login_user
-
-  let(:question) { create(:question) }
-
   describe 'POST #create' do
+    login_user
+
+    let(:question) { create(:question) }
+
     context 'with valid attributes' do
       it 'saves the new answer in the database' do
         expect {
@@ -34,15 +34,38 @@ describe AnswersController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    before { @answer = create(:answer, user: subject.current_user) }
+    let(:answer) { create(:answer) }
 
-    it 'deletes answer' do
-      expect { delete :destroy, params: { id: @answer } }.to change(Answer, :count).by(-1)
+    context 'when the author' do
+      before { sign_in answer.user }
+
+      it 'deletes answer' do
+        expect {
+          delete :destroy, params: { id: answer }
+        }.to change(answer.question.answers, :count).by(-1)
+      end
+
+      it 're-renders show question view' do
+        delete :destroy, params: { id: answer }
+        expect(response).to render_template('questions/show')
+      end
     end
 
-    it 're-renders show question view' do
-      delete :destroy, id: @answer
-      expect(response).to render_template('questions/show')
+    context 'when not the author' do
+      login_user
+
+      before { answer }
+
+      it 'deletes answer' do
+        expect {
+          delete :destroy, params: { id: answer }
+        }.to change(answer.question.answers, :count).by(0)
+      end
+
+      it 're-renders show question view' do
+        delete :destroy, params: { id: answer }
+        expect(response).to render_template('questions/show')
+      end
     end
   end
 end

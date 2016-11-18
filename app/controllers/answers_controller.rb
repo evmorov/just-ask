@@ -17,8 +17,7 @@ class AnswersController < ApplicationController
     @answer = Answer.find(params[:id])
     @question = @answer.question
 
-    return unless @answer.user == current_user
-    @answer.destroy
+    @answer.destroy if @answer.user == current_user
     render 'questions/show'
   end
 

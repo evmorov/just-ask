@@ -24,5 +24,7 @@ feature 'Create a question', '
     click_on 'Post Your Question'
 
     expect(page).to have_content 'Your question successfully created.'
+    expect(page).to have_content 'Test question'
+    expect(page).to have_content 'text text text'
   end
 end
