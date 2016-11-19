@@ -6,7 +6,7 @@ h2 Question
   .body
     = @question.body
   - if current_user.try(:author_of?, @question)
-    = link_to 'Remove', question_path(@question),
+    = link_to 'Remove', @question,
       method: :delete,
         data: { confirm: 'Are you sure?' }
 
@@ -14,7 +14,7 @@ h2 Question
   p
     = answer.body
     - if current_user.try(:author_of?, answer)
-      = link_to 'Remove', answer_path(answer),
+      = link_to 'Remove', answer,
         method: :delete,
           data: { confirm: 'Are you sure?' }
 
