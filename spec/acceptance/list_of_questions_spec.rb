@@ -6,15 +6,14 @@ feature 'List of questions', '
   I want to be able to view all questions
 ' do
 
-  before do
-    create(:question, title: 'First')
-    create(:question, title: 'Second')
-  end
+  given(:list_of_questions) { create_list(:question, 10) }
+
+  before { list_of_questions }
 
   scenario 'View List of questions' do
     visit questions_path
-
-    expect(page).to have_link('First')
-    expect(page).to have_link('Second')
+    list_of_questions.each do |question|
+      expect(page).to have_link(question.title)
+    end
   end
 end
