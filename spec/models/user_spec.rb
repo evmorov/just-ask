@@ -13,7 +13,6 @@ describe User, type: :model do
     it 'returns true if an argument belongs to User' do
       question = create(:question, user: user)
       expect(user).to be_author_of(question)
-      # expect(user.author_of?(question)).to be(true)
     end
 
     it 'returns false if an argument from another User' do
