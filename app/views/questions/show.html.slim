@@ -5,7 +5,7 @@ h2 Question
     = @question.title
   .body
     = @question.body
-  - if @question.user == current_user
+  - if current_user.try(:author_of?, @question)
     = link_to 'Remove', question_path(@question),
       method: :delete,
         data: { confirm: 'Are you sure?' }
@@ -13,7 +13,7 @@ h2 Question
 - @question.answers.each do |answer|
   p
     = answer.body
-    - if answer.user == current_user
+    - if current_user.try(:author_of?, answer)
       = link_to 'Remove', answer_path(answer),
         method: :delete,
           data: { confirm: 'Are you sure?' }
