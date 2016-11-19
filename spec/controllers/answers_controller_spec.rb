@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 describe AnswersController, type: :controller do
+  let(:question) { create(:question) }
+
   describe 'POST #create' do
     login_user
-
-    let(:question) { create(:question) }
 
     context 'with valid attributes' do
       it 'saves the new answer in the database' do
@@ -40,7 +40,7 @@ describe AnswersController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    let(:answer) { create(:answer) }
+    let(:answer) { create(:answer, question: question) }
 
     context 'when the author' do
       before { sign_in answer.user }
@@ -48,12 +48,12 @@ describe AnswersController, type: :controller do
       it 'deletes answer' do
         expect {
           delete :destroy, params: { id: answer }
-        }.to change(answer.question.answers, :count).by(-1)
+        }.to change(question.answers, :count).by(-1)
       end
 
       it 'redirects to question view' do
         delete :destroy, params: { id: answer }
-        expect(response).to redirect_to question_path(answer.question)
+        expect(response).to redirect_to question_path(question)
       end
     end
 
@@ -65,12 +65,12 @@ describe AnswersController, type: :controller do
       it 'deletes answer' do
         expect {
           delete :destroy, params: { id: answer }
-        }.to change(answer.question.answers, :count).by(0)
+        }.to change(question.answers, :count).by(0)
       end
 
       it 'redirects to question view' do
         delete :destroy, params: { id: answer }
-        expect(response).to redirect_to question_path(answer.question)
+        expect(response).to redirect_to question_path(question)
       end
     end
   end
