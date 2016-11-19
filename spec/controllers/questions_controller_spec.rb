@@ -104,7 +104,7 @@ describe QuestionsController, type: :controller do
 
       before { question }
 
-      it 'deletes question' do
+      it 'do not deletes question' do
         expect { delete :destroy, params: { id: question } }.to_not change(Question, :count)
       end
 

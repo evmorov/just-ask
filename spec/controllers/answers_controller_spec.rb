@@ -62,7 +62,7 @@ describe AnswersController, type: :controller do
 
       before { answer }
 
-      it 'deletes answer' do
+      it 'dot not deletes answer' do
         expect {
           delete :destroy, params: { id: answer }
         }.to_not change(Answer, :count)
