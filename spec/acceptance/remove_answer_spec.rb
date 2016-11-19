@@ -22,7 +22,7 @@ feature 'Remove an answer', '
     end
 
     scenario 'Remove my own answer' do
-      within(:xpath, "//p[text()='#{my_answer.body}']") do
+      within('p', text: my_answer.body) do
         click_on 'Remove'
       end
 
@@ -31,7 +31,7 @@ feature 'Remove an answer', '
     end
 
     scenario 'There is no remove button for answers by different authors' do
-      within(:xpath, "//p[text()='#{strangers_answer.body}']") do
+      within('p', text: strangers_answer.body) do
         expect(page).to_not have_selector(:link_or_button, 'Remove')
       end
     end
