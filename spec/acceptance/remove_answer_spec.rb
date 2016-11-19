@@ -32,7 +32,7 @@ feature 'Remove an answer', '
 
     scenario 'There is no remove button for answers by different authors' do
       within('p', text: strangers_answer.body) do
-        expect(page).to_not have_selector(:link_or_button, 'Remove')
+        expect(page).to_not have_link('Remove')
       end
     end
   end
@@ -42,7 +42,7 @@ feature 'Remove an answer', '
 
     scenario 'There are no remove buttons for answers' do
       visit question_path(question_with_answers)
-      expect(page).to_not have_selector(:link_or_button, 'Remove')
+      expect(page).to_not have_link('Remove')
     end
   end
 end
