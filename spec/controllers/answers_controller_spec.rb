@@ -65,7 +65,7 @@ describe AnswersController, type: :controller do
       it 'deletes answer' do
         expect {
           delete :destroy, params: { id: answer }
-        }.to change(question.answers, :count).by(0)
+        }.to_not change(question.answers, :count)
       end
 
       it 'redirects to question view' do

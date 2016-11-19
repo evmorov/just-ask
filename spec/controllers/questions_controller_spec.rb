@@ -105,7 +105,7 @@ describe QuestionsController, type: :controller do
       before { question }
 
       it 'deletes question' do
-        expect { delete :destroy, params: { id: question } }.to change(Question, :count).by(0)
+        expect { delete :destroy, params: { id: question } }.to_not change(Question, :count)
       end
 
       it 'redirects to show question' do
