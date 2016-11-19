@@ -13,6 +13,12 @@ describe AnswersController, type: :controller do
         }.to change(question.answers, :count).by(1)
       end
 
+      it 'saves the new answer with the right user' do
+        expect {
+          post :create, params: { answer: attributes_for(:answer), question_id: question }
+        }.to change(subject.current_user.answers, :count).by(1)
+      end
+
       it 'redirects to show the question' do
         post :create, params: { answer: attributes_for(:answer), question_id: question }
         expect(response).to redirect_to question_path(question)
