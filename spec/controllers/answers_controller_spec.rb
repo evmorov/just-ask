@@ -45,9 +45,9 @@ describe AnswersController, type: :controller do
         }.to change(answer.question.answers, :count).by(-1)
       end
 
-      it 're-renders show question view' do
+      it 'redirects to question view' do
         delete :destroy, params: { id: answer }
-        expect(response).to render_template('questions/show')
+        expect(response).to redirect_to question_path(answer.question)
       end
     end
 
@@ -62,9 +62,9 @@ describe AnswersController, type: :controller do
         }.to change(answer.question.answers, :count).by(0)
       end
 
-      it 're-renders show question view' do
+      it 'redirects to question view' do
         delete :destroy, params: { id: answer }
-        expect(response).to render_template('questions/show')
+        expect(response).to redirect_to question_path(answer.question)
       end
     end
   end
