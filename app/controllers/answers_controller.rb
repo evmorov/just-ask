@@ -19,6 +19,8 @@ class AnswersController < ApplicationController
 
     if current_user.author_of? answer
       answer.destroy
+    else
+      flash.now[:error] = 'You can remove only your answer'
     end
 
     @answer = Answer.new
