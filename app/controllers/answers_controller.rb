@@ -14,10 +14,14 @@ class AnswersController < ApplicationController
   end
 
   def destroy
-    @answer = Answer.find(params[:id])
-    @question = @answer.question
+    answer = Answer.find(params[:id])
+    @question = answer.question
 
-    @answer.destroy if @answer.user == current_user
+    if current_user.author_of? answer
+      answer.destroy
+    end
+
+    @answer = Answer.new
     render 'questions/show'
   end
 
