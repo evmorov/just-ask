@@ -1,17 +1,15 @@
 FactoryGirl.define do
-  sequence :question_title do |n|
-    "Question title #{n}"
-  end
-
-  sequence :question_body do |n|
-    "Question body #{n}"
-  end
 
   factory :question do
     user
 
-    title { generate(:question_title) }
-    body { generate(:question_body) }
+    sequence :title do |n|
+      "Question title #{n}"
+    end
+
+    sequence :body do |n|
+      "Question body #{n}"
+    end
 
     factory :question_with_answers do
       transient do
