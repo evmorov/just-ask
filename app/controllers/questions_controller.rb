@@ -28,8 +28,12 @@ class QuestionsController < ApplicationController
   def destroy
     question = Question.find(params[:id])
 
-    question.destroy if current_user.author_of? question
-    redirect_to questions_path
+    if current_user.author_of? question
+      question.destroy
+      redirect_to questions_path
+    else
+      redirect_to question, error: 'You can remove only your question'
+    end
   end
 
   private
