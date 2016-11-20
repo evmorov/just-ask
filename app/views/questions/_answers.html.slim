@@ -1,0 +1,8 @@
+- @question.answers.each do |answer|
+  - if answer.persisted?
+    p
+      = answer.body
+      - if user_signed_in? && current_user.author_of?(answer)
+        = link_to 'Remove', answer,
+          method: :delete,
+            data: { confirm: 'Are you sure?' }
