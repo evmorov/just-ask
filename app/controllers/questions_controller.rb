@@ -1,13 +1,13 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :destroy]
+  before_action :load_question, only: [:show, :destroy]
 
   def index
     @questions = Question.all
   end
 
   def show
-    @question = Question.find(params[:id])
-    @answer = Answer.new
+    @answer = @question.answers.new
   end
 
   def new
@@ -26,17 +26,19 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    question = Question.find(params[:id])
-
-    if current_user.author_of? question
-      question.destroy
+    if current_user.author_of? @question
+      @question.destroy
       redirect_to questions_path
     else
-      redirect_to question, error: 'You can remove only your question'
+      redirect_to @question, error: 'You can remove only your question'
     end
   end
 
   private
+
+  def load_question
+    @question = Question.find(params[:id])
+  end
 
   def question_params
     params.require(:question).permit(:title, :body)
