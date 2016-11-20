@@ -17,6 +17,8 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'pry-byebug'
+  gem 'selenium-webdriver', '~> 2.53.4'
+  gem 'database_cleaner'
 end
 
 group :test do
