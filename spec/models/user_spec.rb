@@ -19,9 +19,5 @@ describe User, type: :model do
       question = create(:question)
       expect(user).to_not be_author_of(question)
     end
-
-    it 'raises NoMethodError if an argument does not repond to #user_id' do
-      expect { user.author_of? [] }.to raise_error(NoMethodError)
-    end
   end
 end
