@@ -32,9 +32,9 @@ describe AnswersController, type: :controller do
         }.to_not change(Answer, :count)
       end
 
-      it 'redirects to show the question' do
+      it 're-renders show question view' do
         post :create, params: { answer: attributes_for(:invalid_answer), question_id: question }
-        expect(response).to redirect_to question
+        expect(response).to render_template('questions/show')
       end
     end
   end
