@@ -65,7 +65,7 @@ describe QuestionsController, type: :controller do
 
       it 'redirects to show view' do
         post :create, params: { question: attributes_for(:question) }
-        expect(response).to redirect_to question_path(assigns(:question))
+        expect(response).to redirect_to assigns(:question)
       end
     end
 
@@ -110,7 +110,7 @@ describe QuestionsController, type: :controller do
 
       it 'redirects to show question' do
         delete :destroy, params: { id: question }
-        expect(response).to redirect_to question_path(question)
+        expect(response).to redirect_to question
       end
     end
   end

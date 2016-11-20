@@ -21,7 +21,7 @@ describe AnswersController, type: :controller do
 
       it 'redirects to show the question' do
         post :create, params: { answer: attributes_for(:answer), question_id: question }
-        expect(response).to redirect_to question_path(question)
+        expect(response).to redirect_to question
       end
     end
 
@@ -32,9 +32,9 @@ describe AnswersController, type: :controller do
         }.to_not change(Answer, :count)
       end
 
-      it 're-renders show question view' do
+      it 'redirects to show the question' do
         post :create, params: { answer: attributes_for(:invalid_answer), question_id: question }
-        expect(response).to render_template('questions/show')
+        expect(response).to redirect_to question
       end
     end
   end
@@ -53,7 +53,7 @@ describe AnswersController, type: :controller do
 
       it 'redirects to question view' do
         delete :destroy, params: { id: answer }
-        expect(response).to redirect_to question_path(question)
+        expect(response).to redirect_to question
       end
     end
 
@@ -70,7 +70,7 @@ describe AnswersController, type: :controller do
 
       it 'redirects to question view' do
         delete :destroy, params: { id: answer }
-        expect(response).to redirect_to question_path(question)
+        expect(response).to redirect_to question
       end
     end
   end
