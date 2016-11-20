@@ -5,20 +5,15 @@ h2 Question
     = @question.title
   .body
     = @question.body
-  - if current_user.try(:author_of?, @question)
+  - if user_signed_in? && current_user.author_of?(@question)
     = link_to 'Remove', @question,
       method: :delete,
         data: { confirm: 'Are you sure?' }
 
-- @question.answers.each do |answer|
-  p
-    = answer.body
-    - if current_user.try(:author_of?, answer)
-      = link_to 'Remove', answer,
-        method: :delete,
-          data: { confirm: 'Are you sure?' }
+.answers
+  = render 'answers'
 
-= form_for([@question, @answer]) do |f|
+= form_for([@question, @answer], remote: true) do |f|
   p
     = f.label :answer
     = f.text_field :body
