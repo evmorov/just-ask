@@ -11,7 +11,8 @@ h2 Question
         data: { confirm: 'Are you sure?' }
 
 .answers
-  = render 'answers'
+  - @question.answers.each do |answer|
+    = render 'answer', answer: answer
 
 = form_for([@question, @answer], remote: true) do |f|
   p
