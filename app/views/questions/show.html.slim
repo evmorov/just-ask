@@ -16,6 +16,7 @@ h2 Question
 = form_for([@question, @answer], remote: true) do |f|
   p
     = f.label :answer
+    .answer-errors
     = f.text_field :body
   p
     = f.submit
