@@ -22,7 +22,7 @@ feature 'Remove an answer', '
     end
 
     scenario 'Remove my own answer' do
-      within('p', text: my_answer.body) do
+      within('div', text: my_answer.body, class: 'answer') do
         click_on 'Remove'
       end
 
