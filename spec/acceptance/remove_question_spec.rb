@@ -1,4 +1,4 @@
-require 'rails_helper'
+require_relative 'acceptance_helper'
 
 feature 'Remove a question', '
   In order I changed my mind or already found an answer
