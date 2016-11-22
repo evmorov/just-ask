@@ -9,16 +9,14 @@ class AnswersController < ApplicationController
   end
 
   def destroy
-    answer = Answer.find(params[:id])
-    question = answer.question
+    @answer = Answer.find(params[:id])
+    question = @answer.question
 
-    if current_user.author_of? answer
-      answer.destroy
+    if current_user.author_of? @answer
+      @answer.destroy
     else
-      flash[:error] = 'You can remove only your answer'
+      redirect_to question, error: 'You can remove only your answer'
     end
-
-    redirect_to question
   end
 
   private
