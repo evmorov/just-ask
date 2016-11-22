@@ -1,7 +1,5 @@
-h2 Question
-
 #question
-  .title
+  h2.title
     = @question.title
   .body
     = @question.body
@@ -10,6 +8,7 @@ h2 Question
       method: :delete,
         data: { confirm: 'Are you sure?' }
 
+h4 = 'Answers'
 .answers
   = render @question.answers
 
