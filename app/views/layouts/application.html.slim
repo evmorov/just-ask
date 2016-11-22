@@ -8,7 +8,5 @@ html
   body
     .container
       = render 'layouts/header'
-      p.notice= notice
-      p.alert= alert
-      p.error= error
+      = flash_messages
       = yield

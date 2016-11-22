@@ -21,3 +21,10 @@ Style/Documentation:
 
 Style/FrozenStringLiteralComment:
   Enabled: false
+
+Lint/UnusedMethodArgument:
+  Exclude:
+    - 'app/helpers/application_helper.rb'
+
+Metrics/MethodLength:
+  Max: 15
