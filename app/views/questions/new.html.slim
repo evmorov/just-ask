@@ -1,13 +1,11 @@
 h2 New question
 
-/ = form_for :question, url: questions_path do |f|
-/ = form_for :question, url: { action: 'create' } do |f|
 = form_for @question do |f|
-  div
+  p
     = f.label :title
     = f.text_field :title
-  div
+  p
     = f.label :body
-    = f.text_field :body
-  div
+    = f.text_area :body
+  p
     = f.submit 'Post Your Question'
