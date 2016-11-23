@@ -23,7 +23,8 @@ feature 'Remove an answer', '
 
     scenario 'Remove my own answer', js: true do
       within('div', text: my_answer.body, class: 'answer') do
-        page.accept_confirm click_on 'Remove'
+        page.driver.browser.accept_js_confirms
+        click_on 'Remove'
       end
 
       expect(page).to_not have_content my_answer.body
