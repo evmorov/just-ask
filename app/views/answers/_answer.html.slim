@@ -1,7 +1,10 @@
 - if answer.persisted?
-  .answer
+  = content_tag(:div, class: 'answer', data: { answer_id: answer.id })
     p = answer.body
     - if user_signed_in? && current_user.author_of?(answer)
-      = link_to 'Remove', answer,
+      = link_to 'Remove',
+        answer,
         method: :delete,
-          data: { confirm: 'Are you sure?' }
+        data: { answer_id: answer.id, confirm: 'Are you sure?' },
+        remote: true
+
