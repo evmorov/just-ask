@@ -27,7 +27,7 @@ feature 'Create an answer', '
     scenario 'Create an invalid answer when unauthenticated', js: true do
       click_on 'Create Answer'
 
-      expect(page).to have_content "Body is too short"
+      expect(page).to have_content 'Body is too short'
     end
   end
 
