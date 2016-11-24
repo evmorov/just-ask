@@ -31,7 +31,7 @@ feature 'Remove a question', '
     end
   end
 
-  context 'Non-authenticated' do
+  context 'Unauthenticated' do
     scenario 'There are no remove buttons for questions' do
       visit question_path(question)
       expect(page).to_not have_selector(:link_or_button, 'Remove')

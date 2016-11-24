@@ -24,14 +24,14 @@ feature 'Create an answer', '
       end
     end
 
-    scenario 'Create an invalid answer when non-authenticated', js: true do
+    scenario 'Create an invalid answer when unauthenticated', js: true do
       click_on 'Create Answer'
 
       expect(page).to have_content "Body is too short"
     end
   end
 
-  context 'When non-authenticated' do
+  context 'When unauthenticated' do
     scenario 'Create an answer' do
       visit question_path(question)
       fill_in 'answer_body', with: 'My smart answer'

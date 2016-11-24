@@ -16,7 +16,7 @@ feature 'Signing out', '
     expect(page).to_not have_content user.email
   end
 
-  scenario 'Sign out link absents when non-authenticated' do
+  scenario 'Sign out link absents when unauthenticated' do
     visit root_path
 
     expect(page).to_not have_link('Sign out')

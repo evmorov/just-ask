@@ -37,7 +37,7 @@ feature 'Remove an answer', '
     end
   end
 
-  context 'Non-authenticated' do
+  context 'Unauthenticated' do
     given(:question_with_answers) { create(:question_with_answers) }
 
     scenario 'There are no remove buttons for answers' do

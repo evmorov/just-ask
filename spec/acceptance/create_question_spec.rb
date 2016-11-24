@@ -15,7 +15,7 @@ feature 'Create a question', '
     expect(page).to have_content 'You need to sign in or sign up before continuing.'
   end
 
-  scenario 'Create a question when non-authenticated' do
+  scenario 'Create a question when unauthenticated' do
     sign_in(user)
     visit questions_path
     click_on 'Ask Question'
