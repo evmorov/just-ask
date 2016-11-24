@@ -2,7 +2,7 @@ require_relative 'acceptance_helper'
 
 feature 'Signing up', '
   In order to be able all features of the web-site
-  As a non-registred user
+  As a unregistred user
   I want be able to register
 ' do
 
