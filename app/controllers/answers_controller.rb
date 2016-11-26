@@ -1,5 +1,6 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!
+  before_action :load_answer, only: [:update, :destroy]
 
   def create
     @question = Question.find(params[:question_id])
@@ -8,8 +9,16 @@ class AnswersController < ApplicationController
     @answer.save
   end
 
+  def update
+    @question = @answer.question
+    if current_user.author_of? @answer
+      @answer.update(answer_params)
+    else
+      redirect_to @question, error: 'You can edit only your answer'
+    end
+  end
+
   def destroy
-    @answer = Answer.find(params[:id])
     question = @answer.question
 
     if current_user.author_of? @answer
@@ -20,6 +29,10 @@ class AnswersController < ApplicationController
   end
 
   private
+
+  def load_answer
+    @answer = Answer.find(params[:id])
+  end
 
   def answer_params
     params.require(:answer).permit(:body)

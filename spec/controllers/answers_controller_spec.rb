@@ -49,6 +49,77 @@ describe AnswersController, type: :controller do
     end
   end
 
+  describe 'PATCH #update' do
+    let(:answer) { create(:answer, question: question) }
+
+    context 'when the author' do
+      before { sign_in answer.user }
+
+      it 'assings the requested answer to @answer' do
+        patch :update, params: {
+          answer: attributes_for(:answer), question_id: question, id: answer, format: :js
+        }
+        expect(assigns(:answer)).to eq(answer)
+      end
+
+      it 'assigns the question' do
+        patch :update, params: {
+          answer: attributes_for(:answer), question_id: question, id: answer, format: :js
+        }
+        expect(assigns(:question)).to eq(question)
+      end
+
+      it 'changes the answer attributes' do
+        patch :update, params: {
+          answer: { body: 'new body' }, question_id: question, id: answer, format: :js
+        }
+        answer.reload
+        expect(answer.body).to eq('new body')
+      end
+
+      it 'render update template' do
+        patch :update, params: {
+          answer: attributes_for(:answer), question_id: question, id: answer, format: :js
+        }
+        expect(response).to render_template :update
+      end
+    end
+
+    context 'when not the author' do
+      login_user
+
+      it 'assings the requested answer to @answer' do
+        patch :update, params: {
+          answer: attributes_for(:answer), question_id: question, id: answer, format: :js
+        }
+        expect(assigns(:answer)).to eq(answer)
+      end
+
+      it 'assigns the question' do
+        patch :update, params: {
+          answer: attributes_for(:answer), question_id: question, id: answer, format: :js
+        }
+        expect(assigns(:question)).to eq(question)
+      end
+
+      it 'does not change the answer attributes' do
+        old_body = answer.body
+        patch :update, params: {
+          answer: { body: 'new body' }, question_id: question, id: answer, format: :js
+        }
+        answer.reload
+        expect(answer.body).to eq(old_body)
+      end
+
+      it 'redirects to question view' do
+        patch :update, params: {
+          answer: attributes_for(:answer), question_id: question, id: answer, format: :js
+        }
+        expect(response).to redirect_to question
+      end
+    end
+  end
+
   describe 'DELETE #destroy' do
     let(:answer) { create(:answer, question: question) }
 

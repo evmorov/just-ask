@@ -1,1 +1,1 @@
-$('*[data-answer-id="<%= @answer.id %>"]').fadeOut();
+$('<%= "#answer-#{@answer.id}" %>').fadeOut();

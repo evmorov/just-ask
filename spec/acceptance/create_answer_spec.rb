@@ -16,12 +16,12 @@ feature 'Create an answer', '
     end
 
     scenario 'Create an answer when authenticated', js: true do
-      fill_in 'answer_body', with: 'My smart answer'
+      new_answer_message = 'My new answer message'
+      fill_in 'Add answer', with: new_answer_message
       click_on 'Create Answer'
 
-      within('.answers') do
-        expect(page).to have_content 'My smart answer'
-      end
+      within('#answers') { expect(page).to have_content(new_answer_message) }
+      expect(page).to_not have_field('Add answer', with: new_answer_message)
     end
 
     scenario 'Create an invalid answer when unauthenticated', js: true do
@@ -34,7 +34,7 @@ feature 'Create an answer', '
   context 'When unauthenticated' do
     scenario 'Create an answer' do
       visit question_path(question)
-      fill_in 'answer_body', with: 'My smart answer'
+      fill_in 'Add answer', with: 'My smart answer'
       click_on 'Create Answer'
 
       expect(page).to have_content 'You need to sign in or sign up before continuing.'

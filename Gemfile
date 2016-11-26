@@ -19,6 +19,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'pry-byebug'
   gem 'capybara-webkit'
+  gem 'selenium-webdriver', '~> 2.53'
   gem 'database_cleaner'
 end
 
