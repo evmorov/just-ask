@@ -6,11 +6,7 @@ feature 'Answer editing', "
   I'd like to be able to edit my own answer
 " do
 
-  given(:user) { create(:user) }
-  given(:user_another) { create(:user) }
   given(:question) { create(:question) }
-  given!(:answer) { create(:answer, question: question, user: user) }
-  given!(:answer_not_mine) { create(:answer, question: question, user: user_another) }
 
   scenario 'Try to edit a question when unauthenticated' do
     visit question_path(question)
@@ -19,6 +15,11 @@ feature 'Answer editing', "
   end
 
   describe 'When authenticated' do
+    given(:user) { create(:user) }
+    given(:user_another) { create(:user) }
+    given!(:answer) { create(:answer, question: question, user: user) }
+    given!(:answer_not_mine) { create(:answer, question: question, user: user_another) }
+
     before do
       sign_in user
       visit question_path(question)
