@@ -1,10 +1,18 @@
 - if answer.persisted?
-  = content_tag(:div, class: 'answer', data: { answer_id: answer.id })
+  = content_tag(:div, id: "answer-#{answer.id}", class: 'answer')
     p = answer.body
     - if user_signed_in? && current_user.author_of?(answer)
+      = link_to 'Edit',
+        '',
+        class: 'edit-answer-link',
+        data: { answer_id: answer.id, turbolinks: false }
       = link_to 'Remove',
         answer,
         method: :delete,
+        class: 'remove-answer-link',
         data: { answer_id: answer.id, confirm: 'Are you sure?' },
         remote: true
+      = form_for [@question, answer], remote: true, html: { id: "edit-answer-#{answer.id}"} do |f|
+        = f.text_area :body, id: "edit-answer-new-body-#{answer.id}"
+        = f.submit 'Save'
 

@@ -9,14 +9,15 @@
         data: { confirm: 'Are you sure?' }
 
 h4 Answers
-.answers
+#answers
   = render @question.answers
 
-= form_for([@question, @answer], remote: true) do |f|
-  p
-    = f.label :answer
-    .answer-errors
-    = f.text_area :body
-  p
-    = f.submit
+#add-answer
+  = form_for([@question, @answer], remote: true) do |f|
+    p
+      = f.label :body, 'Add answer'
+      .answer-errors
+      = f.text_area :body
+    p
+      = f.submit
 
