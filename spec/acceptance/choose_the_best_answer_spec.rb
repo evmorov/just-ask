@@ -19,9 +19,8 @@ feature 'Choose the best answer', '
 
       within("#answer-#{answer2.id}") do
         find(:css, '.best-answer-link').trigger('click')
+        wait_for_ajax
       end
-
-      sleep 1
 
       choosen_answer_class = 'best-answer-link-choosen'
       expect(find("#best-answer-link-#{answer1.id}")['class']).to_not include(choosen_answer_class)
