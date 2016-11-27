@@ -1,5 +1,10 @@
 - if answer.persisted?
   = content_tag(:div, id: "answer-#{answer.id}", class: 'answer')
+    = link_to answer_best_path(answer),
+      method: :post,
+      class: 'best-answer',
+      remote: true
+        i class='glyphicon glyphicon-ok'
     p = answer.body
     - if user_signed_in? && current_user.author_of?(answer)
       = link_to 'Edit',

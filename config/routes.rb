@@ -5,5 +5,8 @@ Rails.application.routes.draw do
   resources :questions, except: [:edit, :update] do
     resources :answers, only: [:create, :update]
   end
-  resources :answers, only: [:destroy]
+
+  resources :answers, only: [:destroy] do
+    post :best
+  end
 end
