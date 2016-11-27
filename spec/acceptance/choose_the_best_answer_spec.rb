@@ -17,19 +17,16 @@ feature 'Choose the best answer', '
       sign_in(user)
       visit question_path(question)
 
-      answers_text = page.all(:css, '.answer').map(&:text)
-      expect(answers_text).to eq(%w(answer1 answer2 answer3))
       within("#answer-#{answer2.id}") do
-        find(:css, '.best-answer').trigger('click')
+        find(:css, '.best-answer-link').trigger('click')
       end
 
       sleep 1
-      answers_text = page.all(:css, '.answer').map(&:text)
-      expect(answers_text).to eq(%w(answer2 answer1 answer3))
-      expect(find(:css, '.best-answer').class).to include('best-choosen')
-    end
 
-    scenario 'choose another best answer', js: true
-    scenario 'cancel the best answer', js: true
+      choosen_answer_class = 'best-answer-link-choosen'
+      expect(find("#best-answer-link-#{answer1.id}")['class']).to_not include(choosen_answer_class)
+      expect(find("#best-answer-link-#{answer2.id}")['class']).to include(choosen_answer_class)
+      expect(find("#best-answer-link-#{answer3.id}")['class']).to_not include(choosen_answer_class)
+    end
   end
 end

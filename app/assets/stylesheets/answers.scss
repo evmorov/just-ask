@@ -1,3 +1,8 @@
+#answers {
+  display: flex;
+  flex-flow: column;
+}
+
 .answer {
   margin-bottom: 30px;
   padding: 10px;
@@ -10,4 +15,22 @@
 
 .edit_answer {
   display: none;
+}
+
+.best-answer-choosen {
+  order: -1;
+}
+
+.best-answer-link {
+  color: white;
+  &:focus {
+    color: white;
+  }
+}
+
+.best-answer-link-choosen {
+  color: green;
+  &:focus {
+    color: green;
+  }
 }
