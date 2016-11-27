@@ -157,13 +157,36 @@ describe AnswersController, type: :controller do
   end
 
   describe 'POST #best_answer' do
-    let(:answer) { create(:answer) }
+    let(:answer) { create(:answer, best: false) }
 
     login_user
 
     it 'render best_answer template' do
       post :best, params: { answer_id: answer, format: :js }
       expect(response).to render_template :best
+    end
+
+    it 'toggles the best attribute' do
+      post :best, params: { answer_id: answer, format: :js }
+      answer.reload
+
+      expect(answer.best).to be(true)
+
+      post :best, params: { answer_id: answer, format: :js }
+      answer.reload
+
+      expect(answer.best).to be(false)
+    end
+
+    it 'if question has answer with best=true then make it false and another question true' do
+      best_answer = create(:answer, question: answer.question, best: true)
+
+      post :best, params: { answer_id: answer, format: :js }
+      best_answer.reload
+      answer.reload
+
+      expect(best_answer.best).to be(false)
+      expect(answer.best).to be(true)
     end
   end
 end

@@ -24,9 +24,9 @@ feature 'Select the best answer', '
         wait_for_ajax
       end
 
-      selected_answer_class = 'best-answer-link-selected'
-      expect(find("#best-answer-link-#{answer1.id}")['class']).to_not include(selected_answer_class)
-      expect(find("#best-answer-link-#{answer2.id}")['class']).to include(selected_answer_class)
+      best_class = 'best-answer-link-selected'
+      expect(find("#best-answer-link-#{answer1.id}")['class']).to_not include(best_class)
+      expect(find("#best-answer-link-#{answer2.id}")['class']).to include(best_class)
     end
 
     scenario 'unselect the best answer', js: true do
@@ -38,11 +38,26 @@ feature 'Select the best answer', '
         wait_for_ajax
       end
 
-      selected_answer_class = 'best-answer-link-selected'
-      expect(find("#best-answer-link-#{answer1.id}")['class']).to_not include(selected_answer_class)
       expect(
         find("#best-answer-link-#{best_answer.id}")['class']
-      ).to_not include(selected_answer_class)
+      ).to_not include('best-answer-link-selected')
+    end
+
+    scenario 'there can be only one best answer', js: true do
+      best_answer = create(:answer, question: question, body: 'the best answer', best: true)
+
+      visit question_path(question)
+      within("#answer-#{answer2.id}") do
+        find(:css, '.best-answer-link').trigger('click')
+        wait_for_ajax
+      end
+
+      best_class = 'best-answer-link-selected'
+      expect(find("#best-answer-link-#{answer1.id}")['class']).to_not include(best_class)
+      expect(find("#best-answer-link-#{answer2.id}")['class']).to include(best_class)
+      expect(
+        find("#best-answer-link-#{best_answer.id}")['class']
+      ).to_not include(best_class)
     end
   end
 

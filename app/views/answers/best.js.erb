@@ -1,7 +1,25 @@
-$('<%= "#best-answer-link-#{@answer.id}" %>').toggleClass('best-answer-link-selected');
-$('<%= "#answer-#{@answer.id}" %>')
-  .fadeOut(300)
-  .delay(300).queue(function() {
-    $(this).toggleClass('best-answer-selected')
-    $(this).fadeIn(500).dequeue();
-  });
+function removeTheBestAnswer() {
+  $('.best-answer-selected').removeClass('best-answer-selected');
+  $('.best-answer-link-selected').removeClass('best-answer-link-selected');
+}
+
+function isSelectedAnswerAlreadyTheBest() {
+  return $('.best-answer-selected').attr('id') == '<%= "answer-#{@answer.id}" %>';
+}
+
+function toggleTheBestAnswer() {
+  $('<%= "#best-answer-link-#{@answer.id}" %>').toggleClass('best-answer-link-selected');
+  $('<%= "#answer-#{@answer.id}" %>')
+    .fadeOut(300)
+    .delay(300).queue(function() {
+      $(this).toggleClass('best-answer-selected')
+      $(this).fadeIn(500).dequeue();
+    });
+}
+
+if (isSelectedAnswerAlreadyTheBest()) {
+  removeTheBestAnswer();
+} else {
+  removeTheBestAnswer();
+  toggleTheBestAnswer();
+}
