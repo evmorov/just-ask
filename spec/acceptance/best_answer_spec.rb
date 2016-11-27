@@ -1,9 +1,9 @@
 require_relative 'acceptance_helper'
 
-feature 'Choose the best answer', '
+feature 'Select the best answer', '
   In order to show people that the answer helped me
   As a user
-  I want to be able to choose the best answer
+  I want to be able to select the best answer
 ' do
 
   given(:user) { create(:user) }
@@ -13,7 +13,7 @@ feature 'Choose the best answer', '
   given!(:answer3) { create(:answer, question: question, body: 'answer3') }
 
   context 'When authenticated' do
-    scenario 'choose the best answer', js: true do
+    scenario 'select the best answer', js: true do
       sign_in(user)
       visit question_path(question)
 
@@ -22,15 +22,15 @@ feature 'Choose the best answer', '
         wait_for_ajax
       end
 
-      choosen_answer_class = 'best-answer-link-choosen'
-      expect(find("#best-answer-link-#{answer1.id}")['class']).to_not include(choosen_answer_class)
-      expect(find("#best-answer-link-#{answer2.id}")['class']).to include(choosen_answer_class)
-      expect(find("#best-answer-link-#{answer3.id}")['class']).to_not include(choosen_answer_class)
+      selected_answer_class = 'best-answer-link-selected'
+      expect(find("#best-answer-link-#{answer1.id}")['class']).to_not include(selected_answer_class)
+      expect(find("#best-answer-link-#{answer2.id}")['class']).to include(selected_answer_class)
+      expect(find("#best-answer-link-#{answer3.id}")['class']).to_not include(selected_answer_class)
     end
   end
 
   context 'When unauthenticated' do
-    scenario "don't see choose the best answer link" do
+    scenario "don't see selecte the best answer link" do
       visit question_path(question)
 
       expect(page).to_not have_selector '.best-answer-link'
@@ -44,7 +44,7 @@ feature 'Choose the best answer', '
       puts page.text
       expect(
         find("#best-answer-link-#{best_answer.id}"
-      )['class']).to include('best-answer-link-choosen')
+      )['class']).to include('best-answer-link-selected')
     end
   end
 end

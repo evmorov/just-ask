@@ -17,7 +17,7 @@
   display: none;
 }
 
-.best-answer-choosen {
+.best-answer-selected {
   order: -1;
 }
 
@@ -28,7 +28,7 @@
   }
 }
 
-.best-answer-link-choosen {
+.best-answer-link-selected {
   color: green;
   &:focus {
     color: green;
