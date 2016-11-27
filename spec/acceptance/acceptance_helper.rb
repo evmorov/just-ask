@@ -5,6 +5,7 @@ RSpec.configure do |config|
   Capybara.ignore_hidden_elements = true
 
   config.include AcceptanceMacros, type: :feature
+  config.include WaitForAjax, type: :feature
 
   config.use_transactional_fixtures = false
 
