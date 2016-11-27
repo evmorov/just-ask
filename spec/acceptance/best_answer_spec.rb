@@ -10,11 +10,13 @@ feature 'Select the best answer', '
   given(:question) { create(:question, user: user) }
   given!(:answer1) { create(:answer, question: question, body: 'answer1') }
   given!(:answer2) { create(:answer, question: question, body: 'answer2') }
-  given!(:answer3) { create(:answer, question: question, body: 'answer3') }
 
   context 'When authenticated' do
-    scenario 'select the best answer', js: true do
+    before do
       sign_in(user)
+    end
+
+    scenario 'select the best answer', js: true do
       visit question_path(question)
 
       within("#answer-#{answer2.id}") do
@@ -25,12 +27,27 @@ feature 'Select the best answer', '
       selected_answer_class = 'best-answer-link-selected'
       expect(find("#best-answer-link-#{answer1.id}")['class']).to_not include(selected_answer_class)
       expect(find("#best-answer-link-#{answer2.id}")['class']).to include(selected_answer_class)
-      expect(find("#best-answer-link-#{answer3.id}")['class']).to_not include(selected_answer_class)
+    end
+
+    scenario 'unselect the best answer', js: true do
+      best_answer = create(:answer, question: question, body: 'the best answer', best: true)
+
+      visit question_path(question)
+      within("#answer-#{best_answer.id}") do
+        find(:css, '.best-answer-link').trigger('click')
+        wait_for_ajax
+      end
+
+      selected_answer_class = 'best-answer-link-selected'
+      expect(find("#best-answer-link-#{answer1.id}")['class']).to_not include(selected_answer_class)
+      expect(
+        find("#best-answer-link-#{best_answer.id}")['class']
+      ).to_not include(selected_answer_class)
     end
   end
 
   context 'When unauthenticated' do
-    scenario "don't see selecte the best answer link" do
+    scenario "don't see selected the best answer link" do
       visit question_path(question)
 
       expect(page).to_not have_selector '.best-answer-link'
