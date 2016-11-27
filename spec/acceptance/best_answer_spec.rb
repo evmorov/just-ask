@@ -41,10 +41,9 @@ feature 'Select the best answer', '
 
       visit question_path(question)
 
-      puts page.text
       expect(
-        find("#best-answer-link-#{best_answer.id}"
-      )['class']).to include('best-answer-link-selected')
+        find("#best-answer-link-#{best_answer.id}")['class']
+      ).to include('best-answer-link-selected')
     end
   end
 end
