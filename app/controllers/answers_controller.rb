@@ -30,6 +30,8 @@ class AnswersController < ApplicationController
 
   def best
     @answer = Answer.find(params[:answer_id])
+    @answer.best ? @answer.best = false : @answer.best = true
+    @answer.save
   end
 
   private

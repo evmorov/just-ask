@@ -1,1 +1,7 @@
-console.log(<%= @answer.id %>);
+$('<%= "#answer-#{@answer.id}" %>')
+  .fadeOut(300)
+  .delay(300).queue(function() {
+    $(this).toggleClass('best-answer-choosen')
+    $(this).fadeIn(500).dequeue();
+  });
+$('<%= "#best-answer-link-#{@answer.id}" %>').toggleClass('best-answer-link-choosen');
