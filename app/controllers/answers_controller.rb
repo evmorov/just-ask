@@ -28,6 +28,10 @@ class AnswersController < ApplicationController
     end
   end
 
+  def best
+    @answer = Answer.find(params[:answer_id])
+  end
+
   private
 
   def load_answer
