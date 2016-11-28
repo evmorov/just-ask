@@ -21,7 +21,7 @@
         class: 'remove-answer-link',
         data: { answer_id: answer.id, confirm: 'Are you sure?' },
         remote: true
-      = form_for [@question, answer], remote: true, html: { id: "edit-answer-#{answer.id}"} do |f|
+      = form_for answer, remote: true, html: { id: "edit-answer-#{answer.id}", class: 'edit-answer-area' } do |f|
         = f.text_area :body, id: "edit-answer-new-body-#{answer.id}"
         = f.submit 'Save'
 
