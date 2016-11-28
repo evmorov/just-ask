@@ -7,13 +7,15 @@ class Answer < ApplicationRecord
   default_scope { order(:created_at) }
 
   def toggle_best
-    the_best_answer = question.answers.find(&:best)
-    if the_best_answer
-      the_best_answer.best = false
-      the_best_answer.save
-    end
+    transaction do
+      the_best_answer = question.answers.find(&:best)
+      if the_best_answer
+        the_best_answer.best = false
+        the_best_answer.save
+      end
 
-    self.best = !best
-    save
+      self.best = !best
+      save
+    end
   end
 end
