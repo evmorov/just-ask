@@ -1,8 +1,21 @@
 ready = ->
   $('body').on 'click', '.edit-answer-link', (e) ->
     e.preventDefault()
-    $(this).hide()
-    answer_id = $(this).data('answerId')
+    $(@).hide()
+    answer_id = $(@).data('answerId')
     $('form#edit-answer-' + answer_id).show()
 
 $(document).on('turbolinks:load', ready)
+
+@removeTheBestAnswer = ->
+  $('.best-answer-selected').removeClass 'best-answer-selected'
+  $('.best-answer-link-selected').removeClass 'best-answer-link-selected'
+
+@isSelectedAnswerAlreadyTheBest = (answerId) ->
+  $('.best-answer-selected').attr('id') == "answer-#{answerId}"
+
+@toggleTheBestAnswer = (answerId) ->
+  $("#best-answer-link-#{answerId}").toggleClass 'best-answer-link-selected'
+  $("#answer-#{answerId}").fadeOut(300).delay(300).queue ->
+    $(@).toggleClass 'best-answer-selected'
+    $(@).fadeIn(500).dequeue()
