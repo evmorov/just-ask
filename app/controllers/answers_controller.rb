@@ -14,7 +14,7 @@ class AnswersController < ApplicationController
     if current_user.author_of? @answer
       @answer.update(answer_params)
     else
-      redirect_to @question, error: 'You can edit only your answer'
+      head :forbidden
     end
   end
 
@@ -24,7 +24,7 @@ class AnswersController < ApplicationController
     if current_user.author_of? @answer
       @answer.destroy
     else
-      redirect_to question, error: 'You can remove only your answer'
+      head :forbidden
     end
   end
 

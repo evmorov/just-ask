@@ -111,11 +111,11 @@ describe AnswersController, type: :controller do
         expect(answer.body).to eq(old_body)
       end
 
-      it 'redirects to question view' do
+      it 'http status is forbidden' do
         patch :update, params: {
           answer: attributes_for(:answer), question_id: question, id: answer, format: :js
         }
-        expect(response).to redirect_to question
+        expect(response).to have_http_status(:forbidden)
       end
     end
   end
@@ -149,9 +149,9 @@ describe AnswersController, type: :controller do
         }.to_not change(Answer, :count)
       end
 
-      it 'redirects to question view' do
+      it 'http status is forbidden' do
         delete :destroy, params: { id: answer }
-        expect(response).to redirect_to question
+        expect(response).to have_http_status(:forbidden)
       end
     end
   end
