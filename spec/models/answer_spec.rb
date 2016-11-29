@@ -12,19 +12,20 @@ describe Answer, type: :model do
     let(:answer) { create(:answer, question: question, best: false) }
     let!(:best_answer) { create(:answer, question: question, best: true) }
 
-    it 'toggles the best attribute' do
+    it "select the best answer if it's not" do
       answer.toggle_best
       expect(answer.best).to be(true)
+    end
 
-      answer.toggle_best
-      expect(answer.best).to be(false)
+    it "unselect the best if it's already the best" do
+      best_answer.toggle_best
+      expect(best_answer.best).to be(false)
     end
 
     it 'set the best attribute and if there is another best answer makes it false' do
       answer.toggle_best
       best_answer.reload
 
-      expect(answer.best).to be(true)
       expect(best_answer.best).to be(false)
     end
 
@@ -32,7 +33,6 @@ describe Answer, type: :model do
       best_answer.toggle_best
       answer.reload
 
-      expect(best_answer.best).to be(false)
       expect(answer.best).to be(false)
     end
   end
