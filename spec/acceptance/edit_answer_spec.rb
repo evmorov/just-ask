@@ -39,6 +39,15 @@ feature 'Answer editing', "
       end
     end
 
+    scenario 'edited answer is invalid', js: true do
+      within("#answer_#{answer.id}") do
+        click_on 'Edit'
+        fill_in "edit-answer-new-body-#{answer.id}", with: ''
+        click_on 'Save'
+        expect(page).to have_content 'Body is too short'
+      end
+    end
+
     scenario "can't edit other user's answer" do
       within("#answer_#{answer_not_mine.id}") do
         expect(page).to_not have_link('Edit')
