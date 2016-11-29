@@ -15,7 +15,7 @@ feature 'Create an answer', '
       visit question_path(question)
     end
 
-    scenario 'Create an answer when authenticated', js: true do
+    scenario 'create an answer', js: true do
       new_answer_message = 'My new answer message'
       fill_in 'Add answer', with: new_answer_message
       click_on 'Create Answer'
@@ -24,7 +24,7 @@ feature 'Create an answer', '
       expect(page).to_not have_field('Add answer', with: new_answer_message)
     end
 
-    scenario 'Create an invalid answer when unauthenticated', js: true do
+    scenario 'create an invalid answer', js: true do
       click_on 'Create Answer'
 
       expect(page).to have_content 'Body is too short'
@@ -32,7 +32,7 @@ feature 'Create an answer', '
   end
 
   context 'When unauthenticated' do
-    scenario 'Create an answer' do
+    scenario 'create an answer' do
       visit question_path(question)
       fill_in 'Add answer', with: 'My smart answer'
       click_on 'Create Answer'
