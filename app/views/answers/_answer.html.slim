@@ -1,7 +1,5 @@
 - if answer.persisted?
-  = content_tag(:div,
-    id: "answer-#{answer.id}",
-    class: "answer #{'best-answer-selected' if answer.best}")
+  = div_for(answer, class: "answer #{'best-answer-selected' if answer.best}")
     - if user_signed_in? || answer.best
       = link_to answer_best_path(answer),
         method: :post,

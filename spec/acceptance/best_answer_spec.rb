@@ -19,7 +19,7 @@ feature 'Select the best answer', '
     scenario 'select the best answer', js: true do
       visit question_path(question)
 
-      within("#answer-#{answer2.id}") do
+      within("#answer_#{answer2.id}") do
         find(:css, '.best-answer-link').trigger('click')
         wait_for_ajax
       end
@@ -33,7 +33,7 @@ feature 'Select the best answer', '
       best_answer = create(:answer, question: question, body: 'the best answer', best: true)
 
       visit question_path(question)
-      within("#answer-#{best_answer.id}") do
+      within("#answer_#{best_answer.id}") do
         find(:css, '.best-answer-link').trigger('click')
         wait_for_ajax
       end
@@ -47,7 +47,7 @@ feature 'Select the best answer', '
       best_answer = create(:answer, question: question, body: 'the best answer', best: true)
 
       visit question_path(question)
-      within("#answer-#{answer2.id}") do
+      within("#answer_#{answer2.id}") do
         find(:css, '.best-answer-link').trigger('click')
         wait_for_ajax
       end
