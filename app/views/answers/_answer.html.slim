@@ -1,5 +1,5 @@
 - if answer.persisted?
-  = div_for(answer, class: "answer #{'best-answer-selected' if answer.best}")
+  = div_for(answer, class: "#{'best-answer-selected' if answer.best}")
     - if user_signed_in? || answer.best
       = link_to answer_best_path(answer),
         method: :post,
@@ -19,6 +19,7 @@
         class: 'remove-answer-link',
         data: { answer_id: answer.id, confirm: 'Are you sure?' },
         remote: true
+      = content_tag(:div, '', id: "edit-answer-error-#{answer.id}")
       = form_for answer, remote: true, html: { id: "edit-answer-#{answer.id}", class: 'edit-answer-area' } do |f|
         = f.text_area :body, id: "edit-answer-new-body-#{answer.id}"
         = f.submit 'Save'
