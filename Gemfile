@@ -12,6 +12,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'slim-rails', '~> 3.1'
 gem 'devise', '~> 4.2'
 gem 'bootstrap-sass', '~> 3.3.6'
+gem 'record_tag_helper', '~> 1.0'
 
 group :development, :test do
   gem 'byebug', platform: :mri

@@ -26,7 +26,7 @@ feature 'Answer editing', "
     end
 
     scenario 'can edit my own answer', js: true do
-      within("#answer-#{answer.id}") do
+      within("#answer_#{answer.id}") do
         click_on 'Edit'
         fill_in "edit-answer-new-body-#{answer.id}", with: 'I changed my mind'
         click_on 'Save'
@@ -40,7 +40,7 @@ feature 'Answer editing', "
     end
 
     scenario "can't edit other user's answer" do
-      within("#answer-#{answer_not_mine.id}") do
+      within("#answer_#{answer_not_mine.id}") do
         expect(page).to_not have_link('Edit')
       end
     end

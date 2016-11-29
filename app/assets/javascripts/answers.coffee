@@ -12,10 +12,10 @@ $(document).on('turbolinks:load', ready)
   $('.best-answer-link-selected').removeClass 'best-answer-link-selected'
 
 @isSelectedAnswerAlreadyTheBest = (answerId) ->
-  $('.best-answer-selected').attr('id') == "answer-#{answerId}"
+  $('.best-answer-selected').attr('id') == "answer_#{answerId}"
 
 @toggleTheBestAnswer = (answerId) ->
   $("#best-answer-link-#{answerId}").toggleClass 'best-answer-link-selected'
-  $("#answer-#{answerId}").fadeOut(300).delay(300).queue ->
+  $("#answer_#{answerId}").fadeOut(300).delay(300).queue ->
     $(@).toggleClass 'best-answer-selected'
     $(@).fadeIn(500).dequeue()
