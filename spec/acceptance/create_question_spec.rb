@@ -20,7 +20,7 @@ feature 'Create a question', '
     visit questions_path
     click_on 'Ask Question'
     fill_in 'Title', with: 'Test question'
-    fill_in 'Body', with: 'text text text'
+    fill_in 'Text', with: 'text text text'
     click_on 'Post Your Question'
 
     expect(page).to have_content 'Your question successfully created.'
