@@ -21,7 +21,7 @@ feature 'Remove an answer', '
       visit question_path(question)
     end
 
-    scenario 'Remove my own answer', js: true do
+    scenario 'remove my own answer', js: true do
       within('div', text: my_answer.body, class: 'answer') do
         click_on 'Remove'
         page.driver.browser.accept_js_confirms
@@ -31,17 +31,17 @@ feature 'Remove an answer', '
       expect(page).to have_content strangers_answer.body
     end
 
-    scenario 'There is no remove button for answers by different authors' do
+    scenario 'there is no remove button for answers by different authors' do
       within('p', text: strangers_answer.body) do
         expect(page).to_not have_link('Remove')
       end
     end
   end
 
-  context 'Unauthenticated' do
+  context 'When unauthenticated' do
     given(:question_with_answers) { create(:question_with_answers) }
 
-    scenario 'There are no remove buttons for answers' do
+    scenario 'there are no remove buttons for answers' do
       visit question_path(question_with_answers)
       expect(page).to_not have_link('Remove')
     end
