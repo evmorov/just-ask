@@ -12,7 +12,7 @@ feature 'Select the best answer', '
   given!(:answer2) { create(:answer, question: question, body: 'answer2') }
 
   context 'When authenticated' do
-    before do
+    background do
       sign_in(user)
     end
 

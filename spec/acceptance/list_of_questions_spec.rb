@@ -6,9 +6,7 @@ feature 'List of questions', '
   I want to be able to view all questions
 ' do
 
-  given(:list_of_questions) { create_list(:question, 10) }
-
-  before { list_of_questions }
+  given!(:list_of_questions) { create_list(:question, 10) }
 
   scenario 'View List of questions' do
     visit questions_path

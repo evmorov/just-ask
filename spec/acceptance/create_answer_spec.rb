@@ -10,7 +10,7 @@ feature 'Create an answer', '
   given(:user) { create(:user) }
 
   context 'When authenticated' do
-    before do
+    background do
       sign_in(user)
       visit question_path(question)
     end

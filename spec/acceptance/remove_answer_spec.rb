@@ -10,13 +10,10 @@ feature 'Remove an answer', '
     given(:me) { create(:user) }
     given(:stranger) { create(:user) }
     given(:question) { create(:question) }
-    given(:my_answer) { create(:answer, question: question, user: me) }
-    given(:strangers_answer) { create(:answer, question: question, user: stranger) }
+    given!(:my_answer) { create(:answer, question: question, user: me) }
+    given!(:strangers_answer) { create(:answer, question: question, user: stranger) }
 
-    before do
-      my_answer
-      strangers_answer
-
+    background do
       sign_in(me)
       visit question_path(question)
     end

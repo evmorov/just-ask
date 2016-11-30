@@ -20,7 +20,7 @@ feature 'Answer editing', "
     given!(:answer) { create(:answer, question: question, user: user) }
     given!(:answer_not_mine) { create(:answer, question: question, user: user_another) }
 
-    before do
+    background do
       sign_in user
       visit question_path(question)
     end
