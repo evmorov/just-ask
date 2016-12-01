@@ -16,6 +16,7 @@ feature 'Add files to answer', "
 
   scenario 'Add file to an answer', js: true do
     fill_in 'Add answer', with: 'My smart answer'
+    attach_file 'File', "#{Rails.root}/spec/spec_helper.rb"
     click_on 'Create Answer'
 
     within '#answers' do
