@@ -7,9 +7,14 @@
     = link_to 'Remove', @question,
       method: :delete,
         data: { confirm: 'Are you sure?' }
+  #attachments
+    p Attachments:
+    ul
+      - @question.attachments.each do |a|
+        li = link_to a.file.file.filename
 
-h4 Answers
 #answers
+  h3 Answers
   = render @question.answers
 
 #add-answer

@@ -17,8 +17,8 @@ feature 'Add files to question', "
     fill_in 'Title', with: 'Test question'
     fill_in 'Text', with: 'text text text'
     attach_file 'File', "#{Rails.root}/spec/spec_helper.rb"
-    click_on 'Create'
+    click_on 'Post Your Question'
 
-    expect(page).to have_link 'spec_helper.rb', href: '/uploads/attachment/file/1/spec_helper.rb'
+    expect(page).to have_link 'spec_helper.rb'
   end
 end
