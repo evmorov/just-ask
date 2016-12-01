@@ -20,13 +20,13 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'pry-byebug'
-  gem 'capybara-webkit'
   gem 'database_cleaner'
 end
 
 group :test do
   gem 'shoulda-matchers', '~> 3.1'
   gem 'rails-controller-testing'
+  gem 'capybara-webkit', '1.1.0'
   gem 'capybara', '~> 2.10'
 end
 
