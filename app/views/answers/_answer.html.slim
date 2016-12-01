@@ -23,4 +23,6 @@
       = form_for answer, remote: true, html: { id: "edit-answer-#{answer.id}", class: 'edit-answer-area' } do |f|
         = f.text_area :body, id: "edit-answer-new-body-#{answer.id}"
         = f.submit 'Save'
-
+    ul
+      - answer.attachments.each do |a|
+        li = link_to a.file.identifier, a.file.url
