@@ -1,4 +1,4 @@
-require_relative 'acceptance_helper'
+require_relative '../acceptance_helper'
 
 feature 'View Question with answers', '
   In order to understand a question and find the right answer
