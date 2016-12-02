@@ -9,8 +9,6 @@ h2 New question
     = f.text_area :body
   p Attachments:
   p
-    = f.fields_for :attachments do |a|
-      = a.label :file
-      = a.file_field :file
+    = render 'attachments/form', form: f
   p
     = f.submit 'Post Your Question'
