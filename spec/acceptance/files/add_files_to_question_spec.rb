@@ -24,7 +24,7 @@ feature 'Add files to question', "
 
   scenario 'Add several files when asking a question', js: true do
     attach_file 'File', "#{Rails.root}/spec/spec_helper.rb"
-    click_on 'Add file'
+    click_on 'Another file'
     within all('.attachment-fields').first do
       attach_file 'File', "#{Rails.root}/Gemfile"
     end
