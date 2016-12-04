@@ -9,8 +9,6 @@ h2 New question
     = f.text_area :body
   p Attachments:
   #attachments
-    = f.fields_for :attachments do |attachment|
-      = render 'attachments/form_fields', f: attachment
-    = link_to_add_association 'Add file', f, :attachments, partial: 'attachments/form_fields'
+    = render 'attachments/form', f: f
   p
     = f.submit 'Post Your Question'

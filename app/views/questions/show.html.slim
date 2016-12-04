@@ -23,9 +23,7 @@ h3 Answers
       .answer-errors
       = f.text_area :body
     #attachments
-      = f.fields_for :attachments do |attachment|
-        = render 'attachments/form_fields', f: attachment
-      = link_to_add_association 'Add file', f, :attachments, partial: 'attachments/form_fields'
+      = render 'attachments/form', f: f
     p
       = f.submit
 
