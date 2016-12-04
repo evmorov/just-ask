@@ -33,6 +33,7 @@ feature 'Remove a question', '
 
   context 'Unauthenticated' do
     scenario 'there are no remove buttons for questions' do
+      Capybara.exact = true
       visit question_path(question)
       expect(page).to_not have_selector(:link_or_button, 'Remove')
     end

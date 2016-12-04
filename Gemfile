@@ -15,6 +15,7 @@ gem 'bootstrap-sass', '~> 3.3.6'
 gem 'record_tag_helper', '~> 1.0'
 gem 'carrierwave', '~> 0.11'
 gem 'remotipart', '~> 1.3.1'
+gem 'cocoon', '~> 1.2'
 
 group :development, :test do
   gem 'byebug', platform: :mri
