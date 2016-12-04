@@ -24,4 +24,4 @@
         = f.text_area :body, id: "edit-answer-new-body-#{answer.id}"
         = f.submit 'Save'
     #answer-attachments
-      = render answer.attachments
+      ul = render answer.attachments

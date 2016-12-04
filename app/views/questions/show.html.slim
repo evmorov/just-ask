@@ -10,7 +10,7 @@
   #question-attachments
     - if @question.attachments.any?
       div Attachments:
-      = render @question.attachments
+      ul = render @question.attachments
 
 h3 Answers
 #answers
@@ -22,8 +22,10 @@ h3 Answers
       = f.label :body, 'Add answer'
       .answer-errors
       = f.text_area :body
-    p
-      = render 'attachments/form', form: f
+    #attachments
+      = f.fields_for :attachments do |attachment|
+        = render 'attachments/form_fields', f: attachment
+      = link_to_add_association 'Add file', f, :attachments, partial: 'attachments/form_fields'
     p
       = f.submit
 

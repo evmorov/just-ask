@@ -39,6 +39,7 @@ feature 'Remove an answer', '
     given(:question_with_answers) { create(:question_with_answers) }
 
     scenario 'there are no remove buttons for answers' do
+      Capybara.exact = true
       visit question_path(question_with_answers)
       expect(page).to_not have_link('Remove')
     end

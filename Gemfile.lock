@@ -65,6 +65,7 @@ GEM
       activesupport (>= 3.2.0)
       json (>= 1.7)
       mime-types (>= 1.16)
+    cocoon (1.2.9)
     coderay (1.1.1)
     coffee-rails (4.2.1)
       coffee-script (>= 2.2.0)
@@ -262,6 +263,7 @@ DEPENDENCIES
   capybara (~> 2.10)
   capybara-webkit (= 1.1.0)
   carrierwave (~> 0.11)
+  cocoon (~> 1.2)
   coffee-rails (~> 4.2)
   database_cleaner
   devise (~> 4.2)
