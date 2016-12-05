@@ -10,7 +10,7 @@ describe AttachmentsController, type: :controller do
     context 'when the author' do
       before { sign_in user }
 
-      it 'deletes answer' do
+      it 'deletes attachment' do
         expect {
           delete :destroy, params: { id: attachment }, format: :js
         }.to change(question.reload.attachments, :count).by(-1)
@@ -25,7 +25,7 @@ describe AttachmentsController, type: :controller do
     context 'when not the author' do
       before { sign_in another_user }
 
-      it 'does not delete answer' do
+      it 'does not delete attachment' do
         expect {
           delete :destroy, params: { id: attachment }, format: :js
         }.to_not change(question.reload.attachments, :count)
