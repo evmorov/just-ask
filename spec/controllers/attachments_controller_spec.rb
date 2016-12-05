@@ -10,6 +10,11 @@ describe AttachmentsController, type: :controller do
     context 'when the author' do
       before { sign_in user }
 
+      it 'assigns the deleted attachment to @attachment' do
+        delete :destroy, params: { id: attachment }, format: :js
+        expect(assigns(:attachment)).to eq(attachment)
+      end
+
       it 'deletes attachment' do
         expect {
           delete :destroy, params: { id: attachment }, format: :js
@@ -24,6 +29,11 @@ describe AttachmentsController, type: :controller do
 
     context 'when not the author' do
       before { sign_in another_user }
+
+      it 'assigns the deleted attachment to @attachment' do
+        delete :destroy, params: { id: attachment }, format: :js
+        expect(assigns(:attachment)).to eq(attachment)
+      end
 
       it 'does not delete attachment' do
         expect {
