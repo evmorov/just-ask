@@ -7,4 +7,6 @@ Rails.application.routes.draw do
       post :best
     end
   end
+
+  resources :attachments, only: [:destroy]
 end
