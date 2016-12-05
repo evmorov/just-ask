@@ -1,7 +1,8 @@
 = content_tag_for(:li, attachment) do
   = link_to attachment.file.identifier, attachment.file.url
-  = link_to attachment,
-    method: :delete,
-    remote: true,
-    class: 'remove-attachment-link'
-      i class='glyphicon glyphicon-remove'
+  - if user_signed_in? && current_user.author_of?(attachment.attachable)
+    = link_to attachment,
+      method: :delete,
+      remote: true,
+      class: 'remove-attachment-link'
+        i class='glyphicon glyphicon-remove'
