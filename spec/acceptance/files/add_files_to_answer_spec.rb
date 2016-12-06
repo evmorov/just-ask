@@ -15,16 +15,7 @@ feature 'Add files to answer', "
     fill_in 'Add answer', with: 'My smart answer'
   end
 
-  scenario 'Add file to an answer', js: true do
-    attach_file 'File', "#{Rails.root}/spec/spec_helper.rb"
-    click_on 'Create Answer'
-
-    within '#answers' do
-      expect(page).to have_link 'spec_helper.rb', href: '/uploads/attachment/file/1/spec_helper.rb'
-    end
-  end
-
-  scenario 'Add several files when posting an answer', js: true do
+  scenario 'Add files when posting an answer', js: true do
     attach_file 'File', "#{Rails.root}/spec/spec_helper.rb"
     click_on 'Another file'
     within all('.attachment-fields').first do
