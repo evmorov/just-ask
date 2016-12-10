@@ -2,28 +2,28 @@ class VotesController < ApplicationController
   before_action :authenticate_user!
 
   def upvote
-    votable = find_votable
-
-    vote = Vote.find_by(votable: votable, user: current_user)
-    if vote # already voted
-      vote.destroy
-    else
-      votable.votes.create(score: 1, user: current_user)
-    end
+    create_vote(1)
   end
 
   def downvote
-    votable = find_votable
-
-    vote = Vote.find_by(votable: votable, user: current_user)
-    if vote # already voted
-      vote.destroy
-    else
-      votable.votes.create(score: -1, user: current_user)
-    end
+    create_vote(-1)
   end
 
   private
+
+  def create_vote(score)
+    votable = find_votable
+
+    vote = Vote.find_by(votable: votable, user: current_user)
+
+    if !vote || (vote && vote.score != score)
+      votable.votes.create(score: score, user: current_user)
+    end
+
+    if vote
+      vote.destroy
+    end
+  end
 
   def find_votable
     params.each do |name, value|
