@@ -7,16 +7,35 @@ describe VotesController, type: :controller do
     login_user
 
     context 'with valid attributes' do
-      it 'creates a vote if there is no vote by the user for the question' do
+      it 'creates a upvote if there is no upvote by the user for the question' do
         expect {
           post :upvote, params: { question_id: question.id }
         }.to change(question.votes, :count).by(1)
       end
 
-      it 'removes a vote if there is vote by the user for the question' do
+      it 'removes a upvote if there is upvote by the user for the question' do
         create(:vote, score: 1, user: @user, votable: question)
         expect {
           post :upvote, params: { question_id: question.id }
+        }.to change(question.votes, :count).by(-1)
+      end
+    end
+  end
+
+  describe 'POST #downvote' do
+    login_user
+
+    context 'with valid attributes' do
+      it 'creates a downvote if there is no downvote by the user for the question' do
+        expect {
+          post :downvote, params: { question_id: question.id }
+        }.to change(question.votes, :count).by(1)
+      end
+
+      it 'removes a downvote if there is downvote by the user for the question' do
+        create(:vote, score: 1, user: @user, votable: question)
+        expect {
+          post :downvote, params: { question_id: question.id }
         }.to change(question.votes, :count).by(-1)
       end
     end

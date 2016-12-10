@@ -13,6 +13,14 @@ class VotesController < ApplicationController
   end
 
   def downvote
+    votable = find_votable
+
+    vote = Vote.find_by(votable: votable, user: current_user)
+    if vote # already voted
+      vote.destroy
+    else
+      votable.votes.create(score: -1, user: current_user)
+    end
   end
 
   private

@@ -11,4 +11,5 @@ Rails.application.routes.draw do
   resources :attachments, only: [:destroy]
 
   post 'upvote', controller: 'votes'
+  post 'downvote', controller: 'votes'
 end
