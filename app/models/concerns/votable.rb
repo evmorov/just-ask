@@ -34,6 +34,8 @@ module Votable
   private
 
   def give_vote(score, user_id)
+    return if self.user.id == user_id
+
     transaction do
       vote_by_user = Vote.find_by(votable: self, user_id: user_id)
       vote_by_user.destroy! if vote_by_user

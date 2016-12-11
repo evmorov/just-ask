@@ -7,7 +7,7 @@ shared_examples_for 'votable' do
 
   let(:user) { create(:user) }
   let(:another_user) { create(:user) }
-  let!(:votable) { create(described_class.to_s.underscore.to_sym, user: user) }
+  let!(:votable) { create(described_class.to_s.underscore.to_sym) }
 
   describe '#upvote' do
     context 'when a votable does not have votes yet' do
@@ -62,6 +62,15 @@ shared_examples_for 'votable' do
 
       it 'creates a new vote' do
         expect(Vote.exists?(upvote.id)).to be(true)
+      end
+    end
+
+    context 'when a user tries to upvote his own votable' do
+      let!(:own_votable) { create(described_class.to_s.underscore.to_sym, user: user) }
+      let!(:upvote) { own_votable.upvote(user.id) }
+
+      it 'creates a new vote' do
+        expect(upvote).to be_nil
       end
     end
   end
@@ -119,6 +128,15 @@ shared_examples_for 'votable' do
 
       it 'creates a new vote' do
         expect(Vote.exists?(downvote.id)).to be(true)
+      end
+    end
+
+    context 'when a user tries to downvote his own votable' do
+      let!(:own_votable) { create(described_class.to_s.underscore.to_sym, user: user) }
+      let!(:downvote) { own_votable.downvote(user.id) }
+
+      it 'creates a new vote' do
+        expect(downvote).to be_nil
       end
     end
   end
