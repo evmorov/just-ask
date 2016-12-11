@@ -43,8 +43,8 @@ shared_examples_for 'votable' do
       let!(:vote_old) { votable.upvote(user.id) }
       let!(:vote_new) { votable.upvote(user.id) }
 
-      it 'keeps the upvote that exists' do
-        expect(Vote.exists?(vote_old.id)).to be(true)
+      it 'removes the previous upvote' do
+        expect(Vote.exists?(vote_old.id)).to be(false)
       end
 
       it 'does not create a new vote' do
@@ -66,7 +66,7 @@ shared_examples_for 'votable' do
     end
   end
 
-  describe '.downvote' do
+  describe '#downvote' do
     context 'when votable does not have votes yet' do
       let(:vote) { votable.downvote(user.id) }
 
@@ -100,8 +100,8 @@ shared_examples_for 'votable' do
       let!(:vote_old) { votable.downvote(user.id) }
       let!(:vote_new) { votable.downvote(user.id) }
 
-      it 'keeps the downvote that exists' do
-        expect(Vote.exists?(vote_old.id)).to be(true)
+      it 'remove the previous downvote' do
+        expect(Vote.exists?(vote_old.id)).to be(false)
       end
 
       it 'does not create a new vote' do
