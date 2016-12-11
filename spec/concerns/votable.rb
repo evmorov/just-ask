@@ -11,7 +11,7 @@ shared_examples_for 'votable' do
 
   describe '#upvote' do
     context 'when a votable does not have votes yet' do
-      let(:vote) { votable.upvote(user_id: user.id) }
+      let(:vote) { votable.upvote(user.id) }
 
       it 'creates a Vote instance' do
         expect(vote).to be_a(Vote)
@@ -27,8 +27,8 @@ shared_examples_for 'votable' do
     end
 
     context 'when an upvote from another user exists for this votable' do
-      let!(:vote_old) { votable.upvote(user_id: another_user.id) }
-      let!(:vote_new) { votable.upvote(user_id: user.id) }
+      let!(:vote_old) { votable.upvote(another_user.id) }
+      let!(:vote_new) { votable.upvote(user.id) }
 
       it 'keeps the upvote that exists' do
         expect(Vote.exists?(vote_old.id)).to be(true)
@@ -40,8 +40,8 @@ shared_examples_for 'votable' do
     end
 
     context 'when an upvote already exists for this user and this votable' do
-      let!(:vote_old) { votable.upvote(user_id: user.id) }
-      let!(:vote_new) { votable.upvote(user_id: user.id) }
+      let!(:vote_old) { votable.upvote(user.id) }
+      let!(:vote_new) { votable.upvote(user.id) }
 
       it 'keeps the upvote that exists' do
         expect(Vote.exists?(vote_old.id)).to be(true)
@@ -53,8 +53,8 @@ shared_examples_for 'votable' do
     end
 
     context 'when a downvote already exists for this user and this votable' do
-      let!(:downvote) { votable.downvote(user_id: user.id) }
-      let!(:upvote) { votable.upvote(user_id: user.id) }
+      let!(:downvote) { votable.downvote(user.id) }
+      let!(:upvote) { votable.upvote(user.id) }
 
       it 'remove the downvote' do
         expect(Vote.exists?(downvote.id)).to be(false)
@@ -68,7 +68,7 @@ shared_examples_for 'votable' do
 
   describe '.downvote' do
     context 'when votable does not have votes yet' do
-      let(:vote) { votable.downvote(user_id: user.id) }
+      let(:vote) { votable.downvote(user.id) }
 
       it 'creates a Vote instance' do
         expect(vote).to be_a(Vote)
@@ -84,8 +84,8 @@ shared_examples_for 'votable' do
     end
 
     context 'when a downvote from another user exists for this votable' do
-      let!(:vote_old) { votable.downvote(user_id: another_user.id) }
-      let!(:vote_new) { votable.downvote(user_id: user.id) }
+      let!(:vote_old) { votable.downvote(another_user.id) }
+      let!(:vote_new) { votable.downvote(user.id) }
 
       it 'keeps the downvote that exists' do
         expect(Vote.exists?(vote_old.id)).to be(true)
@@ -97,8 +97,8 @@ shared_examples_for 'votable' do
     end
 
     context 'when an downvote already exists for this user and this votable' do
-      let!(:vote_old) { votable.downvote(user_id: user.id) }
-      let!(:vote_new) { votable.downvote(user_id: user.id) }
+      let!(:vote_old) { votable.downvote(user.id) }
+      let!(:vote_new) { votable.downvote(user.id) }
 
       it 'keeps the downvote that exists' do
         expect(Vote.exists?(vote_old.id)).to be(true)
@@ -110,8 +110,8 @@ shared_examples_for 'votable' do
     end
 
     context 'when a upvote already exists for this user and this votable' do
-      let!(:upvote) { votable.upvote(user_id: user.id) }
-      let!(:downvote) { votable.downvote(user_id: user.id) }
+      let!(:upvote) { votable.upvote(user.id) }
+      let!(:downvote) { votable.downvote(user.id) }
 
       it 'remove the upvote' do
         expect(Vote.exists?(upvote.id)).to be(false)
