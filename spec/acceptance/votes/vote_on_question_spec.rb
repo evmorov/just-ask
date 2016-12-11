@@ -16,8 +16,6 @@ feature 'Vote on question', '
       sign_in(user)
     end
 
-    context
-
     scenario 'vote on a question', js: true do
       visit question_path(question)
 
