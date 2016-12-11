@@ -1,17 +1,24 @@
 #question
   h2.title
     = @question.title
-  .vote
+  = content_tag :div,
+    '',
+    id: "vote-questions-#{@question.id}",
+    class: "vote #{@question.vote_state(current_user.id)}"
     = link_to upvote_question_path(@question),
       method: :post,
-      class: 'vote-icon upvote',
+      remote: true,
+      data: { type: :json },
+      class: 'vote-link upvote-link',
       remote: true
         i class='glyphicon glyphicon-chevron-up'
     .score
       = @question.total_score
     = link_to downvote_question_path(@question),
       method: :post,
-      class: 'vote-icon downvote',
+      remote: true,
+      data: { type: :json },
+      class: 'vote-link downvote-link',
       remote: true
         i class='glyphicon glyphicon-chevron-down'
   .body
