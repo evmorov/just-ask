@@ -17,10 +17,12 @@ feature 'Vote on question', '
     scenario 'vote on a question', js: true do
       visit question_path(question)
 
-      find(:css, '#upvote-question').trigger('click')
+      within('#question') do
+        find(:css, '.upvote').trigger('click')
 
-      expect(find('#upvote-question')['class']).to include('active')
-      expect(find('#question-score')).to have_content('1')
+        expect(find('.upvote')['class']).to include('active')
+        expect(find('.score')).to have_content('1')
+      end
     end
 
     scenario 'unvote the question'
@@ -28,7 +30,9 @@ feature 'Vote on question', '
     scenario 'downvote if already upvoted'
     scenario 'upvote if already downvoted'
     scenario "can't vote for my own question"
-    scenario "can't vote twice"
     scenario 'vote when a question is already voted by another user'
+  end
+
+  context 'When unauthenticated' do
   end
 end
