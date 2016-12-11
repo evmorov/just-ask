@@ -16,15 +16,30 @@ module Votable
     give_vote(-1, user_id)
   end
 
+  def vote_state(user_id)
+    vote_by_user = Vote.find_by(votable: self, user_id: user_id)
+    return unless vote_by_user
+
+    if vote_by_user.score.positive?
+      'upvoted'
+    elsif vote_by_user.score.negative?
+      'downvoted'
+    end
+  end
+
+  def total_score
+    votes.sum(:score)
+  end
+
   private
 
   def give_vote(score, user_id)
     transaction do
-      vote_same_attrs = Vote.find_by(votable: self, user_id: user_id)
+      vote_by_user = Vote.find_by(votable: self, user_id: user_id)
 
-      if vote_same_attrs
-        if vote_same_attrs.score != score
-          vote_same_attrs.destroy!
+      if vote_by_user
+        if vote_by_user.score != score
+          vote_by_user.destroy!
           votes.create!(score: score, user_id: user_id)
         end
       else
