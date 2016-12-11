@@ -1,25 +1,27 @@
 require_relative '../acceptance_helper'
 
-feature 'Vote on question', '
-  In order to show that I like a question
+feature 'Vote on answer', '
+  In order to show that I like an answer
   As an authenticated user
-  I want to be able to vote on a question
+  I want to be able to vote on an answer
 ' do
 
   given(:user) { create(:user) }
   given(:another_user) { create(:user) }
-  given(:my_question) { create(:question, user: user) }
   given(:question) { create(:question) }
+  given!(:answer) { create(:answer, question: question) }
+  given!(:my_answer) { create(:answer, question: question, user: user) }
+
 
   context 'When authenticated' do
     background do
       sign_in(user)
     end
 
-    scenario 'upvote on a question', js: true do
+    scenario 'vote on an answer', js: true do
       visit question_path(question)
 
-      within('#question') do
+      within("#answer_#{answer.id}") do
         find(:css, '.upvote-link').trigger('click')
         wait_for_ajax
 
@@ -29,10 +31,10 @@ feature 'Vote on question', '
       end
     end
 
-    scenario 'unvote the question', js: true do
+    scenario 'unvote the answer', js: true do
       visit question_path(question)
 
-      within('#question') do
+      within("#answer_#{answer.id}") do
         find(:css, '.upvote-link').trigger('click')
         wait_for_ajax
         find(:css, '.upvote-link').trigger('click')
@@ -44,10 +46,10 @@ feature 'Vote on question', '
       end
     end
 
-    scenario 'downvote a question', js: true do
+    scenario 'downvote an answer', js: true do
       visit question_path(question)
 
-      within('#question') do
+      within("#answer_#{answer.id}") do
         find(:css, '.downvote-link').trigger('click')
         wait_for_ajax
 
@@ -60,7 +62,7 @@ feature 'Vote on question', '
     scenario 'downvote if already upvoted', js: true do
       visit question_path(question)
 
-      within('#question') do
+      within("#answer_#{answer.id}") do
         find(:css, '.upvote-link').trigger('click')
         wait_for_ajax
         find(:css, '.downvote-link').trigger('click')
@@ -75,7 +77,7 @@ feature 'Vote on question', '
     scenario 'upvote if already downvoted', js: true do
       visit question_path(question)
 
-      within('#question') do
+      within("#answer_#{answer.id}") do
         find(:css, '.downvote-link').trigger('click')
         wait_for_ajax
         find(:css, '.upvote-link').trigger('click')
@@ -87,10 +89,10 @@ feature 'Vote on question', '
       end
     end
 
-    scenario "can't upvote my own question", js: true do
-      visit question_path(my_question)
+    scenario "can't upvote my own answer", js: true do
+      visit question_path(question)
 
-      within('#question') do
+      within("#answer_#{my_answer.id}") do
         find(:css, '.upvote-link').trigger('click')
         wait_for_ajax
 
@@ -100,12 +102,12 @@ feature 'Vote on question', '
       end
     end
 
-    scenario 'upvote when a question is already upvoted by another user', js: true do
-      create(:vote, user: another_user, votable: question)
+    scenario 'upvote when an answer is already upvoted by another user', js: true do
+      create(:vote, user: another_user, votable: answer)
 
       visit question_path(question)
 
-      within('#question') do
+      within("#answer_#{answer.id}") do
         find(:css, '.upvote-link').trigger('click')
         wait_for_ajax
 
@@ -117,10 +119,10 @@ feature 'Vote on question', '
   end
 
   context 'When unauthenticated' do
-    scenario "can't vote on a question", js: true do
-      visit question_path(my_question)
+    scenario "can't vote on an answer", js: true do
+      visit question_path(question)
 
-      within('#question') do
+      within("#answer_#{answer.id}") do
         find(:css, '.upvote-link').trigger('click')
         wait_for_ajax
 
