@@ -16,7 +16,7 @@ feature 'Vote on question', '
       sign_in(user)
     end
 
-    scenario 'vote on a question', js: true do
+    scenario 'upvote on a question', js: true do
       visit question_path(question)
 
       within('#question') do
@@ -100,7 +100,7 @@ feature 'Vote on question', '
       end
     end
 
-    scenario 'vote when a question is already voted by another user', js: true do
+    scenario 'upvote when a question is already upvoted by another user', js: true do
       create(:vote, user: another_user, votable: question)
 
       visit question_path(question)
