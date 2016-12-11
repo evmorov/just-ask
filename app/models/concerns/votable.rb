@@ -36,15 +36,8 @@ module Votable
   def give_vote(score, user_id)
     transaction do
       vote_by_user = Vote.find_by(votable: self, user_id: user_id)
-
-      if vote_by_user
-        if vote_by_user.score != score
-          vote_by_user.destroy!
-          votes.create!(score: score, user_id: user_id)
-        end
-      else
-        votes.create!(score: score, user_id: user_id)
-      end
+      vote_by_user.destroy! if vote_by_user
+      votes.create!(score: score, user_id: user_id) if vote_by_user.try(:score) != score
     end
   end
 end
