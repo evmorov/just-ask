@@ -1,26 +1,11 @@
 #question
   h2.title
     = @question.title
-  = content_tag :div,
-    '',
-    id: "vote-questions-#{@question.id}",
-    class: "vote #{@question.vote_state(current_user.id)}"
-    = link_to upvote_question_path(@question),
-      method: :post,
-      remote: true,
-      data: { type: :json },
-      class: 'vote-link upvote-link',
-      remote: true
-        i class='glyphicon glyphicon-chevron-up'
-    .score
-      = @question.total_score
-    = link_to downvote_question_path(@question),
-      method: :post,
-      remote: true,
-      data: { type: :json },
-      class: 'vote-link downvote-link',
-      remote: true
-        i class='glyphicon glyphicon-chevron-down'
+  = render 'shared/vote',
+    votable: @question,
+    entities_name: 'questions',
+    upvote_path: upvote_question_path(@question),
+    downvote_path: downvote_question_path(@question)
   .body
     = @question.body
   - if user_signed_in? && current_user.author_of?(@question)
