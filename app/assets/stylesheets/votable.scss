@@ -1,0 +1,27 @@
+.score {
+  margin-left: 3px;
+  font-size: 140%;
+}
+
+.vote-link {
+  font-size: 140%;
+}
+
+.vote-link {
+  color: grey;
+  &:focus {
+    color: grey;
+  }
+}
+
+.upvoted {
+  .upvote-link {
+    color: green;
+  }
+}
+
+.downvoted {
+  .downvote-link {
+    color: red;
+  }
+}
