@@ -1,0 +1,20 @@
+= content_tag :div,
+  '',
+  id: "vote-#{entities_name}-#{votable.id}",
+  class: "vote #{votable.vote_state(current_user.id)}"
+  = link_to upvote_path,
+    method: :post,
+    remote: true,
+    data: { type: :json },
+    class: 'vote-link upvote-link',
+    remote: true
+      i class='glyphicon glyphicon-chevron-up'
+  .score
+    = votable.total_score
+  = link_to downvote_path,
+    method: :post,
+    remote: true,
+    data: { type: :json },
+    class: 'vote-link downvote-link',
+    remote: true
+      i class='glyphicon glyphicon-chevron-down'
