@@ -1,6 +1,19 @@
 #question
   h2.title
     = @question.title
+  .vote
+    = link_to upvote_question_path(@question),
+      method: :post,
+      class: 'vote-icon upvote',
+      remote: true
+        i class='glyphicon glyphicon-chevron-up'
+    .score
+      = @question.total_score
+    = link_to downvote_question_path(@question),
+      method: :post,
+      class: 'vote-icon downvote',
+      remote: true
+        i class='glyphicon glyphicon-chevron-down'
   .body
     = @question.body
   - if user_signed_in? && current_user.author_of?(@question)
