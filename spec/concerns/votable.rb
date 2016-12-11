@@ -122,4 +122,43 @@ shared_examples_for 'votable' do
       end
     end
   end
+
+  describe '#total_score' do
+    it 'is zero when no votes' do
+      expect(votable.votes).to be_empty
+      expect(votable.total_score).to eq(0)
+    end
+
+    it 'has positive value when there are more upvotes' do
+      10.times { votable.upvote(create(:user).id) }
+      5.times { votable.downvote(create(:user).id) }
+
+      expect(votable.total_score).to eq(5)
+    end
+
+    it 'has negative value when there are more downvotes' do
+      5.times { votable.upvote(create(:user).id) }
+      10.times { votable.downvote(create(:user).id) }
+
+      expect(votable.total_score).to eq(-5)
+    end
+  end
+
+  describe '#vote_state' do
+    it 'returns "upvoted" when the user upvoted the votable' do
+      votable.upvote(user.id)
+
+      expect(votable.vote_state(user.id)).to eq('upvoted')
+    end
+
+    it 'returns "downvoted" when the user downvoted the votable' do
+      votable.downvote(user.id)
+
+      expect(votable.vote_state(user.id)).to eq('downvoted')
+    end
+
+    it 'returns nil when the user did not give his vote' do
+      expect(votable.vote_state(user.id)).to be_nil
+    end
+  end
 end
