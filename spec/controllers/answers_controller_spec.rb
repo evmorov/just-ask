@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 describe AnswersController, type: :controller do
+  it_behaves_like 'votes' do
+    let(:votable) { create(:answer) }
+  end
+
   let(:question) { create(:question) }
 
   describe 'POST #create' do

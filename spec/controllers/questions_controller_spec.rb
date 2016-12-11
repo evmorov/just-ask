@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 describe QuestionsController, type: :controller do
+  it_behaves_like 'votes' do
+    let(:votable) { create(:question) }
+  end
+
   let(:question) { create(:question) }
 
   describe 'GET #index' do
