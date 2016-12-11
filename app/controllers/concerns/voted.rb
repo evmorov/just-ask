@@ -19,14 +19,20 @@ module Voted
 
   def respond_to_json
     respond_to do |format|
-      format.json {
-        render json: {
-          votable: controller_name,
-          votable_id: @votable.id,
-          vote_state: @votable.vote_state(current_user.id),
-          total_score: @votable.total_score
-        }
-      }
+      format.json do
+        if current_user.author_of? @votable
+          json = { error: "Can't vote when you're the author" }
+          render json: json, status: :unprocessable_entity
+        else
+          json = {
+            votable: controller_name,
+            votable_id: @votable.id,
+            vote_state: @votable.vote_state(current_user.id),
+            total_score: @votable.total_score
+          }
+          render json: json
+        end
+      end
     end
   end
 
