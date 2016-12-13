@@ -7,11 +7,7 @@
         class: "best-answer-link #{'best-answer-link-selected' if answer.best}",
         remote: true
           i class='glyphicon glyphicon-ok'
-    = render 'shared/vote',
-      votable: answer,
-      entities_name: 'answers',
-      upvote_path: upvote_answer_path(answer),
-      downvote_path: downvote_answer_path(answer)
+    = render 'shared/vote', votable: answer
     p = answer.body
     - if user_signed_in? && current_user.author_of?(answer)
       = link_to 'Edit',

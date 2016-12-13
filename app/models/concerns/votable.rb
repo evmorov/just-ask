@@ -8,22 +8,22 @@ module Votable
     accepts_nested_attributes_for :votes, reject_if: :all_blank, allow_destroy: true
   end
 
-  def upvote(user_id)
-    give_vote(1, user_id)
+  def upvote(user)
+    give_vote(1, user)
   end
 
-  def downvote(user_id)
-    give_vote(-1, user_id)
+  def downvote(user)
+    give_vote(-1, user)
   end
 
-  def vote_state(user_id)
-    vote_by_user = Vote.find_by(votable: self, user_id: user_id)
+  def vote_state(user)
+    vote_by_user = votes.find_by(user: user)
     return unless vote_by_user
 
     if vote_by_user.score.positive?
-      'upvoted'
+      :upvoted
     elsif vote_by_user.score.negative?
-      'downvoted'
+      :downvoted
     end
   end
 
@@ -33,13 +33,13 @@ module Votable
 
   private
 
-  def give_vote(score, user_id)
-    return if self.user.id == user_id
+  def give_vote(score, user)
+    return if user.author_of? self
 
     transaction do
-      vote_by_user = Vote.find_by(votable: self, user_id: user_id)
+      vote_by_user = Vote.find_by(votable: self, user: user)
       vote_by_user.destroy! if vote_by_user
-      votes.create!(score: score, user_id: user_id) if vote_by_user.try(:score) != score
+      votes.create!(score: score, user: user) if vote_by_user.try(:score) != score
     end
   end
 end

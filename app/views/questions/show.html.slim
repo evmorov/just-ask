@@ -1,11 +1,7 @@
 #question
   h2.title
     = @question.title
-  = render 'shared/vote',
-    votable: @question,
-    entities_name: 'questions',
-    upvote_path: upvote_question_path(@question),
-    downvote_path: downvote_question_path(@question)
+  = render 'shared/vote', votable: @question
   .body
     = @question.body
   - if user_signed_in? && current_user.author_of?(@question)

@@ -12,7 +12,6 @@ feature 'Vote on answer', '
   given!(:answer) { create(:answer, question: question) }
   given!(:my_answer) { create(:answer, question: question, user: user) }
 
-
   context 'When authenticated' do
     background do
       sign_in(user)
