@@ -30,7 +30,11 @@ class AnswersController < ApplicationController
 
   def best
     @answer = Answer.find(params[:answer_id])
-    @answer.toggle_best
+    if current_user.author_of? @answer.question
+      @answer.toggle_best
+    else
+      head :forbidden
+    end
   end
 
   private

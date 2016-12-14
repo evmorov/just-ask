@@ -59,6 +59,23 @@ feature 'Select the best answer', '
         find("#best-answer-link-#{best_answer.id}")['class']
       ).to_not include(best_class)
     end
+
+    scenario 'only the author of the question can choose the best answer', js: true do
+      question_other_user = create(:question)
+      ans1 = create(:answer, question: question_other_user, body: 'answer1')
+      ans2 = create(:answer, question: question_other_user, body: 'answer2')
+
+      visit question_path(question_other_user)
+
+      within("#answer_#{ans2.id}") do
+        find(:css, '.best-answer-link').trigger('click')
+        wait_for_ajax
+      end
+
+      best_class = 'best-answer-link-selected'
+      expect(find("#best-answer-link-#{ans1.id}")['class']).to_not include(best_class)
+      expect(find("#best-answer-link-#{ans2.id}")['class']).to_not include(best_class)
+    end
   end
 
   context 'When unauthenticated' do
