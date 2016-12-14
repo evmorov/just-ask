@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   resources :questions, except: [:edit, :update], concerns: [:votable] do
     resources :answers, concerns: [:votable], shallow: true do
-      post :best
+      post :best, on: :member
     end
   end
 

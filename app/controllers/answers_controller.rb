@@ -2,7 +2,7 @@ class AnswersController < ApplicationController
   include Voted
 
   before_action :authenticate_user!
-  before_action :load_answer, only: [:update, :destroy]
+  before_action :load_answer, only: [:update, :destroy, :best]
 
   def create
     @question = Question.find(params[:question_id])
@@ -29,7 +29,6 @@ class AnswersController < ApplicationController
   end
 
   def best
-    @answer = Answer.find(params[:answer_id])
     if current_user.author_of? @answer.question
       @answer.toggle_best
     else

@@ -161,12 +161,13 @@ describe AnswersController, type: :controller do
   end
 
   describe 'POST #best_answer' do
-    let(:answer) { create(:answer) }
-
     login_user
 
+    let(:question) { create(:question, user: @user) }
+    let!(:answer) { create(:answer, question: question) }
+
     it 'render best_answer template' do
-      post :best, params: { answer_id: answer, format: :js }
+      post :best, params: { id: answer, format: :js }
       expect(response).to render_template :best
     end
   end
