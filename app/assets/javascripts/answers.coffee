@@ -1,9 +1,20 @@
-ready = ->
+subscribeToAnswers = ->
+  return if App.answers
+  App.answers = App.cable.subscriptions.create 'AnswersChannel',
+    received: (data) ->
+      return if gon.user_id is data.answer.user_id
+      $('#answers').append(JST['answer'](data))
+
+addOnEditAnswerListener = ->
   $('body').on 'click', '.edit-answer-link', (e) ->
     e.preventDefault()
     $(@).hide()
     answer_id = $(@).data('answerId')
-    $('form#edit-answer-' + answer_id).show()
+    $("form#edit-answer-#{answer_id}").show()
+
+ready = ->
+  subscribeToAnswers()
+  addOnEditAnswerListener()
 
 $(document).on('turbolinks:load', ready)
 
@@ -12,7 +23,7 @@ $(document).on('turbolinks:load', ready)
   $('.best-answer-link-selected').removeClass 'best-answer-link-selected'
 
 @isSelectedAnswerAlreadyTheBest = (answerId) ->
-  $('.best-answer-selected').attr('id') == "answer_#{answerId}"
+  $('.best-answer-selected').attr('id') is "answer_#{answerId}"
 
 @toggleTheBestAnswer = (answerId) ->
   $("#best-answer-link-#{answerId}").toggleClass 'best-answer-link-selected'

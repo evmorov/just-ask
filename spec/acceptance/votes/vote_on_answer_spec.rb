@@ -131,4 +131,34 @@ feature 'Vote on answer', '
       end
     end
   end
+
+  context 'Mulitple sessions', js: true do
+    scenario "vote for the other user's answer that appeared without refreshing" do
+      Capybara.using_session('user') do
+        sign_in(user)
+        visit question_path(question)
+      end
+
+      Capybara.using_session('another_user') do
+        sign_in(another_user)
+        visit question_path(question)
+      end
+
+      Capybara.using_session('user') do
+        fill_in 'Add answer', with: 'Added without page refresh'
+        click_on 'Create Answer'
+      end
+
+      Capybara.using_session('another_user') do
+        within all('.answer').last do
+          find(:css, '.upvote-link').trigger('click')
+          wait_for_ajax
+
+          expect(find('.vote')['class']).to include('upvoted')
+          expect(find('.vote')['class']).to_not include('downvoted')
+          expect(find('.score')).to have_content('1')
+        end
+      end
+    end
+  end
 end

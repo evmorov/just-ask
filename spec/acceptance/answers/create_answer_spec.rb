@@ -40,4 +40,28 @@ feature 'Create an answer', '
       expect(page).to have_content 'You need to sign in or sign up before continuing.'
     end
   end
+
+  context 'Mulitple sessions', js: true do
+    scenario "answer appears on another user's page" do
+      Capybara.using_session('user') do
+        sign_in(user)
+        visit question_path(question)
+      end
+
+      Capybara.using_session('guest') do
+        visit question_path(question)
+      end
+
+      Capybara.using_session('user') do
+        fill_in 'Add answer', with: 'My answer'
+        click_on 'Create Answer'
+
+        within('#answers') { expect(page).to have_content('My answer') }
+      end
+
+      Capybara.using_session('guest') do
+        within('#answers') { expect(page).to have_content('My answer') }
+      end
+    end
+  end
 end

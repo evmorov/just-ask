@@ -28,7 +28,7 @@ feature 'Remove an answer', '
       expect(page).to have_content strangers_answer.body
     end
 
-    scenario 'there is no remove button for answers by different authors' do
+    scenario 'there is no remove button for answers by different authors', js: true do
       within('p', text: strangers_answer.body) do
         expect(page).to_not have_link('Remove')
       end

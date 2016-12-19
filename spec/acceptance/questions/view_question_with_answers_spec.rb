@@ -8,7 +8,7 @@ feature 'View Question with answers', '
 
   given(:question_with_answers) { create(:question_with_answers) }
 
-  scenario 'View a question with answers' do
+  scenario 'View a question with answers', js: true do
     visit question_path(question_with_answers)
 
     expect(page).to have_content(question_with_answers.title)
