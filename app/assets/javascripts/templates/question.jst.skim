@@ -1,0 +1,2 @@
+li.question
+  a href="/questions/#{@id}" #{@title}

@@ -1,8 +1,8 @@
 h2 List of questions
 
-ul
+ul#questions
   - @questions.each do |question|
-    li
+    li.question
       = link_to question.title, question
 
 div
