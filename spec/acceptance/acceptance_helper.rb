@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.configure do |config|
   Capybara.javascript_driver = :webkit
   Capybara.ignore_hidden_elements = true
+  Capybara.server = :puma
 
   config.include AcceptanceMacros, type: :feature
   config.include WaitForAjax, type: :feature

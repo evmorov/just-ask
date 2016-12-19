@@ -48,7 +48,7 @@ feature 'Answer editing', "
       end
     end
 
-    scenario "can't edit other user's answer" do
+    scenario "can't edit other user's answer", js: true do
       within("#answer_#{answer_not_mine.id}") do
         expect(page).to_not have_link('Edit')
       end

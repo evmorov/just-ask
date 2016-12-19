@@ -79,13 +79,13 @@ feature 'Select the best answer', '
   end
 
   context 'When unauthenticated' do
-    scenario "don't see selected the best answer link" do
+    scenario "don't see selected the best answer link", js: true do
       visit question_path(question)
 
       expect(page).to_not have_selector '.best-answer-link'
     end
 
-    scenario 'see the sign of the best answer' do
+    scenario 'see the sign of the best answer', js: true do
       best_answer = create(:answer, question: question, body: 'the best answer', best: true)
 
       visit question_path(question)
@@ -93,6 +93,35 @@ feature 'Select the best answer', '
       expect(
         find("#best-answer-link-#{best_answer.id}")['class']
       ).to include('best-answer-link-selected')
+    end
+  end
+
+  context 'Mulitple sessions', js: true do
+    let(:another_user) { create(:user) }
+
+    scenario "mark the best user's answer that appeared without refreshing" do
+      Capybara.using_session('another_user') do
+        sign_in(another_user)
+        visit question_path(question)
+      end
+
+      Capybara.using_session('user') do
+        sign_in(user)
+        visit question_path(question)
+      end
+
+      Capybara.using_session('another_user') do
+        fill_in 'Add answer', with: 'Added without page refresh'
+        click_on 'Create Answer'
+      end
+
+      Capybara.using_session('user') do
+        within all('.answer').last do
+          find(:css, '.best-answer-link').trigger('click')
+          wait_for_ajax
+          expect(find(".best-answer-link")['class']).to include('best-answer-link-selected')
+        end
+      end
     end
   end
 end

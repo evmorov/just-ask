@@ -16,6 +16,8 @@ gem 'record_tag_helper', '~> 1.0'
 gem 'carrierwave', '~> 0.11'
 gem 'remotipart', '~> 1.3.1'
 gem 'cocoon', '~> 1.2'
+gem 'skim', '~> 0.10'
+gem 'gon', '~> 6.1.0'
 
 group :development, :test do
   gem 'byebug', platform: :mri

@@ -1,0 +1,30 @@
+div id="answer_#{@answer.id}" class="answer #{'best-answer-selected' if @answer.best}"
+  - if gon.user_id || @answer.best
+    a id="best-answer-link-#{@answer.id}" class="best-answer-link #{'best-answer-link-selected' if @answer.best}" data-method="post" data-remote="true" href="/answers/#{@answer.id}/best" rel="nofollow"
+      i.glyphicon.glyphicon-ok
+
+  div id="vote-answer-#{@answer.id}" class="vote #{@vote.state if gon.user_id}"
+    a.vote-link.upvote-link data-method="post" data-remote="true" data-type="json" href="/answers/#{@answer.id}/upvote" rel="nofollow"
+      i.glyphicon.glyphicon-chevron-up
+    .score #{@vote.score}
+    a.vote-link.downvote-link data-method="post" data-remote="true" data-type="json" href="/answers/#{@answer.id}/downvote" rel="nofollow"
+      i.glyphicon.glyphicon-chevron-down
+
+  p #{@answer.body}
+  - if gon.user_id && gon.user_id == @answer.user_id
+    a.edit-answer-link data-answer-id="#{@answer.id}" href="" Edit
+    a.remove-answer-link data-answer-id="#{@answer.id}" data-confirm=("Are you sure?") data-method="delete" data-remote="true" href="/answers/#{@answer.id}" rel="nofollow" Remove
+
+    div id="edit-answer-error-#{@answer.id}"
+
+    form.edit-answer-area id="edit-answer-#{@answer.id}" accept-charset="UTF-8" action="/answers/#{@answer.id}" data-remote="true" method="post"
+      input name="utf8" type="hidden" value="✓" /
+      input name="_method" type="hidden" value="patch" /
+      textarea id="edit-answer-new-body-#{@answer.id}" name="answer[body]" #{@answer.body}
+      input data-disable-with="Save" name="commit" type="submit" value="Save" /
+  #answer-attachments
+    ul
+      - for attachment in @attachments when attachment.id
+        li.attachment id="attachment_#{attachment.id}"
+          - [_, ..., filename] = attachment.file.url.split('/')
+          a href="#{attachment.file.url}" #{filename}
