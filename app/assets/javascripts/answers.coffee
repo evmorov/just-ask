@@ -3,7 +3,7 @@ subscribeToAnswers = ->
   App.answers = App.cable.subscriptions.create 'AnswersChannel',
     received: (data) ->
       return if gon.user_id is data.answer.user_id
-      $('#answers').append(JST['answer'](data))
+      $('#answers').append(JST['templates/answer'](data))
 
 addOnEditAnswerListener = ->
   $('body').on 'click', '.edit-answer-link', (e) ->
