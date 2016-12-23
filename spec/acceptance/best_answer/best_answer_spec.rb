@@ -119,7 +119,7 @@ feature 'Select the best answer', '
         within all('.answer').last do
           find(:css, '.best-answer-link').trigger('click')
           wait_for_ajax
-          expect(find(".best-answer-link")['class']).to include('best-answer-link-selected')
+          expect(find('.best-answer-link')['class']).to include('best-answer-link-selected')
         end
       end
     end

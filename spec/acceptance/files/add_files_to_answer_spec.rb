@@ -43,7 +43,10 @@ feature 'Add files to answer', "
       end
 
       Capybara.using_session('guest') do
-        expect(page).to have_link 'spec_helper.rb', href: '/uploads/attachment/file/1/spec_helper.rb'
+        expect(page).to have_link(
+          'spec_helper.rb',
+          href: '/uploads/attachment/file/1/spec_helper.rb'
+        )
       end
     end
   end
