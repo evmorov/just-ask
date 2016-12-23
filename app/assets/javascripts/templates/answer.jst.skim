@@ -22,9 +22,22 @@ div id="answer_#{@answer.id}" class="answer #{'best-answer-selected' if @answer.
       input name="_method" type="hidden" value="patch" /
       textarea id="edit-answer-new-body-#{@answer.id}" name="answer[body]" #{@answer.body}
       input data-disable-with="Save" name="commit" type="submit" value="Save" /
+
   #answer-attachments
     ul
       - for attachment in @attachments when attachment.id
         li.attachment id="attachment_#{attachment.id}"
           - [_, ..., filename] = attachment.file.url.split('/')
           a href="#{attachment.file.url}" #{filename}
+
+  div id="add-comment-to-answer-#{@answer.id}"
+    .comments
+      hr
+    - if gon.user_id
+      a.add-comment-link data-commentable-class="answer" data-commentable-id="#{@answer.id}" href="" Add a comment
+      form#new_comment.new_comment accept-charset="UTF-8" action="/answers/#{@answer.id}/comments" data-remote="true" method="post"
+        input name="utf8" type="hidden" value="✓"
+        .comment-errors
+        textarea#comment_body name="comment[body]"
+        input data-disable-with=("Create Comment") name="commit" type="submit" value=("Create Comment")
+

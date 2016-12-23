@@ -7,7 +7,9 @@
         class: "best-answer-link #{'best-answer-link-selected' if answer.best}",
         remote: true
           i class='glyphicon glyphicon-ok'
+
     = render 'shared/vote', votable: answer
+
     p = answer.body
     - if user_signed_in? && current_user.author_of?(answer)
       = link_to 'Edit',
@@ -20,9 +22,15 @@
         class: 'remove-answer-link',
         data: { answer_id: answer.id, confirm: 'Are you sure?' },
         remote: true
+
       = content_tag(:div, '', id: "edit-answer-error-#{answer.id}")
+
       = form_for answer, remote: true, html: { id: "edit-answer-#{answer.id}", class: 'edit-answer-area' } do |f|
         = f.text_area :body, id: "edit-answer-new-body-#{answer.id}"
         = f.submit 'Save'
+
     #answer-attachments
       ul = render answer.attachments
+
+    div id="add-comment-to-answer-#{answer.id}"
+      = render 'comments/comments', commentable: answer

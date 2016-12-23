@@ -3,6 +3,7 @@ class AnswersController < ApplicationController
 
   before_action :authenticate_user!
   before_action :load_answer, only: [:update, :destroy, :best]
+  before_action :set_comment, only: [:create, :update]
 
   after_action :publish_answer, only: [:create]
 
@@ -57,5 +58,9 @@ class AnswersController < ApplicationController
       vote: vote,
       attachments: @answer.attachments
     })
+  end
+
+  def set_comment
+    @comment = Comment.new
   end
 end
