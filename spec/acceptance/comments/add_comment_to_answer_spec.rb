@@ -52,7 +52,7 @@ feature 'Add a comment to the answer', '
       expect(page).to_not have_link('Add a comment')
     end
 
-    scenario "see comments" do
+    scenario 'see comments' do
       within("#answer_#{answer.id}") do
         expect(page).to have_content 'Some comment'
       end

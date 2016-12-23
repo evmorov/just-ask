@@ -50,7 +50,7 @@ feature 'Add a comment to the question', '
       expect(page).to_not have_link('Add a comment')
     end
 
-    scenario "see comments" do
+    scenario 'see comments' do
       within('#question') do
         expect(page).to have_content 'Some comment'
       end

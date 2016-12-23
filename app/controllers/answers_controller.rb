@@ -53,11 +53,12 @@ class AnswersController < ApplicationController
     return if @answer.errors.any?
 
     vote = { state: @answer.vote_state(current_user), score: @answer.total_score }
-    ActionCable.server.broadcast('answers', {
+    ActionCable.server.broadcast(
+      'answers',
       answer: @answer,
       vote: vote,
       attachments: @answer.attachments
-    })
+    )
   end
 
   def set_comment
