@@ -1,0 +1,12 @@
+.comments
+  hr
+  = render commentable.comments
+- if user_signed_in?
+  = link_to 'Add a comment',
+    '',
+    class: 'add-comment-link',
+    data: { commentable_id: commentable.id, commentable_class: commentable.class.name.underscore }
+  = form_for [commentable, @comment], remote: true do |f|
+      .comment-errors
+      = f.text_area :body
+      = f.submit

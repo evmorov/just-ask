@@ -1,22 +1,27 @@
 #question
   h2.title
     = @question.title
+
   = render 'shared/vote', votable: @question
+
   .body
     = @question.body
   - if user_signed_in? && current_user.author_of?(@question)
     = link_to 'Remove', @question,
       method: :delete,
         data: { confirm: 'Are you sure?' }
+
   #question-attachments
     - if @question.attachments.any?
       div Attachments:
       ul = render @question.attachments
 
+  div id="add-comment-to-question-#{@question.id}"
+    = render 'comments/comments', commentable: @question
+
 h3 Answers
 #answers
   = render @question.answers
-
 #add-answer
   = form_for([@question, @answer], remote: true) do |f|
     p
@@ -27,4 +32,3 @@ h3 Answers
       = render 'attachments/form', f: f
     p
       = f.submit
-
