@@ -4,45 +4,39 @@ class AnswersController < ApplicationController
   before_action :authenticate_user!
   before_action :load_answer, only: [:update, :destroy, :best]
   before_action :set_comment, only: [:create, :update]
+  before_action :forbidden_unless_author, only: [:update, :destroy]
+  before_action :forbidden_unless_author_of_question, only: [:best]
 
   after_action :publish_answer, only: [:create]
+
+  respond_to :js
 
   def create
     @question = Question.find(params[:question_id])
     @answer = @question.answers.new(answer_params)
     @answer.user = current_user
     @answer.save
+    respond_with @answer
   end
 
   def update
-    @question = @answer.question
-    if current_user.author_of? @answer
-      @answer.update(answer_params)
-    else
-      head :forbidden
-    end
+    @answer.update(answer_params)
+    respond_with @answer
   end
 
   def destroy
-    if current_user.author_of? @answer
-      @answer.destroy
-    else
-      head :forbidden
-    end
+    respond_with(@answer.destroy)
   end
 
   def best
-    if current_user.author_of? @answer.question
-      @answer.toggle_best
-    else
-      head :forbidden
-    end
+    respond_with(@answer.toggle_best)
   end
 
   private
 
   def load_answer
     @answer = Answer.find(params[:id])
+    @question = @answer.question
   end
 
   def answer_params
@@ -63,5 +57,13 @@ class AnswersController < ApplicationController
 
   def set_comment
     @comment = Comment.new
+  end
+
+  def forbidden_unless_author
+    head :forbidden unless current_user.author_of? @answer
+  end
+
+  def forbidden_unless_author_of_question
+    head :forbidden unless current_user.author_of? @answer.question
   end
 end

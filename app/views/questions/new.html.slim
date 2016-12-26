@@ -9,6 +9,6 @@ h2 New question
     = f.text_area :body
   p Attachments:
   #attachments
-    = render 'attachments/form', f: f
+    = render 'attachments/form', f: f, attachable: @question
   p
     = f.submit 'Post Your Question'

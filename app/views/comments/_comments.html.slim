@@ -6,7 +6,7 @@
     '',
     class: 'add-comment-link',
     data: { commentable_id: commentable.id, commentable_class: commentable.class.name.underscore }
-  = form_for [commentable, @comment], remote: true do |f|
+  = form_for [commentable, commentable.comments.new], remote: true, data: { type: :json } do |f|
       .comment-errors
       = f.text_area :body
       = f.submit

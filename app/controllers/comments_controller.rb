@@ -2,20 +2,15 @@ class CommentsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_commentable
 
-  after_action :publish_comment, only: [:create]
+  after_action :publish_comment
+
+  respond_to :json
 
   def create
     @comment = @commentable.comments.new(comment_params)
     @comment.user = current_user
-    respond_to do |format|
-      format.json do
-        if @comment.save
-          render json: @comment
-        else
-          render json: @comment.errors.full_messages, status: :unprocessable_entity
-        end
-      end
-    end
+    @comment.save
+    respond_with @comment
   end
 
   private
