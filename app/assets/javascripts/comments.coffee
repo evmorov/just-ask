@@ -30,8 +30,9 @@ addOnAjaxResponseForFormListener = ->
     commentErrors = addCommentEl.find('.comment-errors')
     commentErrors.empty()
     errors = $.parseJSON(xhr.responseText)
-    $.each errors, (index, value) ->
-      commentErrors.append(value)
+    $.each errors, (index, error) ->
+      for field, field_errors of error
+        commentErrors.append("#{field} #{field_errors}" for field_error of field_errors)
 
 ready = ->
   subscribeToComments()

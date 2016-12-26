@@ -29,6 +29,6 @@ h3 Answers
       .answer-errors
       = f.text_area :body
     #attachments
-      = render 'attachments/form', f: f
+      = render 'attachments/form', f: f, attachable: @question
     p
       = f.submit

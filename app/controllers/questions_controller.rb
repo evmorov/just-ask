@@ -3,39 +3,32 @@ class QuestionsController < ApplicationController
 
   before_action :authenticate_user!, except: [:index, :show]
   before_action :load_question, only: [:show, :destroy]
+  before_action :build_answer, only: :show
 
   after_action :publish_question, only: [:create]
 
   def index
-    @questions = Question.all
+    respond_with(@questions = Question.all)
   end
 
   def show
-    @answer = @question.answers.new
-    @answer.attachments.new
-    @comment = Comment.new
+    respond_with @question
   end
 
   def new
-    @question = Question.new
-    @question.attachments.new
+    respond_with(@question = Question.new)
   end
 
   def create
     @question = Question.new(question_params)
     @question.user = current_user
-
-    if @question.save
-      redirect_to @question, success: 'Your question successfully created.'
-    else
-      render :new
-    end
+    @question.save
+    respond_with @question
   end
 
   def destroy
     if current_user.author_of? @question
-      @question.destroy
-      redirect_to questions_path
+      respond_with(@question.destroy)
     else
       redirect_to @question, error: 'You can remove only your question'
     end
@@ -49,6 +42,10 @@ class QuestionsController < ApplicationController
 
   def question_params
     params.require(:question).permit(:title, :body, attachments_attributes: [:id, :file, :_destroy])
+  end
+
+  def build_answer
+    @answer = @question.answers.new
   end
 
   def publish_question

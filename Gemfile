@@ -18,6 +18,7 @@ gem 'remotipart', '~> 1.3.1'
 gem 'cocoon', '~> 1.2'
 gem 'skim', '~> 0.10'
 gem 'gon', '~> 6.1.0'
+gem 'responders', '~> 2.3'
 
 group :development, :test do
   gem 'byebug', platform: :mri

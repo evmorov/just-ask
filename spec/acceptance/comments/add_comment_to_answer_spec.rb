@@ -36,7 +36,7 @@ feature 'Add a comment to the answer', '
 
         expect(page).to have_selector 'textarea'
         expect(page).to_not have_content 'qwe'
-        expect(page).to have_content 'Body is too short'
+        expect(page).to have_content 'body is too short'
       end
     end
   end
