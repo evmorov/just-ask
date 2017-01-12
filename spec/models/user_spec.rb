@@ -37,7 +37,9 @@ describe User, type: :model do
 
     context 'when user does not have authorization' do
       context 'when user already exists' do
-        let(:auth) { OmniAuth::AuthHash.new(provider: 'facebook', uid: '123456', info: { email: user.email }) }
+        let(:auth) {
+          OmniAuth::AuthHash.new(provider: 'facebook', uid: '123456', info: { email: user.email })
+        }
 
         it 'does not create new user' do
           expect { User.find_for_oauth(auth) }.to_not change(User, :count)
@@ -60,7 +62,11 @@ describe User, type: :model do
       end
 
       context 'when user does not exist' do
-        let(:auth) { OmniAuth::AuthHash.new(provider: 'facebook', uid: '123456', info: { email: 'new@user.com' }) }
+        let(:auth) {
+          OmniAuth::AuthHash.new(
+            provider: 'facebook', uid: '123456', info: { email: 'new@user.com' }
+          )
+        }
 
         it 'creates new user' do
           expect { User.find_for_oauth(auth) }.to change(User, :count).by(1)
