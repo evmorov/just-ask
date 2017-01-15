@@ -21,6 +21,7 @@ gem 'gon', '~> 6.1.0'
 gem 'responders', '~> 2.3'
 gem 'omniauth', '~> 1.3.1'
 gem 'omniauth-facebook'
+gem 'omniauth-twitter'
 
 group :development, :test do
   gem 'byebug', platform: :mri
