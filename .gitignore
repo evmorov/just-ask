@@ -24,4 +24,5 @@
 tags
 
 /config/database.yml
+/config/secrets.yml
 /public/uploads
