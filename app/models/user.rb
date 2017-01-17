@@ -5,7 +5,7 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :authorizations, dependent: :destroy
 
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [:facebook, :twitter]
 

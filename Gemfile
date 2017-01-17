@@ -36,6 +36,7 @@ group :test do
   gem 'rails-controller-testing'
   gem 'capybara-webkit', '~> 1.12'
   gem 'capybara', '~> 2.11'
+  gem 'capybara-email', '~> 2.5'
 end
 
 group :development do
@@ -45,6 +46,7 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'rubocop', require: false
   gem 'spring-commands-rspec'
+  gem 'letter_opener', '~> 1.4'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
