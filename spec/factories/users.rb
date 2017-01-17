@@ -7,5 +7,6 @@ FactoryGirl.define do
     email
     password '12345678'
     password_confirmation '12345678'
+    confirmed_at '2017-01-16 20:02:19.357931'
   end
 end

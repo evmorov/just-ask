@@ -15,7 +15,9 @@ feature 'Signing up', '
     within('#new_user') do
       click_on 'Sign up'
     end
+    open_email 'test@mail.com'
+    current_email.click_link 'Confirm my account'
 
-    expect(page).to have_content 'Welcome! You have signed up successfully.'
+    expect(page).to have_content 'Your email address has been successfully confirmed.'
   end
 end
