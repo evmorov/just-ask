@@ -22,7 +22,7 @@ Rails.application.routes.draw do
 
   resources :attachments, only: [:destroy]
 
-  post :register_oauth_wo_email, to: 'oauths#register_wo_email'
+  post :register_oauth, to: 'oauths#register'
 
   mount ActionCable.server => '/cable'
 end
