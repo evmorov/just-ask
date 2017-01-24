@@ -1,5 +1,5 @@
 class OauthsController < ApplicationController
-  def register_wo_email
+  def register
     @user = User.create_if_not_exist_w_auth(params['email'], params['provider'], params['uid'])
 
     if @user.persisted?
