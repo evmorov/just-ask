@@ -1,0 +1,13 @@
+h2 Provide your email
+
+= form_tag(register_oauth_wo_email_path) do
+  .field
+    = label_tag :email
+    br/
+    = email_field_tag :email
+  .field.hidden
+    = text_field_tag :provider, @auth.provider
+  .field.hidden
+    = text_field_tag :uid, @auth.uid
+  .actions
+    = submit_tag "Sign up"

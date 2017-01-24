@@ -13,21 +13,20 @@ class User < ApplicationRecord
     id == obj.user_id
   end
 
-  def self.find_for_oauth(auth)
+  def self.create_if_not_exist_w_auth(email, provider, uid)
     transaction do
-      authorization = Authorization.find_by(provider: auth.provider, uid: auth.uid.to_s)
-      return authorization.user if authorization
-
-      email = auth.info.email
       user = User.find_by(email: email)
-
       unless user
         password = Devise.friendly_token[0, 20]
         user = User.create!(email: email, password: password, password_confirmation: password)
       end
-
-      user.authorizations.create(provider: auth.provider, uid: auth.uid)
+      user.authorizations.create!(provider: provider, uid: uid)
       user
     end
+  end
+
+  def self.find_by_auth(auth)
+    authorization = Authorization.find_by(provider: auth.provider, uid: auth.uid.to_s)
+    authorization.try(:user)
   end
 end
