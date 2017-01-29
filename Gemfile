@@ -22,6 +22,7 @@ gem 'responders', '~> 2.3'
 gem 'omniauth', '~> 1.3.1'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
+gem 'cancancan', '~> 1.15'
 
 group :development, :test do
   gem 'byebug', platform: :mri

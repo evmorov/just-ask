@@ -8,14 +8,13 @@ feature 'Create a question', '
 
   given(:user) { create(:user) }
 
-  scenario 'Create a question when authenticated' do
+  scenario 'Cannot ask a question when unauthenticated' do
     visit questions_path
-    click_on 'Ask Question'
 
-    expect(page).to have_content 'You need to sign in or sign up before continuing.'
+    expect(page).to_not have_link 'Ask Question'
   end
 
-  scenario 'Create a question when unauthenticated' do
+  scenario 'Create a question when authenticated' do
     sign_in(user)
     visit questions_path
     click_on 'Ask Question'

@@ -2,6 +2,8 @@ class AnswersController < ApplicationController
   include Voted
 
   before_action :authenticate_user!
+  authorize_resource
+
   before_action :load_answer, only: [:update, :destroy, :best]
   before_action :set_comment, only: [:create, :update]
   before_action :forbidden_unless_author, only: [:update, :destroy]

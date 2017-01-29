@@ -4,7 +4,6 @@ module Voted
   included do
     before_action :authenticate_user!, only: [:upvote, :downvote]
     before_action :set_votable, only: [:upvote, :downvote]
-    before_action :error_if_author, only: [:upvote, :downvote]
   end
 
   def upvote
@@ -18,17 +17,6 @@ module Voted
   end
 
   private
-
-  def error_if_author
-    if current_user.try(:author_of?, @votable)
-      respond_to do |format|
-        format.json do
-          json = { error: "Can't vote when you're the author" }
-          render json: json, status: :forbidden
-        end
-      end
-    end
-  end
 
   def respond_to_json
     respond_to do |format|

@@ -50,6 +50,7 @@ GEM
       sass (>= 3.3.4)
     builder (3.2.2)
     byebug (9.0.6)
+    cancancan (1.15.0)
     capybara (2.11.0)
       addressable
       mime-types (>= 1.16)
@@ -305,6 +306,7 @@ PLATFORMS
 DEPENDENCIES
   bootstrap-sass (~> 3.3.6)
   byebug
+  cancancan (~> 1.15)
   capybara (~> 2.11)
   capybara-email (~> 2.5)
   capybara-webkit (~> 1.12)

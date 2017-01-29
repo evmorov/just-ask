@@ -1,5 +1,7 @@
 class AttachmentsController < ApplicationController
   before_action :authenticate_user!
+  authorize_resource
+
   before_action :load_attachment
   before_action :forbidden_unless_author_of_attachable
 
