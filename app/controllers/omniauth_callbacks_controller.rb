@@ -18,7 +18,6 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   private
 
   def sign_in_and_redirect_auth(provider)
-    return unless @user.persisted?
     sign_in_and_redirect @user, event: :authentication
     set_flash_message(:notice, :success, kind: provider) if is_navigational_format?
   end

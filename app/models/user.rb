@@ -14,8 +14,8 @@ class User < ApplicationRecord
   end
 
   def self.create_if_not_exist_w_auth(email, provider, uid)
+    user = User.find_by(email: email)
     transaction do
-      user = User.find_by(email: email)
       unless user
         password = Devise.friendly_token[0, 20]
         user = User.create!(email: email, password: password, password_confirmation: password)
