@@ -8,11 +8,13 @@ module Voted
 
   def upvote
     @votable.upvote(current_user)
+    authorize! :upvote, @votable
     respond_to_json
   end
 
   def downvote
     @votable.downvote(current_user)
+    authorize! :downvote, @votable
     respond_to_json
   end
 
