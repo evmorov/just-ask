@@ -46,8 +46,12 @@ describe Ability, type: :model do
     end
 
     context 'Answer' do
-      let(:my_answer) { create(:answer, user: user) }
-      let(:not_my_answer) { create(:answer, user: another_user) }
+      let(:my_question) { create(:question, user: user) }
+      let(:my_answer) { create(:answer, question: my_question, user: user) }
+      let(:not_my_answer) { create(:answer, question: my_question, user: another_user) }
+
+      let(:not_my_question) { create(:question, user: another_user) }
+      let(:my_answer_not_my_question) { create(:answer, question: not_my_question, user: user) }
 
       it { should be_able_to :create, Answer }
 
@@ -65,6 +69,7 @@ describe Ability, type: :model do
 
       it { should be_able_to :best, my_answer }
       it { should be_able_to :best, not_my_answer }
+      it { should_not be_able_to :best, my_answer_not_my_question }
     end
 
     context 'Comment' do
@@ -78,6 +83,16 @@ describe Ability, type: :model do
 
       it { should be_able_to :destroy, my_comment }
       it { should_not be_able_to :destroy, not_my_comment }
+    end
+
+    context 'Attachment' do
+      let(:my_attachable) { create(:question, user: user) }
+      let(:my_attachment) { create(:attachment, attachable: my_attachable) }
+      let(:not_my_attachable) { create(:question, user: another_user) }
+      let(:not_my_attachment) { create(:attachment, attachable: not_my_attachable) }
+
+      it { should be_able_to :destroy, my_attachment }
+      it { should_not be_able_to :destroy, not_my_attachment }
     end
   end
 end

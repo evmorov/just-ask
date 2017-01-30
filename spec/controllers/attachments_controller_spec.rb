@@ -42,7 +42,7 @@ describe AttachmentsController, type: :controller do
       end
 
       it 'http status is forbidden' do
-        delete :destroy, params: { id: attachment }
+        delete :destroy, params: { id: attachment }, format: :js
         expect(response).to have_http_status(:forbidden)
       end
     end

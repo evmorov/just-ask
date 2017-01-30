@@ -2,14 +2,11 @@ class AnswersController < ApplicationController
   include Voted
 
   before_action :authenticate_user!
-  authorize_resource
-
   before_action :load_answer, only: [:update, :destroy, :best]
   before_action :set_comment, only: [:create, :update]
-  before_action :forbidden_unless_author, only: [:update, :destroy]
-  before_action :forbidden_unless_author_of_question, only: [:best]
-
   after_action :publish_answer, only: [:create]
+
+  authorize_resource
 
   respond_to :js
 
@@ -59,13 +56,5 @@ class AnswersController < ApplicationController
 
   def set_comment
     @comment = Comment.new
-  end
-
-  def forbidden_unless_author
-    head :forbidden unless current_user.author_of? @answer
-  end
-
-  def forbidden_unless_author_of_question
-    head :forbidden unless current_user.author_of? @answer.question
   end
 end
