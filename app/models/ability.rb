@@ -24,9 +24,9 @@ class Ability
   def user_abilities
     guest_abilities
     can :create, [Question, Answer, Comment]
-    can :update, [Question, Answer, Comment], user: user
-    can :destroy, [Question, Answer, Comment, Attachment], user: user
-    can [:upvote, :downvote], [Question, Answer] { |votable| votable.user != user }
+    can :update, [Question, Answer, Comment], user_id: user.id
+    can :destroy, [Question, Answer, Comment, Attachment], user_id: user.id
+    can [:upvote, :downvote], [Question, Answer] { |votable| not user.author_of? votable }
     can :best, Answer
   end
 end
