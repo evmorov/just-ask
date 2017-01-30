@@ -153,9 +153,9 @@ describe AnswersController, type: :controller do
         }.to_not change(Answer, :count)
       end
 
-      it 'http status is forbidden' do
+      it 'redirects to root' do
         delete :destroy, params: { id: answer }
-        expect(response).to have_http_status(:forbidden)
+        expect(response).to redirect_to root_path
       end
     end
   end

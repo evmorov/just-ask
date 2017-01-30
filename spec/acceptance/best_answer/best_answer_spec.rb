@@ -68,13 +68,8 @@ feature 'Select the best answer', '
       visit question_path(question_other_user)
 
       within("#answer_#{ans2.id}") do
-        find(:css, '.best-answer-link').trigger('click')
-        wait_for_ajax
+        expect(page).to_not have_selector '.best-answer-link'
       end
-
-      best_class = 'best-answer-link-selected'
-      expect(find("#best-answer-link-#{ans1.id}")['class']).to_not include(best_class)
-      expect(find("#best-answer-link-#{ans2.id}")['class']).to_not include(best_class)
     end
   end
 

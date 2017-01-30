@@ -2,12 +2,12 @@ class QuestionsController < ApplicationController
   include Voted
 
   before_action :authenticate_user!, except: [:index, :show]
-  authorize_resource
-
   before_action :load_question, only: [:show, :destroy]
   before_action :build_answer, only: :show
 
   after_action :publish_question, only: [:create]
+
+  authorize_resource
 
   def index
     respond_with(@questions = Question.all)
@@ -29,11 +29,7 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    if current_user.author_of? @question
-      respond_with(@question.destroy)
-    else
-      redirect_to @question, error: 'You can remove only your question'
-    end
+    respond_with(@question.destroy)
   end
 
   private

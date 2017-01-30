@@ -1,10 +1,10 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
-  authorize_resource
-
   before_action :set_commentable
 
   after_action :publish_comment
+
+  authorize_resource
 
   respond_to :json
 
