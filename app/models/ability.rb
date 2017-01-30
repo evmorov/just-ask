@@ -26,7 +26,7 @@ class Ability
     can :create, [Question, Answer, Comment]
     can :update, [Question, Answer, Comment], user_id: user.id
     can :destroy, [Question, Answer, Comment, Attachment], user_id: user.id
-    can [:upvote, :downvote], [Question, Answer] { |votable| not user.author_of? votable }
+    can [:upvote, :downvote], [Question, Answer] { |votable| !user.author_of?(votable) }
     can :best, Answer
   end
 end
