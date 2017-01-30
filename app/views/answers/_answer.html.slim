@@ -1,6 +1,6 @@
 - if answer.persisted?
   = div_for(answer, class: "#{'best-answer-selected' if answer.best}")
-    - if user_signed_in? || answer.best
+    - if can?(:best, answer) || answer.best
       = link_to best_answer_path(answer),
         method: :post,
         id: "best-answer-link-#{answer.id}",
@@ -11,7 +11,7 @@
     = render 'shared/vote', votable: answer
 
     p = answer.body
-    - if user_signed_in? && current_user.author_of?(answer)
+    - if can?(:edit, answer)
       = link_to 'Edit',
         '',
         class: 'edit-answer-link',

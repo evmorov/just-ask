@@ -1,6 +1,6 @@
 = content_tag_for(:li, attachment) do
   = link_to attachment.file.identifier, attachment.file.url
-  - if user_signed_in? && current_user.author_of?(attachment.attachable)
+  - if can?(:destroy, attachment.attachable)
     = link_to attachment,
       method: :delete,
       remote: true,
