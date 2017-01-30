@@ -1,7 +1,7 @@
 .comments
   hr
   = render commentable.comments
-- if user_signed_in?
+- if can?(:create, Comment)
   = link_to 'Add a comment',
     '',
     class: 'add-comment-link',

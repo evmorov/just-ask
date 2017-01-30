@@ -6,7 +6,7 @@
 
   .body
     = @question.body
-  - if user_signed_in? && current_user.author_of?(@question)
+  - if can?(:destroy, @question)
     = link_to 'Remove', @question,
       method: :delete,
         data: { confirm: 'Are you sure?' }
