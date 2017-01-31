@@ -23,6 +23,7 @@ gem 'omniauth', '~> 1.3.1'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'cancancan', '~> 1.15'
+gem 'doorkeeper', '~> 4.2.0'
 
 group :development, :test do
   gem 'byebug', platform: :mri
@@ -38,6 +39,7 @@ group :test do
   gem 'capybara-webkit', '~> 1.12'
   gem 'capybara', '~> 2.11'
   gem 'capybara-email', '~> 2.5'
+  gem 'json_spec', '~> 1.1'
 end
 
 group :development do
