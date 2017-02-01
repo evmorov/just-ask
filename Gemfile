@@ -39,7 +39,6 @@ group :test do
   gem 'capybara-webkit', '~> 1.12'
   gem 'capybara', '~> 2.11'
   gem 'capybara-email', '~> 2.5'
-  gem 'json_spec', '~> 1.1'
 end
 
 group :development do
