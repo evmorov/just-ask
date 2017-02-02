@@ -28,14 +28,14 @@ describe 'Profile API' do
     end
   end
 
-  describe 'GET /users' do
-    include_examples('when there is a problem in authorization') { let(:endpoint) { 'users' } }
+  describe 'GET /index' do
+    include_examples('when there is a problem in authorization') { let(:endpoint) { nil } }
     include_examples 'when successfully authorized'
 
     let!(:other_users) { create_list(:user, 3) }
 
     before do
-      get '/api/v1/profiles/users', params: { format: :json, access_token: access_token.token }
+      get '/api/v1/profiles', params: { format: :json, access_token: access_token.token }
     end
 
     it 'has proper number of users' do
