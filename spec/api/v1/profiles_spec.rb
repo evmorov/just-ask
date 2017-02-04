@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 describe 'Profile API' do
-  let(:me) { create(:user) }
-  let(:access_token) { create(:access_token, resource_owner_id: me.id) }
+  let(:resource_owner) { create(:user) }
+  let(:access_token) { create(:access_token, resource_owner_id: resource_owner.id) }
 
   describe 'GET /me' do
     context 'unauthorized' do
@@ -28,13 +28,13 @@ describe 'Profile API' do
 
       %w(id email admin).each do |attr|
         it "contains #{attr}" do
-          expect(response_body[attr]).to eq(me.send(attr))
+          expect(response_body[attr]).to eq(resource_owner.send(attr))
         end
       end
 
       %w(created_at updated_at).each do |attr|
         it "contains #{attr}" do
-          expect(response_body[attr]).to eq(me.send(attr).iso8601(3))
+          expect(response_body[attr]).to eq(resource_owner.send(attr).iso8601(3))
         end
       end
 
@@ -74,9 +74,9 @@ describe 'Profile API' do
         expect(response_body.size).to eq(other_users.size)
       end
 
-      it "doesn't include me" do
+      it "doesn't include resource owner" do
         other_users.size.times do |user_number|
-          expect(response_body[user_number]['id']).to_not eq(me.id)
+          expect(response_body[user_number]['id']).to_not eq(resource_owner.id)
         end
       end
 
