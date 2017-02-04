@@ -6,7 +6,7 @@ RSpec.configure do |config|
   Capybara.ignore_hidden_elements = true
   Capybara.register_server :puma do |app, port, host|
     require 'rack/handler/puma'
-    Rack::Handler::Puma.run(app, Host: host, Port: port, Threads: "0:4", config_files: ['-'])
+    Rack::Handler::Puma.run(app, Host: host, Port: port, Threads: '0:4', config_files: ['-'])
   end
   Capybara.server = :puma
 

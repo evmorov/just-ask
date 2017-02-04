@@ -1,56 +1,56 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
-gem 'pg', '~> 0.18'
-gem 'puma', '~> 3.6.2'
-gem 'sass-rails', '~> 5.0'
-gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.2'
-gem 'jquery-rails'
-gem 'turbolinks', '~> 5'
-gem 'jbuilder', '~> 2.5'
-gem 'slim-rails', '~> 3.1'
-gem 'devise', '~> 4.2'
+gem 'active_model_serializers', '~> 0.10.4'
 gem 'bootstrap-sass', '~> 3.3.6'
-gem 'record_tag_helper', '~> 1.0'
+gem 'cancancan', '~> 1.15'
 gem 'carrierwave', '~> 0.11'
-gem 'remotipart', '~> 1.3.1'
 gem 'cocoon', '~> 1.2'
-gem 'skim', '~> 0.10'
+gem 'coffee-rails', '~> 4.2'
+gem 'devise', '~> 4.2'
+gem 'doorkeeper', '~> 4.2.0'
 gem 'gon', '~> 6.1.0'
-gem 'responders', '~> 2.3'
+gem 'hashie', '~> 3.4.6' # temp because of https://github.com/omniauth/omniauth/issues/872
+gem 'jbuilder', '~> 2.5'
+gem 'jquery-rails'
 gem 'omniauth', '~> 1.3.1'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
-gem 'hashie', '~> 3.4.6' # temp because of https://github.com/omniauth/omniauth/issues/872
-gem 'cancancan', '~> 1.15'
-gem 'doorkeeper', '~> 4.2.0'
-gem 'active_model_serializers', '~> 0.10.4'
+gem 'pg', '~> 0.18'
+gem 'puma', '~> 3.6.2'
+gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
+gem 'record_tag_helper', '~> 1.0'
+gem 'remotipart', '~> 1.3.1'
+gem 'responders', '~> 2.3'
+gem 'sass-rails', '~> 5.0'
+gem 'skim', '~> 0.10'
+gem 'slim-rails', '~> 3.1'
+gem 'turbolinks', '~> 5'
+gem 'uglifier', '>= 1.3.0'
 
 group :development, :test do
   gem 'byebug', platform: :mri
-  gem 'rspec-rails'
+  gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'pry-byebug'
-  gem 'database_cleaner'
+  gem 'rspec-rails'
 end
 
 group :test do
-  gem 'shoulda-matchers', '~> 3.1'
-  gem 'rails-controller-testing'
-  gem 'capybara-webkit', '~> 1.12'
   gem 'capybara', '~> 2.11'
   gem 'capybara-email', '~> 2.5'
+  gem 'capybara-webkit', '~> 1.12'
+  gem 'rails-controller-testing'
+  gem 'shoulda-matchers', '~> 3.1'
 end
 
 group :development do
-  gem 'web-console'
-  gem 'listen', '~> 3.0.5'
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'rubocop', require: false
-  gem 'spring-commands-rspec'
   gem 'letter_opener', '~> 1.4'
+  gem 'listen', '~> 3.0.5'
+  gem 'rubocop', require: false
+  gem 'spring'
+  gem 'spring-commands-rspec'
+  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'web-console'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

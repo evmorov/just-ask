@@ -1,6 +1,6 @@
 FactoryGirl.define do
   sequence :name do |n|
-   "Test oauth application #{n}"
+    "Test oauth application #{n}"
   end
 
   sequence :uid do |n|

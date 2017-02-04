@@ -16,7 +16,10 @@ describe 'Answers API' do
       end
 
       it 'returns 401 status if access_token is invalid' do
-        get "/api/v1/questions/#{question.id}/answers", params: { format: :json, access_token: '1234' }
+        get(
+          "/api/v1/questions/#{question.id}/answers",
+          params: { format: :json, access_token: '1234' }
+        )
         expect(response.status).to eq(401)
       end
     end
@@ -146,19 +149,23 @@ describe 'Answers API' do
 
     context 'unauthorized' do
       it 'returns 401 status if there is no access_token' do
-        post("/api/v1/questions/#{question.id}/answers", params: {
-          answer: attributes_for(:answer),
-          format: :json
-        })
+        post(
+          "/api/v1/questions/#{question.id}/answers", params: {
+            answer: attributes_for(:answer),
+            format: :json
+          }
+        )
         expect(response.status).to eq(401)
       end
 
       it 'returns 401 status if access_token is invalid' do
-        post("/api/v1/questions/#{question.id}/answers", params: {
-          answer: attributes_for(:answer),
-          format: :json,
-          access_token: '1234'
-        })
+        post(
+          "/api/v1/questions/#{question.id}/answers", params: {
+            answer: attributes_for(:answer),
+            format: :json,
+            access_token: '1234'
+          }
+        )
         expect(response.status).to eq(401)
       end
     end
@@ -166,31 +173,37 @@ describe 'Answers API' do
     context 'authorized' do
       context 'with valid attributes' do
         it 'returns 200 status' do
-          post("/api/v1/questions/#{question.id}/answers", params: {
-            answer: attributes_for(:answer),
-            format: :json,
-            access_token: access_token.token
-          })
+          post(
+            "/api/v1/questions/#{question.id}/answers", params: {
+              answer: attributes_for(:answer),
+              format: :json,
+              access_token: access_token.token
+            }
+          )
           expect(response).to be_success
         end
 
         it 'saves the new answer with the resource owner' do
           expect {
-            post("/api/v1/questions/#{question.id}/answers", params: {
-              answer: attributes_for(:answer),
-              format: :json,
-              access_token: access_token.token
-            })
+            post(
+              "/api/v1/questions/#{question.id}/answers", params: {
+                answer: attributes_for(:answer),
+                format: :json,
+                access_token: access_token.token
+              }
+            )
           }.to change(resource_owner.answers, :count).by(1)
         end
 
         it 'saves the new answer with the exact question' do
           expect {
-            post("/api/v1/questions/#{question.id}/answers", params: {
-              answer: attributes_for(:answer),
-              format: :json,
-              access_token: access_token.token
-            })
+            post(
+              "/api/v1/questions/#{question.id}/answers", params: {
+                answer: attributes_for(:answer),
+                format: :json,
+                access_token: access_token.token
+              }
+            )
           }.to change(question.answers, :count).by(1)
         end
       end
@@ -198,20 +211,24 @@ describe 'Answers API' do
       context 'with invalid attributes' do
         it 'does not save the answer' do
           expect {
-            post("/api/v1/questions/#{question.id}/answers", params: {
-              answer: attributes_for(:invalid_answer),
-              format: :json,
-              access_token: access_token.token
-            })
+            post(
+              "/api/v1/questions/#{question.id}/answers", params: {
+                answer: attributes_for(:invalid_answer),
+                format: :json,
+                access_token: access_token.token
+              }
+            )
           }.to_not change(Answer, :count)
         end
 
         it 'returns 422 status' do
-          post("/api/v1/questions/#{question.id}/answers", params: {
-            answer: attributes_for(:invalid_answer),
-            format: :json,
-            access_token: access_token.token
-          })
+          post(
+            "/api/v1/questions/#{question.id}/answers", params: {
+              answer: attributes_for(:invalid_answer),
+              format: :json,
+              access_token: access_token.token
+            }
+          )
           expect(response.status).to eq(422)
         end
       end

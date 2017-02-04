@@ -22,7 +22,9 @@ describe 'Questions API' do
     end
 
     context 'authorized' do
-      before { get '/api/v1/questions', params: { format: :json, access_token: access_token.token } }
+      before do
+        get '/api/v1/questions', params: { format: :json, access_token: access_token.token }
+      end
 
       it 'returns 200 status' do
         expect(response).to be_success
@@ -137,16 +139,18 @@ describe 'Questions API' do
   describe 'POST /create' do
     context 'unauthorized' do
       it 'returns 401 status if there is no access_token' do
-        post "/api/v1/questions/", params: { question: attributes_for(:question), format: :json }
+        post '/api/v1/questions/', params: { question: attributes_for(:question), format: :json }
         expect(response.status).to eq(401)
       end
 
       it 'returns 401 status if access_token is invalid' do
-        post("/api/v1/questions/", params: {
-          question: attributes_for(:question),
-          format: :json,
-          access_token: '1234'
-        })
+        post(
+          '/api/v1/questions/', params: {
+            question: attributes_for(:question),
+            format: :json,
+            access_token: '1234'
+          }
+        )
         expect(response.status).to eq(401)
       end
     end
@@ -154,21 +158,25 @@ describe 'Questions API' do
     context 'authorized' do
       context 'with valid attributes' do
         it 'returns 200 status' do
-          post("/api/v1/questions/", params: {
-            question: attributes_for(:question),
-            format: :json,
-            access_token: access_token.token
-          })
+          post(
+            '/api/v1/questions/', params: {
+              question: attributes_for(:question),
+              format: :json,
+              access_token: access_token.token
+            }
+          )
           expect(response).to be_success
         end
 
         it 'saves the new question with the resource owner' do
           expect {
-            post("/api/v1/questions/", params: {
-              question: attributes_for(:question),
-              format: :json,
-              access_token: access_token.token
-            })
+            post(
+              '/api/v1/questions/', params: {
+                question: attributes_for(:question),
+                format: :json,
+                access_token: access_token.token
+              }
+            )
           }.to change(resource_owner.questions, :count).by(1)
         end
       end
@@ -176,20 +184,24 @@ describe 'Questions API' do
       context 'with invalid attributes' do
         it 'does not save the question' do
           expect {
-            post("/api/v1/questions/", params: {
-              question: attributes_for(:invalid_question),
-              format: :json,
-              access_token: access_token.token
-            })
+            post(
+              '/api/v1/questions/', params: {
+                question: attributes_for(:invalid_question),
+                format: :json,
+                access_token: access_token.token
+              }
+            )
           }.to_not change(Question, :count)
         end
 
         it 'returns 422 status' do
-          post("/api/v1/questions/", params: {
-            question: attributes_for(:invalid_question),
-            format: :json,
-            access_token: access_token.token
-          })
+          post(
+            '/api/v1/questions/', params: {
+              question: attributes_for(:invalid_question),
+              format: :json,
+              access_token: access_token.token
+            }
+          )
           expect(response.status).to eq(422)
         end
       end
