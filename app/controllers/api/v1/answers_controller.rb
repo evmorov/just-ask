@@ -1,8 +1,9 @@
 class Api::V1::AnswersController < Api::V1::BaseController
   authorize_resource
 
+  before_action :load_question, only: [:index, :create]
+
   def index
-    @question = Question.find(params[:question_id])
     respond_with @question.answers
   end
 
@@ -12,7 +13,6 @@ class Api::V1::AnswersController < Api::V1::BaseController
   end
 
   def create
-    @question = Question.find(params[:question_id])
     @answer = @question.answers.new(answer_params)
     @answer.user = current_resource_owner
     @answer.save
@@ -20,6 +20,10 @@ class Api::V1::AnswersController < Api::V1::BaseController
   end
 
   private
+
+  def load_question
+    @question = Question.find(params[:question_id])
+  end
 
   def answer_params
     params.require(:answer).permit(:body)
