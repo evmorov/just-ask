@@ -29,5 +29,6 @@ class Ability
     can(:destroy, Attachment) { |attachment| user.author_of? attachment.attachable }
     can [:upvote, :downvote], [Question, Answer] { |votable| !user.author_of?(votable) }
     can(:best, Answer) { |answer| user.author_of? answer.question }
+    can :me, User
   end
 end

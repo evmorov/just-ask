@@ -22,9 +22,7 @@ class QuestionsController < ApplicationController
   end
 
   def create
-    @question = Question.new(question_params)
-    @question.user = current_user
-    @question.save
+    @question = current_user.questions.create(question_params)
     respond_with @question
   end
 
