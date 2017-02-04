@@ -61,15 +61,11 @@ feature 'Select the best answer', '
     end
 
     scenario 'only the author of the question can choose the best answer', js: true do
-      question_other_user = create(:question)
-      ans1 = create(:answer, question: question_other_user, body: 'answer1')
-      ans2 = create(:answer, question: question_other_user, body: 'answer2')
+      answer = create(:answer, body: 'answer')
 
-      visit question_path(question_other_user)
+      visit question_path(answer.question)
 
-      within("#answer_#{ans2.id}") do
-        expect(page).to_not have_selector '.best-answer-link'
-      end
+      expect(page).to_not have_selector '.best-answer-link'
     end
   end
 
