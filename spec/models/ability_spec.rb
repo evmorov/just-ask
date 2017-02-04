@@ -14,7 +14,7 @@ describe Ability, type: :model do
   end
 
   describe 'for admin' do
-    let(:user) { create :user, admin: true }
+    let(:user) { create :admin }
 
     it { should be_able_to :manage, :all }
   end
@@ -93,6 +93,10 @@ describe Ability, type: :model do
 
       it { should be_able_to :destroy, my_attachment }
       it { should_not be_able_to :destroy, not_my_attachment }
+    end
+
+    context 'API' do
+      it { should be_able_to :me, User }
     end
   end
 end
