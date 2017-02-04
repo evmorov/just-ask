@@ -16,10 +16,24 @@ Metrics/LineLength:
   Exclude:
     - 'config/initializers/devise.rb'
 
+Metrics/BlockLength:
+  Exclude:
+    - 'Rakefile'
+    - '**/*.rake'
+    - 'spec/**/*.rb'
+    - 'config/routes.rb'
+
+Metrics/AbcSize:
+  Exclude:
+    - 'app/models/ability.rb'
+
 Style/Documentation:
   Enabled: false
 
 Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
   Enabled: false
 
 Lint/UnusedMethodArgument:
