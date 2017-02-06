@@ -72,4 +72,3 @@ shared_examples_for 'Comments' do
     end
   end
 end
-
