@@ -11,6 +11,9 @@
       method: :delete,
         data: { confirm: 'Are you sure?' }
 
+  #question-notification
+    = render 'question_notifications/question_notification', question: @question
+
   #question-attachments
     - if @question.attachments.any?
       div Attachments:

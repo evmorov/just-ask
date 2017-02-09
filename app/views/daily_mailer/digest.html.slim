@@ -1,0 +1,4 @@
+ul#questions
+  - @questions.each do |question|
+    li.question
+      = link_to question.title, question

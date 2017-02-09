@@ -1,6 +1,8 @@
 require 'rails_helper'
 require 'capybara/email/rspec'
 
+Sidekiq::Testing.inline!
+
 RSpec.configure do |config|
   Capybara.javascript_driver = :webkit
   Capybara.ignore_hidden_elements = true
@@ -12,6 +14,15 @@ RSpec.configure do |config|
 
   config.include AcceptanceMacros, type: :feature
   config.include WaitForAjax, type: :feature
+  config.include MailHelpers, type: :feature
+
+  config.before do |example|
+    if example.metadata[:type] == :feature
+      Sidekiq::Testing.inline!
+      default_url_options[:host] = 'http://localhost:3000'
+      clear_emails
+    end
+  end
 
   config.use_transactional_fixtures = false
 

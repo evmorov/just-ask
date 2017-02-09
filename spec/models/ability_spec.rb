@@ -6,10 +6,7 @@ describe Ability, type: :model do
   describe 'for guest' do
     let(:user) { nil }
 
-    it { should be_able_to :read, Question }
-    it { should be_able_to :read, Answer }
-    it { should be_able_to :read, Comment }
-
+    it { should be_able_to :read, :all }
     it { should_not be_able_to :manage, :all }
   end
 
@@ -97,6 +94,16 @@ describe Ability, type: :model do
 
     context 'API' do
       it { should be_able_to :me, User }
+    end
+
+    context 'QuestionNotification' do
+      let(:question_notification) { create(:question_notification, user: user) }
+      let(:not_my_question_notification) { create(:question_notification, user: another_user) }
+
+      it { should be_able_to :create, QuestionNotification }
+
+      it { should be_able_to :destroy, question_notification }
+      it { should_not be_able_to :destroy, not_my_question_notification }
     end
   end
 end
