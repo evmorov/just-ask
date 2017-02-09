@@ -7,6 +7,7 @@ require 'spec_helper'
 require 'rspec/rails'
 require 'factory_girl_rails'
 require 'cancan/matchers'
+require 'sidekiq/testing'
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 Dir[Rails.root.join('spec/concerns/**/*.rb')].each { |f| require f }
@@ -23,6 +24,10 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
+
+  config.before do |example|
+    Sidekiq::Testing.fake! if example.metadata[:type] == :job
+  end
 end
 
 Shoulda::Matchers.configure do |config|
