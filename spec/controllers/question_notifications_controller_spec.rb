@@ -20,9 +20,7 @@ describe QuestionNotificationsController, type: :controller do
       end
 
       it 'render create template' do
-        post :create, params: {
-          question_id: question, question_id: question, format: :js
-        }
+        post :create, params: { question_id: question, format: :js }
         expect(response).to render_template :create
       end
     end

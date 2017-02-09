@@ -24,6 +24,7 @@ Metrics/BlockLength:
     - 'config/routes.rb'
 
 Metrics/AbcSize:
+  Max: 16
   Exclude:
     - 'app/models/ability.rb'
 
@@ -42,6 +43,3 @@ Lint/UnusedMethodArgument:
 
 Metrics/MethodLength:
   Max: 15
-
-Metrics/AbcSize:
-  Max: 16
