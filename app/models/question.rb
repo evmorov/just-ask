@@ -14,8 +14,6 @@ class Question < ApplicationRecord
   private
 
   def watch_question
-    question_notification = question_notifications.new
-    question_notification.user = user
-    question_notification.save
+    question_notifications.create(user: user)
   end
 end

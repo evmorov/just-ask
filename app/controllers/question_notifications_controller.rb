@@ -7,9 +7,7 @@ class QuestionNotificationsController < ApplicationController
 
   def create
     @question = Question.find(params[:question_id])
-    @question_notification = @question.question_notifications.new
-    @question_notification.user = current_user
-    @question_notification.save
+    @question_notification = @question.question_notifications.create(user: current_user)
     respond_with @question_notification
   end
 
