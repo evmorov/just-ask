@@ -1,6 +1,6 @@
 require 'json'
 
-module RequestSpecHelper
+module RequestHelpers
   include Warden::Test::Helpers
 
   def self.included(base)
