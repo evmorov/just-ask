@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   end
 
   resources :questions, except: [:edit, :update], concerns: [:votable, :commentable] do
-    resources :question_notifications, only: [:create, :destroy], shallow: true
+    resources :subscriptions, only: [:create, :destroy], shallow: true
     resources :answers, concerns: [:votable, :commentable], shallow: true do
       post :best, on: :member
     end

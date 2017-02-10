@@ -96,14 +96,14 @@ describe Ability, type: :model do
       it { should be_able_to :me, User }
     end
 
-    context 'QuestionNotification' do
-      let(:question_notification) { create(:question_notification, user: user) }
-      let(:not_my_question_notification) { create(:question_notification, user: another_user) }
+    context 'Subscription' do
+      let(:subscription) { create(:subscription, user: user) }
+      let(:not_my_subscription) { create(:subscription, user: another_user) }
 
-      it { should be_able_to :create, QuestionNotification }
+      it { should be_able_to :create, Subscription }
 
-      it { should be_able_to :destroy, question_notification }
-      it { should_not be_able_to :destroy, not_my_question_notification }
+      it { should be_able_to :destroy, subscription }
+      it { should_not be_able_to :destroy, not_my_subscription }
     end
   end
 end

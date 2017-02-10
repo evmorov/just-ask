@@ -1,0 +1,12 @@
+- if can?(:create, Subscription)
+  - subscription = current_user.subscriptions.find_by(question: @question)
+  - if subscription
+    = link_to 'unwatch',
+      subscription,
+      method: :delete,
+      remote: true
+  - else
+    = link_to 'watch',
+      question_subscriptions_path(question_id: @question),
+      method: :post,
+      remote: true

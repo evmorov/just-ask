@@ -23,6 +23,6 @@ class Answer < ApplicationRecord
   private
 
   def notify_watchers
-    QuestionNotificationJob.perform_later(self)
+    SubscriptionJob.perform_later(self)
   end
 end

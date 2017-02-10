@@ -1,7 +1,7 @@
 require_relative '../acceptance_helper'
 
-feature 'Question notification', '
-  In order to receive notification about a question
+feature 'Question subscription', '
+  In order to receive subscription about a question
   As a user
   I want to be able to watch the question
 ' do
@@ -17,13 +17,13 @@ feature 'Question notification', '
     end
 
     scenario 'the question is watched by default' do
-      within('#question-notification') do
+      within('#subscription') do
         expect(page).to have_content 'unwatch'
       end
     end
 
     scenario 'can unwatch the question', js: true do
-      within('#question-notification') do
+      within('#subscription') do
         click_on 'unwatch'
 
         expect(page).to have_content 'watch'
@@ -39,14 +39,14 @@ feature 'Question notification', '
     end
 
     scenario "the question isn't watched by default" do
-      within('#question-notification') do
+      within('#subscription') do
         expect(page).to have_content 'watch'
         expect(page).to_not have_content 'unwatch'
       end
     end
 
     scenario 'can watch the question', js: true do
-      within('#question-notification') do
+      within('#subscription') do
         click_on 'watch'
 
         expect(page).to have_content 'unwatch'
@@ -60,19 +60,19 @@ feature 'Question notification', '
     end
 
     scenario 'there is no button for watching' do
-      within('#question-notification') do
+      within('#subscription') do
         expect(page).to_not have_content 'watch'
         expect(page).to_not have_content 'unwatch'
       end
     end
   end
 
-  context 'Email notification' do
+  context 'Email subscription' do
     given(:watching_user) { create(:user) }
     given!(:not_watching_user) { create(:user) }
 
     before do
-      create(:question_notification, user: watching_user, question: question)
+      create(:subscription, user: watching_user, question: question)
 
       sign_in(author)
       visit question_path(question)
