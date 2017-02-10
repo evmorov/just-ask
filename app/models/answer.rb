@@ -23,9 +23,6 @@ class Answer < ApplicationRecord
   private
 
   def notify_watchers
-    users = User.find(question.question_notifications.pluck(:user_id))
-    users.each do |user|
-      AnswerMailer.notify_watcher(user, self).deliver_later
-    end
+    QuestionNotificationJob.perform_later(self)
   end
 end
