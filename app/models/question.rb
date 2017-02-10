@@ -6,6 +6,7 @@ class Question < ApplicationRecord
   belongs_to :user
   has_many :answers, dependent: :destroy
   has_many :question_notifications, dependent: :destroy
+  has_many :subscribers, through: :question_notifications, source: :user
 
   validates :title, :body, presence: true, length: { minimum: 5 }
 
