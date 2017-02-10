@@ -7,7 +7,9 @@ feature 'Daily digest', '
 ' do
 
   given(:users) { create_list(:user, 2) }
-  given!(:questions_digest) { create_list(:question, 2, user: users.first, created_at: 1.day.ago) }
+  given!(:questions_digest) do
+    create_list(:question, 2, user: users.first, created_at: Date.yesterday.noon)
+  end
   given!(:old_questions) do
     create_list(:question, 2, user: users.first, created_at: (Date.yesterday.midnight - 1))
   end
