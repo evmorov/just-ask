@@ -5,8 +5,8 @@ class Question < ApplicationRecord
 
   belongs_to :user
   has_many :answers, dependent: :destroy
-  has_many :question_notifications, dependent: :destroy
-  has_many :subscribers, through: :question_notifications, source: :user
+  has_many :subscriptions, dependent: :destroy
+  has_many :subscribers, through: :subscriptions, source: :user
 
   validates :title, :body, presence: true, length: { minimum: 5 }
 
@@ -15,6 +15,6 @@ class Question < ApplicationRecord
   private
 
   def watch_question
-    question_notifications.create(user: user)
+    subscriptions.create(user: user)
   end
 end
