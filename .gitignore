@@ -22,6 +22,8 @@
 
 # Ignore ctags files
 tags
+tags.lock
+tags.temp
 
 /config/database.yml
 /config/secrets.yml
@@ -29,3 +31,6 @@ tags
 
 .swp
 dump.rdb
+
+config/*.sphinx.conf
+db/sphinx

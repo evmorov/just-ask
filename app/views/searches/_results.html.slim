@@ -1,0 +1,26 @@
+h2 Search #{where} result
+
+#search-query = "Query: #{@query}"
+#search-results-count = "#{@search_results.count} results"
+
+ul#search-result
+  - @search_results.each do |result|
+    - case result
+    - when Question
+      li
+        = link_to result.title, result
+        p = result.body
+    - when Answer
+      li
+        = link_to result.question.title, result.question
+        p = result.body
+    - when Comment
+      li
+        - if result.commentable.is_a?(Question)
+          = link_to result.commentable.title, result.commentable
+        - else
+          = link_to result.commentable.question.title, result.commentable.question
+        p = result.body
+    - when User
+      li
+        = result.email

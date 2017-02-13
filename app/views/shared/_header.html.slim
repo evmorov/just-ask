@@ -1,9 +1,29 @@
-h1 = link_to 'Just Ask', root_path, id: 'logo'
-ul#header-list
-  - if user_signed_in?
-    li = link_to 'Sign out', destroy_user_session_path, method: :delete
-    li = link_to current_user.email, edit_user_registration_path
-  - else
-    li = link_to 'Sign in', new_user_session_path
-    li = link_to 'Sign up', new_user_registration_path
-
+nav.navbar.navbar-default
+  .container
+    .navbar-header
+      button.navbar-toggle.collapsed{
+        aria-expanded="false" data-target="#navbar-collapse" data-toggle="collapse" type="button"}
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      = link_to 'Just Ask', root_path, id: 'logo', class: 'navbar-brand'
+    #navbar-collapse.collapse.navbar-collapse
+      ul.nav.navbar-nav.navbar-right
+        - if user_signed_in?
+          li = link_to current_user.email, edit_user_registration_path
+          li = link_to 'Sign out', destroy_user_session_path, method: :delete
+        - else
+          li = link_to 'Sign in', new_user_session_path
+          li = link_to 'Sign up', new_user_registration_path
+      = form_tag '/search/everywhere',
+        method: 'get',
+        class: 'navbar-form navbar-right',
+        id: 'search-form'
+        .form-group
+          = select_tag :search_type,
+            options_for_select(%w(everywhere questions answers comments users)),
+            class: 'btn',
+            id: 'search-type'
+          = text_field_tag :q, nil, id: 'search-bar', class: 'form-control', placeholder: 'Search'
+          = submit_tag 'Search', id: 'submit-search', class: 'btn btn-default'
