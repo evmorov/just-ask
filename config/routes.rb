@@ -44,5 +44,7 @@ Rails.application.routes.draw do
 
   post :ask_email_oauth, to: 'oauths#ask_email'
 
+  get 'search/:action' => 'searches#:action'
+
   mount ActionCable.server => '/cable'
 end

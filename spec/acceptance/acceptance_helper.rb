@@ -15,6 +15,7 @@ RSpec.configure do |config|
   config.include AcceptanceMacros, type: :feature
   config.include WaitForAjax, type: :feature
   config.include MailHelpers, type: :feature
+  config.include SphinxHelpers, type: :feature
 
   config.before do |example|
     if example.metadata[:type] == :feature
@@ -25,6 +26,11 @@ RSpec.configure do |config|
   end
 
   config.use_transactional_fixtures = false
+
+  config.before(:suite) do
+    ThinkingSphinx::Test.init
+    ThinkingSphinx::Test.start_with_autostop
+  end
 
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
