@@ -22,9 +22,10 @@ feature 'Search', '
   given!(:user2) { create(:user, email: 'mail@find.com') }
   given!(:user_not_found) { create(:user, email: 'my@mail.com') }
 
-  before { index }
+  given!(:question_cyrillic) { create(:question, body: 'Мой вопрос') }
 
   before do
+    index
     visit root_path
   end
 
@@ -185,5 +186,12 @@ feature 'Search', '
         end
       end
     end
+  end
+
+  scenario 'Search using cyrrilic query', js: true do
+    find('#search-bar').set('Мой вопрос')
+    click_on 'Search'
+
+    expect(page).to have_content '1 results'
   end
 end
