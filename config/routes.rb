@@ -44,7 +44,9 @@ Rails.application.routes.draw do
 
   post :ask_email_oauth, to: 'oauths#ask_email'
 
-  get 'search/:action' => 'searches#:action'
+  %w(questions answers comments users everywhere).each do |action|
+    get "search/#{action}" => "searches##{action}"
+  end
 
   mount ActionCable.server => '/cable'
 end
