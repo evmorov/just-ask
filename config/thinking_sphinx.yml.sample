@@ -3,3 +3,6 @@ test:
 
 development:
   mysql41: 9306
+
+production:
+  mysql41: 9308
