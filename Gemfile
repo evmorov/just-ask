@@ -31,6 +31,7 @@ gem 'therubyracer', '~> 0.12.3'
 gem 'thinking-sphinx', '~> 3.3.0'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
+gem 'unicorn', '~> 5.2.0'
 gem 'whenever', '~> 0.9.7'
 
 group :development, :test do
@@ -55,6 +56,7 @@ group :development do
   gem 'capistrano-rails', '~> 1.2.2', require: false
   gem 'capistrano-rbenv', '~> 2.0.4', require: false
   gem 'capistrano-sidekiq', '~> 0.10.0', require: false
+  gem 'capistrano3-unicorn', '~> 0.2.1', require: false
   gem 'letter_opener', '~> 1.4'
   gem 'listen', '~> 3.0.5'
   gem 'rubocop', require: false
