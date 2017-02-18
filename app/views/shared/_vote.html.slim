@@ -2,17 +2,18 @@
   '',
   id: "vote-#{votable.model_name.param_key}-#{votable.id}",
   class: "vote #{votable.vote_state(current_user) if user_signed_in?}"
-  = link_to polymorphic_path([:upvote, votable]),
-    class: 'vote-link upvote-link',
-    method: :post,
-    remote: true,
-    data: { type: :json }
-      i class='glyphicon glyphicon-chevron-up'
-  .score
-    = votable.total_score
-  = link_to polymorphic_path([:downvote, votable]),
-    class: 'vote-link downvote-link',
-    method: :post,
-    remote: true,
-    data: { type: :json }
-      i class='glyphicon glyphicon-chevron-down'
+  - cache votable.votes do
+    = link_to polymorphic_path([:upvote, votable]),
+      class: 'vote-link upvote-link',
+      method: :post,
+      remote: true,
+      data: { type: :json }
+        i class='glyphicon glyphicon-chevron-up'
+    .score
+      = votable.total_score
+    = link_to polymorphic_path([:downvote, votable]),
+      class: 'vote-link downvote-link',
+      method: :post,
+      remote: true,
+      data: { type: :json }
+        i class='glyphicon glyphicon-chevron-down'
