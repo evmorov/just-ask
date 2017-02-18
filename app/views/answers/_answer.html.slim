@@ -12,23 +12,23 @@
 
     - cache answer do
       p = answer.body
-      - if can?(:edit, answer)
-        = link_to 'Edit',
-          '',
-          class: 'edit-answer-link',
-          data: { answer_id: answer.id }
-        = link_to 'Remove',
-          answer,
-          method: :delete,
-          class: 'remove-answer-link',
-          data: { answer_id: answer.id, confirm: 'Are you sure?' },
-          remote: true
+    - if can?(:edit, answer)
+      = link_to 'Edit',
+        '',
+        class: 'edit-answer-link',
+        data: { answer_id: answer.id }
+      = link_to 'Remove',
+        answer,
+        method: :delete,
+        class: 'remove-answer-link',
+        data: { answer_id: answer.id, confirm: 'Are you sure?' },
+        remote: true
 
-        = content_tag(:div, '', id: "edit-answer-error-#{answer.id}")
+      = content_tag(:div, '', id: "edit-answer-error-#{answer.id}")
 
-        = form_for answer, remote: true, html: { id: "edit-answer-#{answer.id}", class: 'edit-answer-area' } do |f|
-          = f.text_area :body, id: "edit-answer-new-body-#{answer.id}"
-          = f.submit 'Save'
+      = form_for answer, remote: true, html: { id: "edit-answer-#{answer.id}", class: 'edit-answer-area' } do |f|
+        = f.text_area :body, id: "edit-answer-new-body-#{answer.id}"
+        = f.submit 'Save'
 
     #answer-attachments
       ul = render answer.attachments
