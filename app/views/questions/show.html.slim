@@ -5,7 +5,8 @@
   = render 'shared/vote', votable: @question
 
   .body
-    = @question.body
+    - cache @question do
+      = @question.body
   - if can?(:destroy, @question)
     = link_to 'Remove', @question,
       method: :delete,

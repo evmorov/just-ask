@@ -1,9 +1,10 @@
 h2 List of questions
 
-ul#questions
-  - @questions.each do |question|
-    li.question
-      = link_to question.title, question
+- cache @questions do
+  ul#questions
+    - @questions.each do |question|
+      li.question
+        = link_to question.title, question
 
 - if can?(:create, Question)
   div

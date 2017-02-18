@@ -1,12 +1,13 @@
 .comments
   hr
-  = render commentable.comments
+  = render partial: 'comments/comment', collection: commentable.comments, cached: true
 - if can?(:create, Comment)
-  = link_to 'Add a comment',
-    '',
-    class: 'add-comment-link',
-    data: { commentable_id: commentable.id, commentable_class: commentable.class.name.underscore }
-  = form_for [commentable, commentable.comments.new], remote: true, data: { type: :json } do |f|
-      .comment-errors
-      = f.text_area :body
-      = f.submit
+  - cache ['comment_form', commentable] do
+    = link_to 'Add a comment',
+      '',
+      class: 'add-comment-link',
+      data: { commentable_id: commentable.id, commentable_class: commentable.class.name.underscore }
+    = form_for [commentable, commentable.comments.new], remote: true, data: { type: :json } do |f|
+        .comment-errors
+        = f.text_area :body
+        = f.submit
