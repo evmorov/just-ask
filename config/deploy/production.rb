@@ -68,4 +68,4 @@ set :ssh_options, keys: %w(/Users/evmorov/.ssh/github),
                   auth_methods: %w(publickey password),
                   port: 4321
 
-set :sidekiq_queue, ['default', 'mailers']
+set :sidekiq_queue, %w(default mailers)
