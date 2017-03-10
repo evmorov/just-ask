@@ -47,6 +47,8 @@ feature 'OAuth', '
       open_email 'mail@facebook.com'
       current_email.click_link 'Confirm my account'
       click_on 'Sign in with Facebook'
+      fill_in 'Username', with: 'myusername'
+      click_on 'Save'
 
       expect(page).to have_current_path(root_path)
       expect(page).to have_content 'Successfully authenticated from Facebook account.'
@@ -97,6 +99,8 @@ feature 'OAuth', '
       open_email 'mail@twitter.com'
       current_email.click_link 'Confirm my account'
       click_on 'Sign in with Twitter'
+      fill_in 'Username', with: 'myusername'
+      click_on 'Save'
 
       expect(page).to have_current_path(root_path)
       expect(page).to have_content 'Successfully authenticated from Twitter account.'

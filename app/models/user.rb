@@ -10,6 +10,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [:facebook, :twitter]
 
+  validates :username, presence: true, uniqueness: true
+
   def author_of?(obj)
     id == obj.user_id
   end
@@ -19,7 +21,12 @@ class User < ApplicationRecord
     transaction do
       unless user
         password = Devise.friendly_token[0, 20]
-        user = User.create!(email: email, password: password, password_confirmation: password)
+        user = User.create!(
+          username: email,
+          email: email,
+          password: password,
+          password_confirmation: password
+        )
       end
       user.authorizations.create!(provider: provider, uid: uid)
       user
