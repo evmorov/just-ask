@@ -9,6 +9,7 @@ feature 'Signing up', '
   scenario 'Sign up' do
     visit root_path
     click_on 'Sign up'
+    fill_in 'Username', with: 'TestUserName'
     fill_in 'Email', with: 'test@mail.com'
     fill_in 'Password', with: 'password123'
     fill_in 'Password confirmation', with: 'password123'
