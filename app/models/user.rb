@@ -7,8 +7,8 @@ class User < ApplicationRecord
   has_many :subscriptions, dependent: :destroy
 
   devise :database_authenticatable, :registerable, :confirmable,
-         :recoverable, :rememberable, :trackable, :validatable,
-         :omniauthable, omniauth_providers: [:facebook, :twitter]
+    :recoverable, :rememberable, :trackable, :validatable,
+    :omniauthable, omniauth_providers: [:facebook, :twitter]
 
   validates :username, presence: true, uniqueness: true
 
@@ -16,13 +16,13 @@ class User < ApplicationRecord
     id == obj.user_id
   end
 
-  def self.create_if_not_exist_w_auth(email, provider, uid)
+  def self.create_if_not_exist_w_auth(email, username, provider, uid)
     user = User.find_by(email: email)
     transaction do
       unless user
         password = Devise.friendly_token[0, 20]
         user = User.create!(
-          username: email,
+          username: username,
           email: email,
           password: password,
           password_confirmation: password

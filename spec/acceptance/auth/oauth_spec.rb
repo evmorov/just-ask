@@ -44,11 +44,11 @@ feature 'OAuth', '
 
       visit new_user_session_path
       click_on 'Sign in with Facebook'
+      fill_in 'Username', with: 'myusername'
+      click_on 'Save'
       open_email 'mail@facebook.com'
       current_email.click_link 'Confirm my account'
       click_on 'Sign in with Facebook'
-      fill_in 'Username', with: 'myusername'
-      click_on 'Save'
 
       expect(page).to have_current_path(root_path)
       expect(page).to have_content 'Successfully authenticated from Facebook account.'
@@ -58,9 +58,8 @@ feature 'OAuth', '
   end
 
   context 'Twitter' do
-    before { OmniAuth.config.add_mock(:twitter, uid: '654321') }
-
     scenario 'can sign in if have an account and Twitter is linked' do
+      OmniAuth.config.add_mock(:twitter, uid: '654321', info: { email: user.email })
       user.authorizations.create(provider: 'twitter', uid: '654321')
 
       visit new_user_session_path
@@ -73,14 +72,9 @@ feature 'OAuth', '
     end
 
     scenario 'can sign in if have an account but Twitter is not linked' do
+      OmniAuth.config.add_mock(:twitter, uid: '654321', info: { email: user.email })
+
       visit new_user_session_path
-      click_on 'Sign in with Twitter'
-      fill_in 'Email', with: user.email
-      within('.actions') do
-        click_on 'Sign up'
-      end
-      open_email user.email
-      current_email.click_link 'Confirm my account'
       click_on 'Sign in with Twitter'
 
       expect(page).to have_current_path(root_path)
@@ -90,17 +84,15 @@ feature 'OAuth', '
     end
 
     scenario 'can sign up using Twitter if does not have an account' do
+      OmniAuth.config.add_mock(:twitter, uid: '654321', info: { email: 'mail@twitter.com' })
+
       visit new_user_session_path
-      click_on 'Sign in with Twitter'
-      fill_in 'Email', with: 'mail@twitter.com'
-      within('.actions') do
-        click_on 'Sign up'
-      end
-      open_email 'mail@twitter.com'
-      current_email.click_link 'Confirm my account'
       click_on 'Sign in with Twitter'
       fill_in 'Username', with: 'myusername'
       click_on 'Save'
+      open_email 'mail@twitter.com'
+      current_email.click_link 'Confirm my account'
+      click_on 'Sign in with Twitter'
 
       expect(page).to have_current_path(root_path)
       expect(page).to have_content 'Successfully authenticated from Twitter account.'

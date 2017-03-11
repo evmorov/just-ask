@@ -1,17 +1,29 @@
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def facebook
-    unless (@user = User.find_by_auth(auth))
-      @user = User.create_if_not_exist_w_auth(auth.info.email, auth.provider, auth.uid)
+    if (@user = User.find_by_auth(auth))
+      sign_in_and_redirect_auth('Facebook')
+    else
+      if User.find_by(email: auth.info.email)
+        @user = User.create_if_not_exist_w_auth(auth.info.email, auth.info.username, auth.provider, auth.uid)
+        sign_in_and_redirect_auth('Facebook')
+      else
+        @auth = auth
+        render 'registrations/ask_username'
+      end
     end
-    sign_in_and_redirect_auth('Facebook')
   end
 
   def twitter
     if (@user = User.find_by_auth(auth))
       sign_in_and_redirect_auth('Twitter')
     else
-      @auth = auth
-      render 'registrations/ask_email'
+      if User.find_by(email: auth.info.email)
+        @user = User.create_if_not_exist_w_auth(auth.info.email, auth.info.username, auth.provider, auth.uid)
+        sign_in_and_redirect_auth('Twitter')
+      else
+        @auth = auth
+        render 'registrations/ask_username'
+      end
     end
   end
 

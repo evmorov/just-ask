@@ -10,4 +10,10 @@ class OauthsController < ApplicationController
     end
     redirect_to root_path
   end
+
+  def ask_username
+    @user = User.create_if_not_exist_w_auth(params['email'], params['username'], params['provider'], params['uid'])
+
+    redirect_to root_path
+  end
 end
