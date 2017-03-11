@@ -11,6 +11,10 @@
     = render 'shared/vote', votable: answer
 
     p = answer.body
+
+    .username
+      = answer.user.username
+
     - if can?(:edit, answer)
       = link_to 'Edit',
         '',
