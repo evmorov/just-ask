@@ -1,37 +1,30 @@
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def facebook
-    if (@user = User.find_by_auth(auth))
-      sign_in_and_redirect_auth('Facebook')
-    else
-      if User.find_by(email: auth.info.email)
-        @user = User.create_if_not_exist_w_auth(auth.info.email, auth.info.username, auth.provider, auth.uid)
-        sign_in_and_redirect_auth('Facebook')
-      else
-        @auth = auth
-        render 'registrations/ask_username'
-      end
-    end
+    sign_in_oauth('Facebook')
   end
 
   def twitter
-    if (@user = User.find_by_auth(auth))
-      sign_in_and_redirect_auth('Twitter')
-    else
-      if User.find_by(email: auth.info.email)
-        @user = User.create_if_not_exist_w_auth(auth.info.email, auth.info.username, auth.provider, auth.uid)
-        sign_in_and_redirect_auth('Twitter')
-      else
-        @auth = auth
-        render 'registrations/ask_username'
-      end
-    end
+    sign_in_oauth('Twitter')
   end
 
   private
 
-  def sign_in_and_redirect_auth(provider)
-    sign_in_and_redirect @user, event: :authentication
-    set_flash_message(:notice, :success, kind: provider) if is_navigational_format?
+  def sign_in_oauth(provider_name)
+    user = User.find_by(email: auth.info.email)
+    if user # has user
+      unless user.authorizations.find_by(uid: auth.uid) # but doesn't have authorization
+        user.authorizations.create(provider: auth.provider, uid: auth.uid)
+      end
+      sign_in_and_redirect_auth(user, provider_name)
+    else # doesn't have a user and authorization
+      @auth = auth
+      render 'registrations/ask_username'
+    end
+  end
+
+  def sign_in_and_redirect_auth(user, provider_name)
+    sign_in_and_redirect user, event: :authentication
+    set_flash_message(:notice, :success, kind: provider_name) if is_navigational_format?
   end
 
   def auth

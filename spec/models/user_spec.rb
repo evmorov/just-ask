@@ -26,39 +26,71 @@ describe User, type: :model do
     end
   end
 
-  describe '.create_if_not_exist_w_auth' do
-    let(:user) { create(:user) }
+  describe '.create_user_and_auth' do
+    let(:auth) { { email: 'auth@mail.com', username: 'authname', provider: 'Twitter', uid: '321' } }
 
-    it 'matches user by email and returns him' do
-      user_found = User.create_if_not_exist_w_auth(user.email, 'myusername', 'twitter', '123456')
-      expect(user_found).to eq(user)
+    it 'returns User object' do
+      expect(User.create_user_and_auth(auth)).to be_a(User)
     end
 
-    it "creates a new user if a user can't be found by email" do
-      user_created = User.create_if_not_exist_w_auth('new_mail@twitter.com', 'myusername', 'Twitter', '123456')
-      expect(user_created.email).to eq('new_mail@twitter.com')
+    it 'creates User' do
+      expect { User.create_user_and_auth(auth) }.to change(User, :count).by(1)
     end
 
-    it 'creates authorization' do
-      user_found = User.create_if_not_exist_w_auth(user.email, user.username, 'twitter', '123456')
-      expect(user_found.authorizations.first.provider).to eq('twitter')
-      expect(user_found.authorizations.first.uid).to eq('123456')
-    end
-  end
-
-  describe '.find_by_auth' do
-    let(:user) { create(:user) }
-    let(:auth) { OmniAuth::AuthHash.new(provider: 'facebook', uid: '123456') }
-
-    it 'returns user found by authorization' do
-      user.authorizations.create(provider: 'facebook', uid: '123456')
-      user_found = User.find_by_auth(auth)
-      expect(user_found).to eq(user)
+    it 'creates Authorization' do
+      expect { User.create_user_and_auth(auth) }.to change(Authorization, :count).by(1)
     end
 
-    it 'returns nil if user not found' do
-      user_found = User.find_by_auth(auth)
-      expect(user_found).to be_nil
+    it "doesn't create anything if there is already user with such email" do
+      create(:user, email: auth[:email])
+      expect {
+        User.create_user_and_auth(auth)
+      }.to raise_error(ActiveRecord::RecordInvalid)
+        .and change(User, :count).by(0)
+        .and change(Authorization, :count).by(0)
+    end
+
+    it "doesn't create anything if there is already user with such username" do
+      create(:user, username: auth[:username])
+      expect {
+        User.create_user_and_auth(auth)
+      }.to raise_error(ActiveRecord::RecordInvalid)
+        .and change(User, :count).by(0)
+        .and change(Authorization, :count).by(0)
+    end
+
+    context 'when auth is not valid' do
+      it "doesn't create anything if no email" do
+        expect {
+          User.create_user_and_auth(username: 'authname', provider: 'Twitter', uid: '321')
+        }.to raise_error(ActiveRecord::RecordInvalid)
+          .and change(User, :count).by(0)
+          .and change(Authorization, :count).by(0)
+      end
+
+      it "doesn't create anything if no username" do
+        expect {
+          User.create_user_and_auth(email: 'auth@mail.com', provider: 'Twitter', uid: '321')
+        }.to raise_error(ActiveRecord::RecordInvalid)
+          .and change(User, :count).by(0)
+          .and change(Authorization, :count).by(0)
+      end
+
+      it "doesn't create anything if no provider" do
+        expect {
+          User.create_user_and_auth(email: 'auth@mail.com', username: 'authname', uid: '321')
+        }.to raise_error(ActiveRecord::RecordInvalid)
+          .and change(User, :count).by(0)
+          .and change(Authorization, :count).by(0)
+      end
+
+      it "doesn't create anything if no uid" do
+        expect {
+          User.create_user_and_auth(email: 'me@mail.com', username: 'authname', provider: 'Twitter')
+        }.to raise_error(ActiveRecord::RecordInvalid)
+          .and change(User, :count).by(0)
+          .and change(Authorization, :count).by(0)
+      end
     end
   end
 end

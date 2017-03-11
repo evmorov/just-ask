@@ -1,0 +1,15 @@
+h2 Provide your username
+
+= form_tag(ask_username_oauth_path) do
+  .field
+    = label_tag :username
+    br/
+    = text_field_tag :username
+  .field.hidden
+    = text_field_tag :provider, @auth.provider
+  .field.hidden
+    = text_field_tag :uid, @auth.uid
+  .field.hidden
+    = text_field_tag :email, @auth.info.email
+  .actions
+    = submit_tag 'Save'
