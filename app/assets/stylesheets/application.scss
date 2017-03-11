@@ -5,3 +5,12 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+.username {
+  display: table;
+  border-style: solid;
+  border-width: 1px;
+  background-color: #f8f8f8;
+  border-color: #b6b6b6;
+  padding: 3px;
+}

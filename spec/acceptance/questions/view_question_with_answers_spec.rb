@@ -11,6 +11,7 @@ feature 'View Question with answers', '
   scenario 'View a question with answers', js: true do
     visit question_path(question_with_answers)
 
+    expect(page).to have_content(question_with_answers.user.username)
     expect(page).to have_content(question_with_answers.title)
     expect(page).to have_content(question_with_answers.body)
     question_with_answers.answers.each { |answer| expect(page).to have_content(answer.body) }
