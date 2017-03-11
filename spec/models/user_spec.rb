@@ -30,17 +30,17 @@ describe User, type: :model do
     let(:user) { create(:user) }
 
     it 'matches user by email and returns him' do
-      user_found = User.create_if_not_exist_w_auth(user.email, 'twitter', '123456')
+      user_found = User.create_if_not_exist_w_auth(user.email, 'myusername', 'twitter', '123456')
       expect(user_found).to eq(user)
     end
 
     it "creates a new user if a user can't be found by email" do
-      user_created = User.create_if_not_exist_w_auth('new_mail@twitter.com', 'Twitter', '123456')
+      user_created = User.create_if_not_exist_w_auth('new_mail@twitter.com', 'myusername', 'Twitter', '123456')
       expect(user_created.email).to eq('new_mail@twitter.com')
     end
 
     it 'creates authorization' do
-      user_found = User.create_if_not_exist_w_auth(user.email, 'twitter', '123456')
+      user_found = User.create_if_not_exist_w_auth(user.email, user.username, 'twitter', '123456')
       expect(user_found.authorizations.first.provider).to eq('twitter')
       expect(user_found.authorizations.first.uid).to eq('123456')
     end

@@ -43,6 +43,7 @@ Rails.application.routes.draw do
   end
 
   post :ask_email_oauth, to: 'oauths#ask_email'
+  post :ask_username_oauth, to: 'oauths#ask_username'
 
   %w(questions answers comments users everywhere).each do |action|
     get "search/#{action}" => "searches##{action}"
