@@ -6,6 +6,10 @@
 
   .body
     = @question.body
+
+  .username
+    = @question.user.username
+
   - if can?(:destroy, @question)
     = link_to 'Remove', @question,
       method: :delete,
