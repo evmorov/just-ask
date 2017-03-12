@@ -25,8 +25,7 @@ shared_examples_for 'Comments' do
 
         expect(page).to have_selector 'textarea'
         expect(page).to_not have_content 'qwe'
-        expect(page).to_not have_content user.username
-        expect(page).to have_content 'body is too short'
+        expect(page).to have_content 'Body is too short'
       end
     end
   end

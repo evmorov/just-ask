@@ -6,13 +6,20 @@ class CommentsController < ApplicationController
 
   authorize_resource
 
-  respond_to :json
-
   def create
     @comment = @commentable.comments.new(comment_params)
     @comment.user = current_user
-    @comment.save
-    respond_with @comment
+
+    respond_to do |format|
+      format.json do
+        if @comment.save
+          @comment_data = { comment: @comment, user: @comment.user }
+          render json: @comment_data
+        else
+          render json: @comment.errors.full_messages, status: :unprocessable_entity
+        end
+      end
+    end
   end
 
   private
@@ -29,6 +36,6 @@ class CommentsController < ApplicationController
   def publish_comment
     return if @comment.errors.any?
 
-    ActionCable.server.broadcast('comments', @comment)
+    ActionCable.server.broadcast('comments', @comment_data)
   end
 end
