@@ -1,1 +1,1 @@
-@comment.to_json
+@comment_data.to_json
