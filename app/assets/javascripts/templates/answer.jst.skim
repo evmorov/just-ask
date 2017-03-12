@@ -40,4 +40,3 @@ div id="answer_#{@answer.id}" class="answer #{'best-answer-selected' if @answer.
         .comment-errors
         textarea#comment_body name="comment[body]"
         input data-disable-with=("Create Comment") name="commit" type="submit" value=("Create Comment")
-

@@ -13,6 +13,7 @@ shared_examples_for 'Comments' do
 
         expect(page).to_not have_selector 'textarea'
         expect(page).to have_content 'This is a comment'
+        expect(page).to have_content user.username
       end
     end
 
@@ -24,6 +25,7 @@ shared_examples_for 'Comments' do
 
         expect(page).to have_selector 'textarea'
         expect(page).to_not have_content 'qwe'
+        expect(page).to_not have_content user.username
         expect(page).to have_content 'body is too short'
       end
     end
@@ -67,6 +69,7 @@ shared_examples_for 'Comments' do
       Capybara.using_session('another_user') do
         within(commentable_locator) do
           expect(page).to have_content 'This is a comment'
+          expect(page).to have_content user.username
         end
       end
     end
