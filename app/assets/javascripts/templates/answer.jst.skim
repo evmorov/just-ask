@@ -11,6 +11,11 @@ div id="answer_#{@answer.id}" class="answer #{'best-answer-selected' if @answer.
       i.glyphicon.glyphicon-chevron-down
 
   p #{@answer.body}
+
+  div
+    .username
+      = @username
+
   - if gon.user_id && gon.user_id == @answer.user_id
     a.edit-answer-link data-answer-id="#{@answer.id}" href="" Edit
     a.remove-answer-link data-answer-id="#{@answer.id}" data-confirm=("Are you sure?") data-method="delete" data-remote="true" href="/answers/#{@answer.id}" rel="nofollow" Remove

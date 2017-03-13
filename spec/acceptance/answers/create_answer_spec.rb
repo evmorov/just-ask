@@ -59,6 +59,7 @@ feature 'Create an answer', '
 
       Capybara.using_session('guest') do
         within('#answers') do
+          expect(page).to have_content user.username
           expect(page).to have_content('My answer')
         end
       end

@@ -50,7 +50,8 @@ class AnswersController < ApplicationController
       'answers',
       answer: @answer,
       vote: vote,
-      attachments: @answer.attachments
+      attachments: @answer.attachments,
+      username: @answer.user.username
     )
   end
 
