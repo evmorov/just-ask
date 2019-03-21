@@ -19,7 +19,7 @@ Just-Ask is a Stack Overflow clone that was made for educational purpose. Writte
 - Users receive a daily digest with questions that were created in last 24 hours
 - User can search a question, answer, comment or everywhere
 
-## Some technologies are used
+## Some of technologies used
 
 ### Gems
 
