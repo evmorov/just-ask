@@ -2,6 +2,19 @@
 
 Just-Ask is a Stack Overflow clone that was made for educational purpose. Written in [Ruby on Rails 5](http://rubyonrails.org/).
 
+## Installation
+
+- Install and run PostgreSQL
+- Install and run MySQL for Sphinx
+- Install Sphinx for full text search
+- Install and run Redis for ActionCable
+- `git clone git@github.com:evmorov/just-ask.git`
+- `cd just-ask`
+- `bundle install` to install dependencies
+- `bundle exec rspec` to run tests
+- `rails ts:rebuild` to rebuild Sphinx 
+- `rails server` to run the the server
+
 ## User stories
 
 - Guest can sign up
