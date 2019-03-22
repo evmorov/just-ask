@@ -23,7 +23,7 @@ feature 'Remove a file', '
 
       scenario 'remove a file for my own question', js: true do
         within('#question') do
-          find(:css, '.remove-attachment-link').trigger('click')
+          find(:css, '.remove-attachment-link').click
 
           expect(page).to_not have_link(
             attach_question.file.identifier,
@@ -34,7 +34,7 @@ feature 'Remove a file', '
 
       scenario 'remove a file for my own answer', js: true do
         within('#answers') do
-          find(:css, '.remove-attachment-link').trigger('click')
+          find(:css, '.remove-attachment-link').click
 
           expect(page).to_not have_link(
             attach_question.file.identifier,

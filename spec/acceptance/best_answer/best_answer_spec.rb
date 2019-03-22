@@ -20,7 +20,7 @@ feature 'Select the best answer', '
       visit question_path(question)
 
       within("#answer_#{answer2.id}") do
-        find(:css, '.best-answer-link').trigger('click')
+        find(:css, '.best-answer-link').click
         wait_for_ajax
       end
 
@@ -34,7 +34,7 @@ feature 'Select the best answer', '
 
       visit question_path(question)
       within("#answer_#{best_answer.id}") do
-        find(:css, '.best-answer-link').trigger('click')
+        find(:css, '.best-answer-link').click
         wait_for_ajax
       end
 
@@ -48,7 +48,7 @@ feature 'Select the best answer', '
 
       visit question_path(question)
       within("#answer_#{answer2.id}") do
-        find(:css, '.best-answer-link').trigger('click')
+        find(:css, '.best-answer-link').click
         wait_for_ajax
       end
 
@@ -108,7 +108,7 @@ feature 'Select the best answer', '
 
       Capybara.using_session('user') do
         within all('.answer').last do
-          find(:css, '.best-answer-link').trigger('click')
+          find(:css, '.best-answer-link').click
           wait_for_ajax
           expect(find('.best-answer-link')['class']).to include('best-answer-link-selected')
         end

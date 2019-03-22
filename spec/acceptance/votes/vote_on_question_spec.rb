@@ -21,7 +21,7 @@ feature 'Vote on question', '
     visit question_path(my_question)
 
     within('#question') do
-      find(:css, '.upvote-link').trigger('click')
+      find(:css, '.upvote-link').click
       wait_for_ajax
 
       expect(find('.vote')['class']).to_not include('upvoted')

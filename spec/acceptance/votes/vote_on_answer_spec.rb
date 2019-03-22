@@ -22,7 +22,7 @@ feature 'Vote on answer', '
     visit question_path(question)
 
     within("#answer_#{my_answer.id}") do
-      find(:css, '.upvote-link').trigger('click')
+      find(:css, '.upvote-link').click
       wait_for_ajax
 
       expect(find('.vote')['class']).to_not include('upvoted')
@@ -50,7 +50,7 @@ feature 'Vote on answer', '
 
       Capybara.using_session('another_user') do
         within all('.answer').last do
-          find(:css, '.upvote-link').trigger('click')
+          find(:css, '.upvote-link').click
           wait_for_ajax
 
           expect(find('.vote')['class']).to include('upvoted')

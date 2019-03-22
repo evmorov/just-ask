@@ -1,10 +1,17 @@
 require 'rails_helper'
 require 'capybara/email/rspec'
+require 'capybara-screenshot/rspec'
 
 Sidekiq::Testing.inline!
 
 RSpec.configure do |config|
-  Capybara.javascript_driver = :webkit
+  Capybara.register_driver :selenium do |app|
+    options = Selenium::WebDriver::Chrome::Options.new(
+      args: %w[headless disable-gpu window-size=1366,768],
+    )
+    Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
+  end
+
   Capybara.ignore_hidden_elements = true
   Capybara.register_server :puma do |app, port, host|
     require 'rack/handler/puma'

@@ -8,7 +8,7 @@ shared_examples_for 'Giving vote on votable' do
       visit question_path(question)
 
       within(votable_locator) do
-        find(:css, '.upvote-link').trigger('click')
+        find(:css, '.upvote-link').click
         wait_for_ajax
 
         expect(find('.vote')['class']).to include('upvoted')
@@ -21,9 +21,9 @@ shared_examples_for 'Giving vote on votable' do
       visit question_path(question)
 
       within(votable_locator) do
-        find(:css, '.upvote-link').trigger('click')
+        find(:css, '.upvote-link').click
         wait_for_ajax
-        find(:css, '.upvote-link').trigger('click')
+        find(:css, '.upvote-link').click
         wait_for_ajax
 
         expect(find('.vote')['class']).to_not include('upvoted')
@@ -36,7 +36,7 @@ shared_examples_for 'Giving vote on votable' do
       visit question_path(question)
 
       within(votable_locator) do
-        find(:css, '.downvote-link').trigger('click')
+        find(:css, '.downvote-link').click
         wait_for_ajax
 
         expect(find('.vote')['class']).to_not include('upvoted')
@@ -49,9 +49,9 @@ shared_examples_for 'Giving vote on votable' do
       visit question_path(question)
 
       within(votable_locator) do
-        find(:css, '.upvote-link').trigger('click')
+        find(:css, '.upvote-link').click
         wait_for_ajax
-        find(:css, '.downvote-link').trigger('click')
+        find(:css, '.downvote-link').click
         wait_for_ajax
 
         expect(find('.vote')['class']).to_not include('upvoted')
@@ -64,9 +64,9 @@ shared_examples_for 'Giving vote on votable' do
       visit question_path(question)
 
       within(votable_locator) do
-        find(:css, '.downvote-link').trigger('click')
+        find(:css, '.downvote-link').click
         wait_for_ajax
-        find(:css, '.upvote-link').trigger('click')
+        find(:css, '.upvote-link').click
         wait_for_ajax
 
         expect(find('.vote')['class']).to include('upvoted')
@@ -81,7 +81,7 @@ shared_examples_for 'Giving vote on votable' do
       visit question_path(question)
 
       within(votable_locator) do
-        find(:css, '.upvote-link').trigger('click')
+        find(:css, '.upvote-link').click
         wait_for_ajax
 
         expect(find('.vote')['class']).to include('upvoted')
@@ -96,7 +96,7 @@ shared_examples_for 'Giving vote on votable' do
       visit question_path(question)
 
       within(votable_locator) do
-        find(:css, '.upvote-link').trigger('click')
+        find(:css, '.upvote-link').click
         wait_for_ajax
 
         expect(find('.vote')['class']).to_not include('upvoted')
