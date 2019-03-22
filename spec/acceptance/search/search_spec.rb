@@ -39,7 +39,7 @@ feature 'Search', '
       click_on 'Search'
 
       expect(page).to have_content '0 results'
-      expect(find('#search-result').text).to be_empty
+      expect(find('#search-result', visible: :any).text).to be_empty
     end
 
     scenario 'entities are found', js: true do
@@ -66,7 +66,7 @@ feature 'Search', '
       click_on 'Search'
 
       expect(page).to have_content '0 results'
-      expect(find('#search-result').text).to be_empty
+      expect(find('#search-result', visible: :any).text).to be_empty
     end
 
     scenario 'entities are found', js: true do
@@ -93,7 +93,7 @@ feature 'Search', '
       click_on 'Search'
 
       expect(page).to have_content '0 results'
-      expect(find('#search-result').text).to be_empty
+      expect(find('#search-result', visible: :any).text).to be_empty
     end
 
     scenario 'entities are found', js: true do
@@ -127,7 +127,7 @@ feature 'Search', '
       click_on 'Search'
 
       expect(page).to have_content '0 results'
-      expect(find('#search-result').text).to be_empty
+      expect(find('#search-result', visible: :any).text).to be_empty
     end
 
     scenario 'entities are found', js: true do
@@ -153,7 +153,7 @@ feature 'Search', '
       click_on 'Search'
 
       expect(page).to have_content '0 results'
-      expect(find('#search-result').text).to be_empty
+      expect(find('#search-result', visible: :any).text).to be_empty
     end
 
     scenario 'entities are found', js: true do
