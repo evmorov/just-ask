@@ -1,3 +1,5 @@
+# rubocop:disable Layout/MultilineMethodCallIndentation
+
 require 'rails_helper'
 
 describe User, type: :model do
@@ -94,3 +96,5 @@ describe User, type: :model do
     end
   end
 end
+
+# rubocop:enable Layout/MultilineMethodCallIndentation
