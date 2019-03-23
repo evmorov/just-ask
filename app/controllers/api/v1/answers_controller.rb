@@ -1,5 +1,5 @@
 class Api::V1::AnswersController < Api::V1::BaseController
-  before_action :load_question, only: [:index, :create]
+  before_action :load_question, only: %i[index create]
 
   authorize_resource
 

@@ -2,8 +2,8 @@ class AnswersController < ApplicationController
   include Voted
 
   before_action :authenticate_user!
-  before_action :load_answer, only: [:update, :destroy, :best]
-  before_action :set_comment, only: [:create, :update]
+  before_action :load_answer, only: %i[update destroy best]
+  before_action :set_comment, only: %i[create update]
   after_action :publish_answer, only: [:create]
 
   authorize_resource
@@ -39,7 +39,7 @@ class AnswersController < ApplicationController
   end
 
   def answer_params
-    params.require(:answer).permit(:body, attachments_attributes: [:id, :file, :_destroy])
+    params.require(:answer).permit(:body, attachments_attributes: %i[id file _destroy])
   end
 
   def publish_answer

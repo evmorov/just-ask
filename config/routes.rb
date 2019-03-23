@@ -22,9 +22,9 @@ Rails.application.routes.draw do
     resources :comments, only: [:create]
   end
 
-  resources :questions, except: [:edit, :update], concerns: [:votable, :commentable] do
-    resources :subscriptions, only: [:create, :destroy], shallow: true
-    resources :answers, concerns: [:votable, :commentable], shallow: true do
+  resources :questions, except: %i[edit update], concerns: %i[votable commentable] do
+    resources :subscriptions, only: %i[create destroy], shallow: true
+    resources :answers, concerns: %i[votable commentable], shallow: true do
       post :best, on: :member
     end
   end
@@ -36,8 +36,8 @@ Rails.application.routes.draw do
       resources :profiles, only: [:index] do
         get :me, on: :collection
       end
-      resources :questions, only: [:index, :show, :create] do
-        resources :answers, only: [:index, :show, :create], shallow: true
+      resources :questions, only: %i[index show create] do
+        resources :answers, only: %i[index show create], shallow: true
       end
     end
   end
@@ -45,7 +45,7 @@ Rails.application.routes.draw do
   post :ask_email_oauth, to: 'oauths#ask_email'
   post :ask_username_oauth, to: 'oauths#ask_username'
 
-  %w(questions answers comments users everywhere).each do |action|
+  %w[questions answers comments users everywhere].each do |action|
     get "search/#{action}" => "searches##{action}"
   end
 

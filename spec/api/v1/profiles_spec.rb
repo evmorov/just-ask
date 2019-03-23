@@ -26,19 +26,19 @@ describe 'Profile API' do
         expect(response).to be_success
       end
 
-      %w(id email admin).each do |attr|
+      %w[id email admin].each do |attr|
         it "contains #{attr}" do
           expect(response_body[attr]).to eq(resource_owner.send(attr))
         end
       end
 
-      %w(created_at updated_at).each do |attr|
+      %w[created_at updated_at].each do |attr|
         it "contains #{attr}" do
           expect(response_body[attr]).to eq(resource_owner.send(attr).iso8601(3))
         end
       end
 
-      %w(password encrypted_password).each do |attr|
+      %w[password encrypted_password].each do |attr|
         it "does not contain #{attr}" do
           expect(response_body).to_not have_key(attr)
         end
@@ -80,20 +80,20 @@ describe 'Profile API' do
         end
       end
 
-      %w(id email admin).each do |attr|
+      %w[id email admin].each do |attr|
         it "the first user in the list of users has field #{attr}" do
           expect(response_body.first[attr]).to eq(other_users.first.send(attr))
         end
       end
 
-      %w(created_at updated_at).each do |attr|
+      %w[created_at updated_at].each do |attr|
         it "the first user in the list of users has field #{attr}" do
           expected_value = other_users.first.send(attr).iso8601(3)
           expect(response_body.first[attr]).to eq(expected_value)
         end
       end
 
-      %w(password encrypted_password).each do |attr|
+      %w[password encrypted_password].each do |attr|
         it "the first user in the list of users doesn't have field #{attr}" do
           expect(response_body.first).to_not have_key(attr)
         end

@@ -7,7 +7,7 @@ Sidekiq::Testing.inline!
 RSpec.configure do |config|
   Capybara.register_driver :selenium do |app|
     options = Selenium::WebDriver::Chrome::Options.new(
-      args: %w[headless disable-gpu window-size=1366,768],
+      args: %w[headless disable-gpu window-size=1366,768]
     )
     Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
   end

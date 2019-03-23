@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe SearchesController, type: :controller do
-  %w(questions answers comments users everywhere).each do |search_action|
+  %w[questions answers comments users everywhere].each do |search_action|
     context "GET ##{search_action}" do
       it "render #{search_action} template" do
         get search_action, params: { q: 'keyword' }

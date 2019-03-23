@@ -15,7 +15,7 @@ class Ability
 
   def guest_abilities
     can :read, :all
-    can [:questions, :answers, :comments, :users, :everywhere], :all
+    can %i[questions answers comments users everywhere], :all
   end
 
   def admin_abilities
@@ -29,7 +29,7 @@ class Ability
     can :update, [Question, Answer, Comment], user_id: user.id
     can :destroy, [Question, Answer, Comment, Subscription], user_id: user.id
     can(:destroy, Attachment) { |attachment| user.author_of? attachment.attachable }
-    can([:upvote, :downvote], [Question, Answer]) { |votable| !user.author_of?(votable) }
+    can(%i[upvote downvote], [Question, Answer]) { |votable| !user.author_of?(votable) }
     can(:best, Answer) { |answer| user.author_of? answer.question }
     can :me, User
   end

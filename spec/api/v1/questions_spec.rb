@@ -34,13 +34,13 @@ describe 'Questions API' do
         expect(response_body['questions'].size).to eq(questions.size)
       end
 
-      %w(id title body).each do |attr|
+      %w[id title body].each do |attr|
         it "question object contains #{attr}" do
           expect(response_body['questions'].first[attr]).to eq(question.send(attr))
         end
       end
 
-      %w(created_at updated_at).each do |attr|
+      %w[created_at updated_at].each do |attr|
         it "question object contains #{attr}" do
           expect(response_body['questions'].first[attr]).to eq(question.send(attr).iso8601(3))
         end
@@ -77,13 +77,13 @@ describe 'Questions API' do
         expect(response).to be_success
       end
 
-      %w(id body).each do |attr|
+      %w[id body].each do |attr|
         it "contains #{attr}" do
           expect(response_body['question'][attr]).to eq(question.send(attr))
         end
       end
 
-      %w(created_at updated_at).each do |attr|
+      %w[created_at updated_at].each do |attr|
         it "contains #{attr}" do
           expect(response_body['question'][attr]).to eq(question.send(attr).iso8601(3))
         end
@@ -94,14 +94,14 @@ describe 'Questions API' do
           expect(response_body['question']['comments'].size).to eq(question.comments.size)
         end
 
-        %w(id body commentable_type commentable_id).each do |attr|
+        %w[id body commentable_type commentable_id].each do |attr|
           it "contains #{attr}" do
             expected_value = question.comments.first.send(attr)
             expect(response_body['question']['comments'].first[attr]).to eq(expected_value)
           end
         end
 
-        %w(created_at updated_at).each do |attr|
+        %w[created_at updated_at].each do |attr|
           it "contains #{attr}" do
             expected_value = question.comments.first.send(attr).iso8601(3)
             expect(response_body['question']['comments'].first[attr]).to eq(expected_value)
@@ -114,7 +114,7 @@ describe 'Questions API' do
           expect(response_body['question']['attachments'].size).to eq(question.attachments.size)
         end
 
-        %w(id attachable_id attachable_type).each do |attr|
+        %w[id attachable_id attachable_type].each do |attr|
           it "contains #{attr}" do
             expected_value = question.attachments.first.send(attr)
             expect(response_body['question']['attachments'].last[attr]).to eq(expected_value)
@@ -126,7 +126,7 @@ describe 'Questions API' do
           expect(response_body['question']['attachments'].last['file']['url']).to eq(expected_value)
         end
 
-        %w(created_at updated_at).each do |attr|
+        %w[created_at updated_at].each do |attr|
           it "contains #{attr}" do
             expected_value = question.attachments.first.send(attr).iso8601(3)
             expect(response_body['question']['attachments'].last[attr]).to eq(expected_value)

@@ -54,18 +54,18 @@
 #     # password: "please use keys"
 #   }
 
-role :app, %w(deployer@178.62.211.118)
-role :web, %w(deployer@178.62.211.118)
-role :db,  %w(deployer@178.62.211.118)
+role :app, %w[deployer@178.62.211.118]
+role :web, %w[deployer@178.62.211.118]
+role :db,  %w[deployer@178.62.211.118]
 
 set :rails_env, :production
 set :stage, :production
 
-server '178.62.211.118', user: 'deployer', roles: %w(web app db), primary: true
+server '178.62.211.118', user: 'deployer', roles: %w[web app db], primary: true
 
-set :ssh_options, keys: %w(/Users/evmorov/.ssh/github),
+set :ssh_options, keys: %w[/Users/evmorov/.ssh/github],
                   forward_agent: true,
-                  auth_methods: %w(publickey password),
+                  auth_methods: %w[publickey password],
                   port: 4321
 
-set :sidekiq_queue, %w(default mailers)
+set :sidekiq_queue, %w[default mailers]
